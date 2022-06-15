@@ -1,1 +1,2 @@
 These are images loaded by admin in admin page
+test
