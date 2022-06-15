@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<!-- use extends above to link html pages to each other -->
+
+
+{% block content %}
+<!-- this file and the parent folder templates
+is user-created. To Access this file, 
+add the template folder in settings.py-->
+<!-- double brackets denote django template language -->
+<h1>Hello {{name}}!!!</h1>
+
+<!-- need to enter an action for view for url path in urls.py -->
+<!-- default HTTP request is get,
+specify with method = "http-request"-->
+<!-- post is for input into server (not shown in url bar)  
+    get is for fetching data from server (shown in url bar)-->
+    <!-- remember to match http request method with 
+    http request used in views.py -->
+<form action="add" method= "post">
+
+    <!-- implement csfr middleware provided in settings.py -->
+    {% csrf_token %}
+    Enter 1st number: <input type="text" name="num1"><br>
+    Enter 2nd number: <input type="text" name="num2"><br>
+    {% comment %} on submit, request goes to 
+        urls.py and looks for path called 'add'
+    {% endcomment %}
+    <input type="submit">
+
+</form>
+{% endblock content %}

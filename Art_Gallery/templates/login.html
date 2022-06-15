@@ -1,0 +1,31 @@
+<!-- login.html file user created 
+    make sure to map this url in urls.py of accounts app-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form for logging in -->
+    <form action="login" method="post">
+        <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
+        {% csrf_token %}
+        <!-- extend this to allow username or email for login credentials -->
+        <input type="text" name="username" placeholder="username"><br>
+        <input type="password" name="password" placeholder="password"><br>
+        <!-- on submit button click, request calls login action which directs to urls.py 
+            which directs to login function in views.py-->
+        <input type="submit">
+    </form>
+    <div>
+        <!-- DTF loop for -->
+        {% for message in messages %}
+        <!-- jinja format to print the message -->
+        <h3>{{message}}</h3>
+        {% endfor %}
+    </div>
+</body>
+</html>

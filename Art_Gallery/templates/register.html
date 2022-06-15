@@ -1,0 +1,42 @@
+<!-- user created register page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!-- user registration data 
+    calls register -->
+    <form action="register" method="post">
+
+        <!-- csrf (Cross site forgery) token is a safety measure
+        see settings.py middleware line 51 -->
+        {% csrf_token %}
+        
+        <!-- populate page with database fields for authenticating users in pgadmin user created
+            db for auth_user columns -->
+        <input type="text" name="first_name" placeholder="First Name"><br>
+        <input type="text" name="last_name" placeholder="Last Name"><br>
+        <input type="text" name="username" placeholder="username"><br>
+        <!-- email type -->
+        <input type="email" name="email" placeholder="email"><br>
+        <!-- password type -->
+        <input type="password" name="password1" placeholder="password"><br>
+        <input type="password" name="password2" placeholder="re-enter password"><br>
+        <!-- submit data to db 
+            when you click on submit, it goes to register in form action-->
+        <input type="submit">
+    </form>
+    <!-- print error messages if they happen -->
+    <div>
+        <!-- DTF loop for -->
+        {% for message in messages %}
+        <!-- jinja format to print the message -->
+        <h3>{{message}}</h3>
+        {% endfor %}
+    </div>
+</body>
+</html>

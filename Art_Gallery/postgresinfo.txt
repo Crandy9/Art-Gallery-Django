@@ -1,0 +1,41 @@
+Postgres: on Ubuntu, check if postgresql is installed with this command: which psql (should be in /usr/bin/psql)
+Superuser: postgres
+Password: 1234
+Port where server will listen on: 5432
+master password for pgAdmin: 1234
+
+Creating/connecting/migrating data to postgresql db:
+
+-after database is created (in pgadmin just right click "add new db") in adminpg and models are setup in models.py:
+migrate models to postgresql and create the tables in cmd:
+
+-Before migration, make sure that the models.py is available in the installed apps
+- go to project settings.py and add the application name to INSTALLED_APPS dictionary
+Create migation file under migrations dir in app:
+python manage.py makemigrations
+
+-To verify it worked, there should be a new file under the migrations dir that looks something like
+"0001_initial.py"
+
+- to actually perform migration to adminpg db:
+python manage.py migrate
+
+- table should be created in adminpg
+
+- to update db when models changed, do a re-migration:
+python manage.py makemigrations
+
+-if updating an integer field, follow prompt to add default value in cmd
+
+-migrate
+python manage.py migrate
+- each re-migration creates a new migration file under migrations dir
+
+-to create superuser for /admin page (MUST HAVE ABOVE DB STEPS COMPLETED BEFORE CREATING ADMIN SUPERUSER)
+ enter: python manage.py createsuperuser
+ enter details, then you can login into admin page 
+ username: lctec
+ email address: lctechnology@protonmail.com
+ password: 1234 (will not show on cmd, bypass security concerns if desired by entering y)
+ - superuser will be created as an auth_user in pgadmin
+ - changes made in the admin page are automatically reflected in pgadmin tables
