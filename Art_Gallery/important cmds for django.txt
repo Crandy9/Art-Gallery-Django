@@ -6,7 +6,7 @@ cd to location where venv is to be stored
 
 Activate venv:
 (windows): project-name\Scripts\activate
-(linux) while in venv dir: . bin/activate
+(linux) while in venv dir: . bin/activate or source bin/activate
 then cd back to project
 
 to run django project

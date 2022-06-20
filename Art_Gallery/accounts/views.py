@@ -56,7 +56,7 @@ def register(request):
             # return to the register page again
             return redirect('register')
 
-        
+ 
 
         # redirect to login page to verify that registration worked
         # and prompt user to login

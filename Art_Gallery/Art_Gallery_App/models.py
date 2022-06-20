@@ -23,6 +23,8 @@ class Portraits(models.Model):
     # make sure to pip install pillow before attempting migration
     # creates filechooser on admin page, images can be from any dir in host machine
     # pics is the folder name where images will be placed uner media folder
-    img = models.ImageField(upload_to= 'pics')
-    desc = models.TextField()
+    # painting field was originally called destinations and upload_to= 'pics'
+    # when renaming, I had to delete the pics folder manually and re-upload the images from computer.
+    painting = models.ImageField(upload_to= 'paintings')
+    description = models.TextField()
     price = models.IntegerField()

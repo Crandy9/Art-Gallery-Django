@@ -6,13 +6,8 @@ from django.views.generic.base import RedirectView
 
 from . import views
 
-# urls.py file copied from calc app
-
 urlpatterns = [
     # calls index function in views.py
-    path('',views.index, name='index'),
-    # adding redirect for icons
-    path("favicon.ico",
-    RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")))
+    path('',views.index, name='index')
 
 ]

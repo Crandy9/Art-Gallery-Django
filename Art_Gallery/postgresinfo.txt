@@ -1,8 +1,8 @@
 Postgres: on Ubuntu, check if postgresql is installed with this command: which psql (should be in /usr/bin/psql)
 Superuser: postgres
-Password: 1234
+Password: root
 Port where server will listen on: 5432
-master password for pgAdmin: 1234
+master password for pgAdmin: root or 1234
 
 Creating/connecting/migrating data to postgresql db:
 
@@ -25,10 +25,12 @@ python manage.py migrate
 - to update db when models changed, do a re-migration:
 python manage.py makemigrations
 
--if updating an integer field, follow prompt to add default value in cmd
+-if getting an error here about non-nullable values, follow prompt to add default value in cmd
 
+Then finally, remigrate:
 -migrate
 python manage.py migrate
+
 - each re-migration creates a new migration file under migrations dir
 
 -to create superuser for /admin page (MUST HAVE ABOVE DB STEPS COMPLETED BEFORE CREATING ADMIN SUPERUSER)

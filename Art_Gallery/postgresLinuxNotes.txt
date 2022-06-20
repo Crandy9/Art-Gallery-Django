@@ -1,0 +1,102 @@
+POSTGRESQL setup/commands:
+superuser: postgres (default)
+username: postgres
+password: root
+port: 5432
+
+-on Ubuntu, check if postgresql is installed with this command: which psql (should be in /usr/bin/psql)
+-location: /var/lib/postgresql
+
+-Set up root user and passowrd for first time:
+-first get root permission:
+chmod og+X /home/lctec
+
+-Then get into postgres cmd shell with default user 
+(to quit enter \q):
+sudo -u postgres psql
+
+-Reset root password to create new user:
+('root' is example, change to more complex password 
+for production)
+ALTER USER postgres PASSWORD 'root';
+
+-exit out of postgres cmd shell:
+\q
+
+-Now, to enter postgresql enter:
+-connect to postgresql with superuser:
+psql -U postgres -h localhost
+
+-then enter password created above: root
+
+-to view list of databases:
+\l
+
+-to delete (drop) db while in postgres cmd shell:
+DROP DATABASE dbname;
+
+-to check users and their roles:
+\du
+
+-drop role name and drop user:
+DROP ROLE rolename;
+DROP USER IF EXISTS username;
+
+-create user(ROLE) with db permissions login and create databases:
+CREATE USER lctec WITH CREATEDB LOGIN ENCRYPTED PASSWORD 'admin';
+
+-after creating user, create a database with the same user name that stores
+user permissions and other info:
+CREATE DATABASE username;
+-verify user was created:
+\du
+
+-grant all privileges(useful when dealing with multiple databases):
+grant all privileges on database mydb to myuser;
+
+
+PGADMIN4 SETUP https://www.pgadmin.org/download/pgadmin-4-apt/:
+-install curl:
+sudo apt install curl
+
+-Install pgadmin public key for repo
+sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+
+-Create the repository configuration file:
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+
+- Install pgadmin4 (desktop and web clients):
+sudo apt install pgadmin4
+
+-DESKTOP APP
+- You may have to screate the server each time you open pgadmin,
+verify that your django db was previously created in postgresql by 
+entering 'psql -U postgres -h localhost' and then '\l'
+
+-pgadmin4 desktop app should be found in dash
+
+-On first opening of software, set a master password:
+1234
+
+-add new postgresql server under quick links:
+name: locallctecserver
+- then go to connection tab and add host name/address:
+localhost
+-username and password should be same as superuser above:
+username: postgres
+password: root
+
+-WEB APP
+-to run pgadmin4 in web mode, configure it:
+ -enter email address and password for initial pgAdmin user account:
+ email: lctechnology@protonmail.com
+ password: pinecone1
+-allow Apache server to enable wsgi module
+- can now use pgadmin4 in web mode at http://127.0.0.1/pgadmin4
+-sign into pgadmin server with login details above
+
+*WEB AND DESKTOP PGADMIN ARE RUNNING ON DIFFERENT INSTANCES SO CHANGES 
+IN ONE APP WILL NOT REFLECT IN THE OTHER*
+-but once you add the server, all of the data will be there
+start postgres server:
+pg_ctlcluster 12 main start

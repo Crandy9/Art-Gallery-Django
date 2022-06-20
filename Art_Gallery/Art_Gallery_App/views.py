@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-# import Destination class from models.py
+# import Portraits class from models.py
 from .models import Portraits
 # Create your views here.
 # Art Gallery App views.py
 
 def index(request):
-    # desitination object
+    # Portraits object
     # normally, all of this data would be fetched from a database
     # and we wouldn't populate each object manually like this
     """
@@ -50,8 +50,9 @@ def index(request):
         {'dests': dests}
         )
     """
-    # dynamically access and fetch Portrait data from db
+    # dynamically access and fetch Portrait data from db or admin actions
     paintingObjects = Portraits.objects.all()
+    # display  index.html file in templates folder with data 
     return render(request, "index.html",{'paintingObjects': paintingObjects})
     
     

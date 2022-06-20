@@ -1,0 +1,72 @@
+
+body {
+	background: center center no-repeat;
+    background-size:cover;
+    /**make bg fixed when scrolling*/
+    background-attachment: fixed;
+    height: 100%;
+}
+
+img{
+	max-width: 100%;
+}
+/* I think this lines the tops of the images so that 
+any images regardless of size, will be aligned in the row and columns */
+.gallery{
+	padding: 80px 0;
+}
+.gallery img{
+	background-color: #fff5c8;
+	padding: 10px;
+	width: 100%;
+	box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	cursor: pointer;
+}
+#gallery-modal .modal-img{
+	width: 100%;
+}
+
+/* footer text */
+.footer_text {
+	color: rgb(206, 255, 255);
+	opacity: .8;
+}
+
+/**hovering from default color to blue for LC tech tag in a tag
+only when width of this document is 600px or greater*/
+@media (min-width: 991px) {
+
+	
+
+	/*image hover*/
+	.imagehover {
+		box-sizing: border-box;
+		transition: transform .4s;
+	}
+
+	.imagehover:hover {
+		box-sizing:border-box;
+		/* transform: scale(1.1); */
+		transform: scale3d(1.1,1.1,1.1);
+	}
+
+
+}
+
+/* when screen is 601 or more, use aquamarine hover animation */
+
+@media (min-width: 601px) {
+	a.company_link {
+		color:bisque;
+	}
+	a.company_link:hover {
+		color:aquamarine !important;
+	}
+}
+
+/*when screen is 600px or less, make company link automatically aquamarine*/
+@media (max-width: 830px) {
+	a.company_link {
+		color:aquamarine !important;
+	}
+}

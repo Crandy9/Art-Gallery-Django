@@ -28,10 +28,7 @@ urlpatterns = [
     # this is the admin page provided by django
     path('admin/', admin.site.urls),
     # access accounts app
-    path('accounts/', include('accounts.urls')),
-    # adding redirect for icons
-    path("favicon.ico",
-    RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")))
+    path('accounts/', include('accounts.urls'))
     ]
 # adding path
 urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

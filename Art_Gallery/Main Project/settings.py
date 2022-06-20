@@ -148,9 +148,12 @@ STATICFILES_DIRS = [
 # called assets or whatever you want to name it
 # go into cmd to create this assets folder
 # in cmd, enter python manage.py collectstatic
+# terminal will warn about overriting existing files
+# enter 'yes' or 'no'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 # creates a new media folder for static images and other media
+# that you want for your models (uploading pictures as data in db)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
