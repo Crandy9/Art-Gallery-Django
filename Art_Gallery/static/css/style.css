@@ -38,7 +38,7 @@ a.company_link:hover {
 	color: rgb(203, 255, 255);
 }
 
-/**hovering transform for images when width of this document is 991px or greater*/
+/** image hovering transform for images when width of this document is 991px or greater*/
 @media (min-width: 991px) {
 
 	/*image hover*/

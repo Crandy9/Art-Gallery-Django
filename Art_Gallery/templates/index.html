@@ -49,18 +49,18 @@
 						<!-- welcome user by using first name -->
 						<li class="nav-link m-1">Hello, {{user.first_name}}!</li>
 						<li class="m-1">
-							<a class="btn btn-outline-dark" href="accounts/logout" title="log out">Log out</a>
+							<a class="btn btn-outline-dark" href="/accounts/logout" title="log out">Log out</a>
 						</li>
 						
 						<!-- else if not logged in -->
 					{% else %}
 						<!-- redirect to login page -->
 						<li class="m-1">
-							<a class="btn btn-outline-dark" href="accounts/login">Login</a>
+							<a class="btn btn-outline-dark" href="/accounts/login">Login</a>
 						</li>
 						<!-- redirect to login page -->
 						<li class="m-1">
-							<a class="btn btn-outline-dark" href="accounts/register">Register</a>
+							<a class="btn btn-outline-dark" href="/accounts/register">Register</a>
 						</li>
 					{% endif %}
 					<!-- mercari icon -->
@@ -79,7 +79,7 @@
 	<div id="content">
         {% block content %}{% endblock %}
     </div>
-	<!--  Portrait displays -->
+	<!--  PORTRAIT SECTION -->
 	<section class="gallery min-vh-100">
 		<div class="container-lg">
 			<!-- gy-4 controls vertical gutter (space between columns) width padding 
@@ -88,24 +88,24 @@
 				row-cols-md-3 means 3 columns for medium screens >= 768px
 			-->
 			<div class="row gy-5 row-cols-2 row-cols-sm-2 row-cols-md-3">
-				<!-- Use a loop in jinja to dynamically inplement paintingObjects -->
+				<!-- Use a loop in jinja to dynamically inplement paintingObjects made in views.py-->
 				{% for paintings in paintingObjects %}
 				<!-- posting images-->
-				<div class="col">
+				<div class="col modal_image_link">
 					<!-- this class is what streamlines all image sizes dynamically -->
 					<div class= "imagehover">
-						<!-- making static images as baseURL variable, useful for dynamically adding images -->
-						<img src="{{paintings.painting.url}}" alt="image" class="gallery-item">
+						<!-- making static images as baseURL variable, useful for dynamically adding images 
+							gallery-item used by main.js -->
+							<img src="{{paintings.painting.url}}" alt="image" class="gallery-item" id="imageid">
 					</div>
 					<div class="paintingObjects_content">
-						<!-- Mumbai changed to dynamic content -->
-						<div class="painting_title"><a href="">{{paintings.name}}</a> </div>
-						<div class="painting_description">
+						<div class="painting_title gallery-item"><a href="" id="painting_title">{{paintings.name}}</a> </div>
+						<div class="painting_description gallery-item">
 							<!-- get object data from views.py -->
 							<p>{{paintings.description}} </p>
 						</div>
 						<!-- jinja format -->
-						<div class="painting_price"> ${{paintings.price}}</div>
+						<div class="painting_price gallery-item"> ${{paintings.price}}</div>
 					</div>
 				</div>
 				{% endfor %}
@@ -116,19 +116,36 @@
 	<!-- END PORTRAIT SECTION -->
 	<!-- MODAL SECTION -->
 	<!-- id ''gallery modal is used by main.js to create modal -->
-	<div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal fade" id="gallery-modal" id="building-modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h5 class="modal-title" id="modal_title"></h5>
 				</div>
 				<div class="modal-body">
-					<!-- query selector in main.js "modal img" -->
-					<img src="{{paintings.painting.url}}" class="modal-img" alt="modal img">
+					<!-- div for description -->
+					<div>
+						<p id="modal_description"></p>
+					</div>
+					<div>
+						<!-- query selector in main.js "modal img" -->
+						<img src="" class="modal-img" alt="modal img" id="modal_image">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<!-- price -->
+					<p id="modal_price"></p>
+					<!-- add to cart -->
+					<a class ="nav-link" href="/" title="View Shopping Cart" id="modal_cart">Add to Cart</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- END MODAL -->
+
 	<!-- Footer -->
 	<footer class="footer">
 		<div class="bg-transparent text-center footer_text p-1">
