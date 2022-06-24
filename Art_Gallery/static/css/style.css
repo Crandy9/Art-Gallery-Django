@@ -7,36 +7,39 @@ body {
     height: 100%;
 }
 
+/* image size */
 img{
 	max-width: 100%;
 }
-/* I think this lines the tops of the images so that 
-any images regardless of size, will be aligned in the row and columns */
+/* padding for portraits container*/
 .gallery{
 	padding: 80px 0;
 }
 .gallery img{
 	background-color: #fff5c8;
-	padding: 10px;
+	/* frame padding */
+	padding: 5px;
 	width: 100%;
 	box-shadow: 0 0 15px rgba(0,0,0,0.3);
 	cursor: pointer;
 }
+
+/* size of modal image */
 #gallery-modal .modal-img{
 	width: 100%;
 }
-
-/* footer text */
+a.company_link {
+	color:bisque;
+}
+a.company_link:hover {
+	color:rgb(60, 200, 255) !important;
+}
 .footer_text {
-	color: rgb(206, 255, 255);
-	opacity: .8;
+	color: rgb(203, 255, 255);
 }
 
-/**hovering from default color to blue for LC tech tag in a tag
-only when width of this document is 600px or greater*/
+/**hovering transform for images when width of this document is 991px or greater*/
 @media (min-width: 991px) {
-
-	
 
 	/*image hover*/
 	.imagehover {
@@ -46,27 +49,47 @@ only when width of this document is 600px or greater*/
 
 	.imagehover:hover {
 		box-sizing:border-box;
-		/* transform: scale(1.1); */
-		transform: scale3d(1.1,1.1,1.1);
-	}
-
-
+		transform: scale(1.1);
 }
 
-/* when screen is 601 or more, use aquamarine hover animation */
-
-@media (min-width: 601px) {
 	a.company_link {
 		color:bisque;
 	}
 	a.company_link:hover {
-		color:aquamarine !important;
+		color:rgb(60, 200, 255) !important;
+	}
+	.footer_text {
+		color: rgb(203, 255, 255);
 	}
 }
 
-/*when screen is 600px or less, make company link automatically aquamarine*/
+/*when screen is 830px or less, make company link automatically aquamarine*/
 @media (max-width: 830px) {
 	a.company_link {
-		color:aquamarine !important;
+		color:rgb(60, 200, 255)!important;
 	}
+	.footer_text {
+		color: rgb(203, 255, 255);
+	}
+}
+/* when screen is less than 459px */
+
+@media( max-width: 459px) {
+	.footer_text {
+		font-size: smaller;
+	}
+	.footer_text {
+		color: rgb(203, 255, 255);
+	}
+}
+
+
+
+/* navbar items (login logout cart) */
+nav .navbar-nav li a{
+	color: rgb(255, 0, 0) !important;
+}
+/* welcome message color */
+li {
+	color: rgb(255, 0, 0) !important;
 }

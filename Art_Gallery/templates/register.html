@@ -1,13 +1,7 @@
-<!-- user created register page -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Registration</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+{% extends "index.html" %}
+    <!-- custom tab title -->
+    {% block title %} Register {% endblock %}
+    {% block content %}
     <!-- user registration data 
     calls register -->
     <form action="register" method="post">
@@ -15,7 +9,7 @@
         <!-- csrf (Cross site forgery) token is a safety measure
         see settings.py middleware line 51 -->
         {% csrf_token %}
-        
+
         <!-- populate page with database fields for authenticating users in pgadmin user created
             db for auth_user columns -->
         <input type="text" name="first_name" placeholder="First Name"><br>
@@ -38,5 +32,8 @@
         <h3>{{message}}</h3>
         {% endfor %}
     </div>
-</body>
-</html>
+    <div class="d-flex justify-content center">
+        <!-- redirect to registration page put this in login page -->
+        <a class="btn btn-sm btn-outline-dark d-flex justify-content-center" href="/accounts/login">Already have an account? Log in!</a>      
+    </div>
+{% endblock %}

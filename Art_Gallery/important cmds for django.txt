@@ -1,13 +1,24 @@
 Create venv:
 cd to location where venv is to be stored 
 (Windows): "py -m venv project-name"
-(linux): mkdir venv-name and then cd to venv-name
+(linux):
+-download virtual environment:
+sudo apt install python3-virtualenv
+-check venv version:
+virtualenv --version
+-cd to desired venv location
+sudo virtualenv venv-name
 
+-to get access to venv 
+-cd to where venv folder is located and enter:
+sudo chown -R lctec: venv-folder-name
 
 Activate venv:
 (windows): project-name\Scripts\activate
 (linux) while in venv dir: . bin/activate or source bin/activate
 then cd back to project
+
+-install django and other python versions within the new venv folder
 
 to run django project
 *MAKE SURE PSYCOPG2 and PILLOW ARE INSTALLED*:

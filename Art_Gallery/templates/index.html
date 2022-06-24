@@ -8,10 +8,9 @@
 <html lang="en">
 
 <head>
-	<title>Kaoru Art Gallery</title>
+	<title>{% block title %}Kaoru Art Gallery {% endblock %}</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="Travello template project">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--set browser tab icon-->
     <link rel="shortcut icon" type="image/ico" href="{% static 'images/tab_icon.jpg' %}">
@@ -24,99 +23,128 @@
 
 <!-- background image. Ignore this error the syntax is correct -->
 <body style="background-image:url({% static 'images/bg2.jpg' %})">
-		<!-- Header only showing on scroll-->
-		<header class="header">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div><a href="">Kaoru Web Gallery</a>
-						</div>
-							<!-- <nav class="main_nav d-flex flex-row-reverse"> -->
-							<nav class="main_nav d-flex flex-row-reverse">
-								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<!-- create conditions for displaying login/register or logout buttons -->
-									<!-- if user is logged in (has a cookie) show logout button-->
-									{% if user.is_authenticated %}
-									<!-- welcome user by using first name -->
-									<li>Hello {{user.first_name}}!</li>
-									<li><a href="accounts/logout">Logout</a></li>
-									
-									<!-- else if not logged in -->
-									{% else %}
-									<!-- redirect to registration page -->
-									<li><a href="accounts/register">Register</a></li>
-									<!-- redirect to login page -->
-									<li><a href="accounts/login">Login</a></li>
-									{% endif %}
-								</ul>
-							</nav>
-					</div>
-				</div>
-			</div>
-		</header>
-		
-		<!--  Portrait displays -->
-		<section class="gallery min-vh-100">
-			<div class="container-lg">
-				<div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
-					<!-- Use a loop in jinja to dynamically inplement paintingObjects -->
-					{% for paintings in paintingObjects %}
-					<!-- posting images-->
-					<div class="col">
-						<!-- this class is what streamlines all image sizes dynamically -->
-						<div class= "imagehover">
-							<!-- making static images as baseURL variable, useful for dynamically adding images -->
-							<img src="{{paintings.painting.url}}" alt="image" class="gallery-item">
-						</div>
-						<div class="paintingObjects_content">
-							<!-- Mumbai changed to dynamic content -->
-							<div class="painting_title"><a href="">{{paintings.name}}</a> </div>
-							<div class="painting_description">
-								<!-- get object data from views.py -->
-								<p>{{paintings.description}} </p>
-							</div>
-							<!-- jinja format -->
-							<div class="painting_price"> ${{paintings.price}}</div>
-						</div>
-					</div>
-					{% endfor %}
-					<!-- END Paintings -->
-			</div>
-		</section>
-		<!-- END POSTRAIT SECTION -->
-		<!-- MODAL SECTION -->
-		<!-- id ''gallery modal is used by main.js to create modal -->
-		<div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				<!-- query selector in main.js "modal img" -->
-				<img src="{{paintings.painting.url}}" class="modal-img" alt="modal img">
-				</div>
-			</div>
+	<!-- NAVBAR -->
+
+	<!-- nav -->
+	<nav class="navbar navbar-expand-md navbar-toggleable-sm navbar-light" style="background-color:rgb(255, 250, 219);">
+		<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
+		<div class="container">
+			<!-- navbar brand is the title title -->
+			<a href="/" class="navbar-brand">Kaoru Art Gallery</a>
+			<!-- hamburger menu button  -->
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu" aria-controls="toggleMobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+				<!-- hamburger buttton icon -->
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- area that is collapsed inside the hamburger icon -->
+			<div class="collapse navbar-collapse" id="toggleMobileMenu">
+				<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
+				<ul class="navbar-nav ms-auto">
+					<li class="m-1">
+						<a class ="nav-link" href="/" title="View Shopping Cart">Cart</a>
+					</li> 
+					<!-- create conditions for displaying login/register or logout buttons -->
+					<!-- if user is logged in (has a cookie) show logout button-->
+					{% if user.is_authenticated %}
+						<!-- welcome user by using first name -->
+						<li class="nav-link m-1">Hello, {{user.first_name}}!</li>
+						<li class="m-1">
+							<a class="btn btn-outline-dark" href="accounts/logout" title="log out">Log out</a>
+						</li>
+						
+						<!-- else if not logged in -->
+					{% else %}
+						<!-- redirect to login page -->
+						<li class="m-1">
+							<a class="btn btn-outline-dark" href="accounts/login">Login</a>
+						</li>
+						<!-- redirect to login page -->
+						<li class="m-1">
+							<a class="btn btn-outline-dark" href="accounts/register">Register</a>
+						</li>
+					{% endif %}
+					<!-- mercari icon -->
+					<li>
+						<a href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" My Mercari ^_^">
+							<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
+						</a>
+					</li>
+				</ul>
 			</div>
 		</div>
-
-		<!-- Footer -->
-
-		<footer class="footer">
-			<div class="bg-transparent text-center footer_text p-1" style="background-color: rgba(0,0,0,0.1)">
-				<!-- Add styling from .net web app -->
-				&copy;
-				2022 Developed by
-					<a class="company_link" style="text-decoration:none;" 
-							href="https://lctechnologies.azurewebsites.net/" target="_blank">
-								Developed by LC Technologies
-					</a>
-					- Jesus Christ is King
+		
+	</nav>
+	<!-- END NAVBAR -->
+	<!-- login page see login.html -->
+	<div id="content">
+        {% block content %}{% endblock %}
+    </div>
+	<!--  Portrait displays -->
+	<section class="gallery min-vh-100">
+		<div class="container-lg">
+			<!-- gy-4 controls vertical gutter (space between columns) width padding 
+				row-cols-2 means 2 colums for extra small screens < 576px
+				row-cols-sm-2 means 2 columns for small screens < 576px
+				row-cols-md-3 means 3 columns for medium screens >= 768px
+			-->
+			<div class="row gy-5 row-cols-2 row-cols-sm-2 row-cols-md-3">
+				<!-- Use a loop in jinja to dynamically inplement paintingObjects -->
+				{% for paintings in paintingObjects %}
+				<!-- posting images-->
+				<div class="col">
+					<!-- this class is what streamlines all image sizes dynamically -->
+					<div class= "imagehover">
+						<!-- making static images as baseURL variable, useful for dynamically adding images -->
+						<img src="{{paintings.painting.url}}" alt="image" class="gallery-item">
+					</div>
+					<div class="paintingObjects_content">
+						<!-- Mumbai changed to dynamic content -->
+						<div class="painting_title"><a href="">{{paintings.name}}</a> </div>
+						<div class="painting_description">
+							<!-- get object data from views.py -->
+							<p>{{paintings.description}} </p>
+						</div>
+						<!-- jinja format -->
+						<div class="painting_price"> ${{paintings.price}}</div>
+					</div>
+				</div>
+				{% endfor %}
 			</div>
-		</footer>
-		<!-- end Footer -->
+				<!-- END Paintings -->
+		</div>
+	</section>
+	<!-- END PORTRAIT SECTION -->
+	<!-- MODAL SECTION -->
+	<!-- id ''gallery modal is used by main.js to create modal -->
+	<div class="modal fade" id="gallery-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- query selector in main.js "modal img" -->
+					<img src="{{paintings.painting.url}}" class="modal-img" alt="modal img">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="bg-transparent text-center footer_text p-1">
+			<!-- Add styling from .net web app -->
+			&copy;
+			2022 - Developed by
+				<a class="company_link" style="text-decoration:none;" 
+						href="https://lctechnologies.azurewebsites.net/" target="_blank">
+							LC Technologies
+				</a>
+				- Jesus Christ is King
+		</div>
+	</footer>
+	<!-- end Footer -->
 
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-</body>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	</body>
 </html>
