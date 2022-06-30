@@ -8,7 +8,9 @@ from django.db import models
 # instantiate these objects in views.py
 # class alone is not a model, it is only a simple class
 # to convert class to model, specify model in params (models.Model)
-class Portraits(models.Model):
+# give it a singular object name not plural admin appends an (s) to end of model name.
+class Portrait(models.Model):
+
     # uninitialized class variables 
     # primary char var
     # id: int id not needed when migrating models to db, 
@@ -28,3 +30,7 @@ class Portraits(models.Model):
     painting = models.ImageField(upload_to= 'paintings')
     description = models.TextField()
     price = models.IntegerField()
+
+    # name the objects in admin page
+    def __str__(self):
+        return self.name

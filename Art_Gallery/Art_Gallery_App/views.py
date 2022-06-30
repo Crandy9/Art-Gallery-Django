@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-# import Portraits class from models.py
-from .models import Portraits
+# import Portrait class from models.py
+from .models import Portrait
 # Create your views here.
 # Art Gallery App views.py
 
@@ -51,7 +51,7 @@ def index(request):
         )
     """
     # dynamically access and fetch Portrait data from db or admin actions
-    paintingObjects = Portraits.objects.all()
+    paintingObjects = Portrait.objects.all()
     # display  index.html file in templates folder with data 
     return render(request, "index.html",{'paintingObjects': paintingObjects})
     

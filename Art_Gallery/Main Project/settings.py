@@ -88,12 +88,12 @@ DATABASES = {
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         # specify database name made in pgadmin
-        'NAME': 'Main Project',
+        'NAME': 'lctec',
 
         # specify username and password
         # found in pgadmin, password found in postgresinfo.txt
         'USER': 'postgres',
-        'PASSWORD': 'root',
+        'PASSWORD': '2645',
         # specify which machine where db is installed
         # specify host/ip address
         'HOST': 'localhost'

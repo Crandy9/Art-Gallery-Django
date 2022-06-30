@@ -21,6 +21,8 @@ then cd back to project
 -install django and other python versions within the new venv folder
 
 to run django project
+Create superuser for admin page
+python manage.py createsuperuser
 *MAKE SURE PSYCOPG2 and PILLOW ARE INSTALLED*:
 (windows): python manage.py runserver
 (linux): python3 manage.py runserver
