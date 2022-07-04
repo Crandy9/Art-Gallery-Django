@@ -93,3 +93,8 @@ nav .navbar-nav li a{
 li {
 	color: rgb(255, 0, 0) !important;
 }
+
+/* portrait details */
+.painting-details {
+	background-color:aqua;
+}

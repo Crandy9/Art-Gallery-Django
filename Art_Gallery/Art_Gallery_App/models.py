@@ -28,9 +28,14 @@ class Portrait(models.Model):
     # painting field was originally called destinations and upload_to= 'pics'
     # when renaming, I had to delete the pics folder manually and re-upload the images from computer.
     painting = models.ImageField(upload_to= 'paintings')
-    description = models.TextField()
+    long_description = models.TextField()
     price = models.IntegerField()
-
+    short_description = models.TextField()
+    painting_left = models.ImageField(upload_to= 'paintings')
+    painting_right = models.ImageField(upload_to= 'paintings')
+    painting_top = models.ImageField(upload_to= 'paintings')
+    painting_bottom = models.ImageField(upload_to= 'paintings')
+    painting_back = models.ImageField(upload_to= 'paintings')
     # name the objects in admin page
     def __str__(self):
         return self.name
