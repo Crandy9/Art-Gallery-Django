@@ -10,6 +10,6 @@ urlpatterns = [
     # calls index function in views.py
     path('',views.index, name='index'),
     # calls getPortraitData function in views.py
-    path('getPortraitData', views.getPortraitData, name='getPortraitData')
+    # path('getPortraitData', views.getPortraitData, name='getPortraitData')
 
 ]

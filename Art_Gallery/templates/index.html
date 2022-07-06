@@ -14,7 +14,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--set browser tab icon-->
     <link rel="shortcut icon" type="image/ico" href="{% static 'images/tab_icon.jpg' %}">
+	<!-- font awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 	<!-- specify all static files so Django can detect them using DTL -->
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
 	<!-- custom css file -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -22,7 +31,7 @@
 </head>
 
 <!-- background image. Ignore this error the syntax is correct -->
-<body style="background-image:url({% static 'images/bg2.jpg' %})">
+<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
 	<!-- NAVBAR -->
 
 	<!-- nav -->
@@ -79,6 +88,9 @@
 	<div id="content">
         {% block content %}{% endblock %}
     </div>
+	
+	
+
 	<!--  PORTRAIT SECTION -->
 	<section class="gallery min-vh-100">
 		<div class="container-lg">
@@ -89,29 +101,30 @@
 			-->
 			<div class="row gy-5 row-cols-2 row-cols-sm-2 row-cols-md-3 ">
 				
-				{% for paintings in paintingObjects %}
+				{% for paintingData in paintingObjects %}
 					<!-- posting images-->
 					<div class="col">
-						<div class="painting_title gallery-item"><p id="painting_name">{{paintings.name}}</p> 
+						<div class="painting_title gallery-item"><p id="painting_name">{{paintingData.name}}</p> 
 						</div>
 						<!-- this class is what streamlines all image sizes dynamically -->
 						<div class= "imagehover">
-							<!-- making static images as baseURL variable, useful for dynamically adding images 
+							<!-- making static images as baseURL variable called url, useful for dynamically adding images 
+								painting is the model datafield in models.py
 								gallery-item used by main.js -->
-								<img src="{{paintings.painting.url}}" class="gallery-item gallery-link" id="painting_image" 
+								<img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="painting_image" 
 								data-toggle="modal" 
 								data-target="painting-modal" 
-								data-name="{{paintings.name}}" 
-								data-description="{{ paintings.long_description }}"
-								data-price="${{ paintings.price }}">
+								data-name="{{paintingData.name}}" 
+								data-description="{{ paintingData.long_description }}"
+								data-price="${{ paintingData.price }}">
 						</div>
 						<div class="painting-details">
 							<div class="painting_description gallery-item">
 								<!-- get object data from views.py -->
-								<p id="painting_short-description gallery-item">{{paintings.short_description}} </p>
+								<p id="painting_short-description gallery-item">{{paintingData.short_description}} </p>
 							</div>
 							<!-- jinja format -->
-							<div class="painting_price gallery-item">${{paintings.price}}</div>
+							<div class="painting_price gallery-item">${{paintingData.price}}</div>
 						</div>
 					</div>
 				{% endfor %}
@@ -120,6 +133,8 @@
 		</div>
 	</section>
 	<!-- END PORTRAIT SECTION -->
+
+
 	<!-- MODAL SECTION -->
 	<!-- id ''gallery modal is used by main.js to create modal -->
 	<div class="modal fade" id="painting-modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,31 +151,56 @@
 					<div>
 						<p id="modal-long-description"></p>
 					</div>
-					<!-- add carousel https://getbootstrap.com/docs/4.0/components/carousel/ -->
-					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner">
-						  <div class="carousel-item active">
-							<img class="d-block w-100" id="modal-img" src="" alt="First slide">
-						  </div>
-						  <div class="carousel-item">
-							<img class="d-block w-100" src="{{paintings.painting.url}}" alt="Second slide">
-						  </div>
-						  <div class="carousel-item">
-							<img class="d-block w-100" src="{{paintings.painting.url}}" alt="Third slide">
-						  </div>
+					<!-- CAROUSEL START -->
+					
+					<div class="container">
+						
+						<div class="owl-carousel owl-theme owl-loaded" id="myCarousel">
+							{% for gallery in paintingObjects %}
+							<!-- front image -->
+							<div class="slide slide-1">
+								<div class="slide-content">
+									<img src="{{ gallery.painting.url}}" />
+								</div>
+							</div>
+							<!-- left image -->
+							<div class="slide slide-2">
+								<div class="slide-content">
+									<img src="{{ gallery.painting_left.url}}" />
+								</div>
+							</div>
+							<!-- right image -->
+							<div class="slide slide-3">
+								<div class="slide-content">
+									<img src="{{ gallery.painting_right.url}}" />
+								</div>
+							</div>
+							<!-- top image -->
+							<div class="slide slide-4">
+								<div class="slide-content">
+									<img src="{{ gallery.painting_top.url}}" />
+								</div>
+							</div>
+							<!-- bottom image -->
+							<div class="slide slide-5">
+								<div class="slide-content">
+									<img src="{{ gallery.painting_bottom.url}}" />
+								</div>
+							</div>
+							<!-- back image -->
+							<div class="slide slide-6">
+								<div class="slide-content">
+									<img src="{{ gallery.painting_back.url}}" />
+								</div>
+							</div>
+							{% endfor %}
 						</div>
-						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-						  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						  <span class="sr-only"></span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-						  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						  <span class="sr-only"></span>
-						</a>
+						
 					</div>
+					<!-- END CAROUSEL -->
 					<!-- <div>
 						<img id="modal-img" src="" />
-					</div> -->
+					</div>  -->
 				</div>
 				<div class="modal-footer">
 					<!-- price -->
@@ -172,6 +212,11 @@
 		</div>
 	</div>
 	<!-- END MODAL -->
+	<!-- jquery for carousel -->
+	<!-- jquery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<!-- owl carousel -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 	
 	<!-- Footer -->
 	<footer class="footer">
@@ -188,6 +233,43 @@
 	</footer>
 	<!-- end Footer -->
 
+	<!-- When a link is clicked, grab all the data values and pop them inro the modal -->
+	<script type="text/javascript">
+		$('.gallery-link').click(function(){
+			// id of modal element
+			// painting name
+			$('#painting-name').html($(this).data('name'));
+			// painting description
+			$('#modal-long-description').html($(this).data('description'));
+			// painting  s
+			var src = $(this).attr("src");
+			$("#modal-img").prop("src",src);
+			//painting price
+			$('#modal-price').html($(this).data('price'));
+			// show the modal
+			$('#painting-modal').modal('show');
+			// start carousel
+			console.clear();
+			console.log('carousel started');
+			$(".owl-carousel").owlCarousel({
+				
+				items:1,
+				loop:true,
+				nav:true,
+				dots: false,
+				autoplay: false,
+				autoplayTimeout: 5000,
+				smartSpeed: 500,
+				autoplayHoverPause: false,
+				margin: 20,
+				touchDrag: true,
+				mouseDrag: false,
+				navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"]
+			});
+			
+		});
+	</script>
+
 	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
 	<!-- ajax stuff lol  -->
@@ -195,25 +277,16 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-	<!-- When a link is clicked, grab all the data values and pop them inro the modal -->
-	<script type="text/javascript">
-		$('.gallery-link').click(function(){
-			console.log('link clicked');
-			// id of modal element
-			// painting name
-			$('#painting-name').html($(this).data('name'));
-			// painting description
-			$('#modal-long-description').html($(this).data('description'));
-			// painting 
-			var src = $(this).attr("src");
-			$("#modal-img").prop("src",src);
-			//painting price
-			$('#modal-price').html($(this).data('price'));
-			// show the modal
-			$('#painting-modal').modal('show');
-			
-		});
-	</script>
+	
+	<script src="{% static 'js/popper.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+	<script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+	<script src="{% static 'js/easing.js' %}"></script>
+	<script src="{% static 'js/parallax.min.js' %}"></script>
+	
+	
+	
+	
 	</body>
 </html>
