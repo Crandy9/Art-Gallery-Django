@@ -1,9 +1,11 @@
+
 {% load static %}
 <!-- above inform Django that there are static files that need to be loaded in this index.html file -->
 
 <!-- when you want to use images, use this jinja format to create a variable -->
 {% static "images" as baseUrl %}
 <!-- copy/pasted from travello sample static file template -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,15 +87,17 @@
 	</nav>
 	<!-- END NAVBAR -->
 	<!-- login page see login.html -->
-	<div id="content">
+	<div id="login_content">
         {% block content %}{% endblock %}
     </div>
-	
-	
 
 	<!--  PORTRAIT SECTION -->
 	<section class="gallery min-vh-100">
 		<div class="container-lg">
+			<!-- Portrait page see painting1.html -->
+			<div class="carousel">
+				{% block carousel1_content %}{% endblock %}
+			</div>
 			<!-- gy-4 controls vertical gutter (space between columns) width padding 
 				row-cols-2 means 2 colums for extra small screens < 576px
 				row-cols-sm-2 means 2 columns for small screens < 576px
@@ -108,21 +112,17 @@
 						</div>
 						<!-- this class is what streamlines all image sizes dynamically -->
 						<div class= "imagehover">
-							<!-- making static images as baseURL variable called url, useful for dynamically adding images 
+								<!-- making static images as baseURL variable called url, useful for dynamically adding images 
 								painting is the model datafield in models.py
 								gallery-item used by main.js -->
-								<img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="painting_image" 
+								<img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="{{paintingData.pk}}"
 								data-toggle="modal" 
 								data-target="painting-modal" 
 								data-name="{{paintingData.name}}" 
-								data-description="{{ paintingData.long_description }}"
+								data-description="{{ paintingData.short_description }}"
 								data-price="${{ paintingData.price }}">
 						</div>
 						<div class="painting-details">
-							<div class="painting_description gallery-item">
-								<!-- get object data from views.py -->
-								<p id="painting_short-description gallery-item">{{paintingData.short_description}} </p>
-							</div>
 							<!-- jinja format -->
 							<div class="painting_price gallery-item">${{paintingData.price}}</div>
 						</div>
@@ -133,7 +133,6 @@
 		</div>
 	</section>
 	<!-- END PORTRAIT SECTION -->
-
 
 	<!-- MODAL SECTION -->
 	<!-- id ''gallery modal is used by main.js to create modal -->
@@ -149,58 +148,15 @@
 				<div class="modal-body">
 					<!-- div for description -->
 					<div>
-						<p id="modal-long-description"></p>
+						<p id="modal-short-description"></p>
 					</div>
-					<!-- CAROUSEL START -->
-					
-					<div class="container">
-						
-						<div class="owl-carousel owl-theme owl-loaded" id="myCarousel">
-							{% for gallery in paintingObjects %}
-							<!-- front image -->
-							<div class="slide slide-1">
-								<div class="slide-content">
-									<img src="{{ gallery.painting.url}}" />
-								</div>
-							</div>
-							<!-- left image -->
-							<div class="slide slide-2">
-								<div class="slide-content">
-									<img src="{{ gallery.painting_left.url}}" />
-								</div>
-							</div>
-							<!-- right image -->
-							<div class="slide slide-3">
-								<div class="slide-content">
-									<img src="{{ gallery.painting_right.url}}" />
-								</div>
-							</div>
-							<!-- top image -->
-							<div class="slide slide-4">
-								<div class="slide-content">
-									<img src="{{ gallery.painting_top.url}}" />
-								</div>
-							</div>
-							<!-- bottom image -->
-							<div class="slide slide-5">
-								<div class="slide-content">
-									<img src="{{ gallery.painting_bottom.url}}" />
-								</div>
-							</div>
-							<!-- back image -->
-							<div class="slide slide-6">
-								<div class="slide-content">
-									<img src="{{ gallery.painting_back.url}}" />
-								</div>
-							</div>
-							{% endfor %}
-						</div>
-						
+					<!-- front modal image -->
+					<div>
+						<!-- when image in modal is clicked, go to that specific painting's page -->
+						<a class="carousel-click" href="/carousel/">
+							<img id="modal-img" src="" />
+						</a>
 					</div>
-					<!-- END CAROUSEL -->
-					<!-- <div>
-						<img id="modal-img" src="" />
-					</div>  -->
 				</div>
 				<div class="modal-footer">
 					<!-- price -->
@@ -212,11 +168,7 @@
 		</div>
 	</div>
 	<!-- END MODAL -->
-	<!-- jquery for carousel -->
-	<!-- jquery -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<!-- owl carousel -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 	
 	<!-- Footer -->
 	<footer class="footer">
@@ -233,50 +185,55 @@
 	</footer>
 	<!-- end Footer -->
 
+	    <!-- jquery for carousel -->
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 	<!-- When a link is clicked, grab all the data values and pop them inro the modal -->
 	<script type="text/javascript">
+
+		// JQuery start for modal
 		$('.gallery-link').click(function(){
-			// id of modal element
+			// get the primary key
+			prime_key = $(this).attr("id");
+			// MODAL START
 			// painting name
 			$('#painting-name').html($(this).data('name'));
 			// painting description
-			$('#modal-long-description').html($(this).data('description'));
-			// painting  s
+			$('#modal-short-description').html($(this).data('description'));
+			// painting
 			var src = $(this).attr("src");
 			$("#modal-img").prop("src",src);
 			//painting price
 			$('#modal-price').html($(this).data('price'));
 			// show the modal
 			$('#painting-modal').modal('show');
-			// start carousel
-			console.clear();
-			console.log('carousel started');
-			$(".owl-carousel").owlCarousel({
-				
-				items:1,
-				loop:true,
-				nav:true,
-				dots: false,
-				autoplay: false,
-				autoplayTimeout: 5000,
-				smartSpeed: 500,
-				autoplayHoverPause: false,
-				margin: 20,
-				touchDrag: true,
-				mouseDrag: false,
-				navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"]
-			});
-			
+			// END MODAL
 		});
+		// END JQuery modal
+
+		// AJAX
+		$('.carousel-click').click(function(){
+			$.ajax({
+				type: "GET",
+				// A string containing the URL to which the request is sent.
+				url: $(this).attr("href", '/carousel/' + prime_key),
+				// if success i.e. 200 response
+				success: function(data) {
+					console.log("success");
+				},
+				error() {
+					console.log("error");
+				}
+			});
+		})
+		// END AJAX
 	</script>
+
 
 	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
-	<!-- ajax stuff lol  -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	
 	<script src="{% static 'js/popper.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -284,9 +241,5 @@
 	<script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
 	<script src="{% static 'js/easing.js' %}"></script>
 	<script src="{% static 'js/parallax.min.js' %}"></script>
-	
-	
-	
-	
 	</body>
 </html>

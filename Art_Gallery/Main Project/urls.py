@@ -22,10 +22,9 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 # main url mapping. All apps need to have their urls.py urls mapped here
 urlpatterns = [
     # tell this project file to 
-    # use urls in calc app file as well, also import include above
+    # import include above
     # '' indicates the home page
     path('', include('Art_Gallery_App.urls')),
-    # this is the admin page provided by django
     path('admin/', admin.site.urls),
     # access accounts app
     path('accounts/', include('accounts.urls'))

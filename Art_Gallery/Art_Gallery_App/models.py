@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 #Art_Gallery_app models.py
@@ -27,26 +28,15 @@ class Portrait(models.Model):
     # pics is the folder name where images will be placed under media folder uploaded to paintings subfolder
     # painting field was originally called destinations and upload_to= 'pics'
     # when renaming, I had to delete the pics folder manually and re-upload the images from computer.
-    painting = models.ImageField(upload_to= 'paintings')
+    painting = models.ImageField(upload_to= 'paintings', default=0, null=True,blank=True)
     long_description = models.TextField()
     price = models.IntegerField()
     short_description = models.TextField()
-    painting_left = models.ImageField(upload_to= 'carousel_paintings')
-    painting_right = models.ImageField(upload_to= 'carousel_paintings')
-    painting_top = models.ImageField(upload_to= 'carousel_paintings')
-    painting_bottom = models.ImageField(upload_to= 'carousel_paintings')
-    painting_back = models.ImageField(upload_to= 'carousel_paintings')
+    painting_left = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    painting_right = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    painting_top = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    painting_bottom = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    painting_back = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
     # name the objects in admin page
-    def __str__(self):
-        return self.name
-
-# model for carousel
-class Carousel(models.Model):
-    painting_front = models.ImageField(upload_to= 'carousel')
-    painting_left = models.ImageField(upload_to= 'carousel')
-    painting_right = models.ImageField(upload_to= 'carousel')
-    painting_top = models.ImageField(upload_to= 'carousel')
-    painting_bottom = models.ImageField(upload_to= 'carousel')
-    painting_back = models.ImageField(upload_to= 'carousel')
     def __str__(self):
         return self.name
