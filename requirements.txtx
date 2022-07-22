@@ -1,0 +1,6 @@
+# Requirements to run this project
+Django==2.2.26
+Pillow==9.0.0
+psycopg2==2.8.3
+python ==3.10.0
+python-debian===0.1.43ubuntu1
