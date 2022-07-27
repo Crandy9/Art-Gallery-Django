@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # this is the format to add your models for db migration
     # appname.apps.AppnameConfig
-    #'travello.apps.TravelloConfig',
     'Art_Gallery_App.apps.Art_Gallery_AppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,7 +96,6 @@ DATABASES = {
         # specify which machine where db is installed
         # specify host/ip address
         'HOST': 'localhost'
-
     }
 }
 

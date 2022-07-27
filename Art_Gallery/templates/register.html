@@ -1,39 +1,68 @@
 {% extends "index.html" %}
-    <!-- custom tab title -->
     {% block title %} Register {% endblock %}
     {% block content %}
-    <!-- user registration data 
-    calls register -->
-    <form action="register" method="post">
-
-        <!-- csrf (Cross site forgery) token is a safety measure
-        see settings.py middleware line 51 -->
-        {% csrf_token %}
-
-        <!-- populate page with database fields for authenticating users in pgadmin user created
-            db for auth_user columns -->
-        <input type="text" name="first_name" placeholder="First Name"><br>
-        <input type="text" name="last_name" placeholder="Last Name"><br>
-        <input type="text" name="username" placeholder="username"><br>
-        <!-- email type -->
-        <input type="email" name="email" placeholder="email"><br>
-        <!-- password type -->
-        <input type="password" name="password1" placeholder="password"><br>
-        <input type="password" name="password2" placeholder="re-enter password"><br>
-        <!-- submit data to db 
-            when you click on submit, it goes to register in form action-->
-        <input type="submit">
-    </form>
-    <!-- print error messages if they happen -->
-    <div>
-        <!-- DTF loop for -->
-        {% for message in messages %}
-        <!-- jinja format to print the message -->
-        <h3>{{message}}</h3>
-        {% endfor %}
+    <div class="p-5">
+        <main role="main">
+            <!-- centers content in center of page -->
+            <div class="row justify-content-center">
+                <div class="col-md-4 ">
+                    <section>
+                        <!-- CARD -->
+                        <div class="card credintial-card">
+                            <div class="card-body">
+                                <h2 class="card-title p-3">Create Account!</h2>
+                                <!-- error messages -->
+                                <div class="ms-auto text-danger">
+                                    <!-- DTF loop for error messages -->
+                                    {% for message in messages %}
+                                    <!-- jinja format to print the message -->
+                                    <h3>{{message}}</h3>
+                                    {% endfor %}
+                                </div>
+                                <!-- end error messages -->
+                                <!-- form for logging in -->
+                                <form action="register" method="post">
+                                    <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
+                                    {% csrf_token %}
+                                    <!-- First name -->
+                                    <div class="form-group p-3">
+                                        <input type="text" name="first_name" placeholder="first name" class="form-control" />
+                                    </div>
+                                    <!-- Last name -->
+                                    <div class="form-group p-3">
+                                        <input type="text" name="last_name" placeholder="last name" class="form-control" />
+                                    </div>
+                                    <!-- Username input -->
+                                    <div class="form-group p-3">
+                                        <input type="text" name="username" placeholder="username"class="form-control" />
+                                    </div>
+                                    <!-- email input -->
+                                    <div class="form-group p-3">
+                                        <input type="email" name="email" placeholder="email" class="form-control" />
+                                    </div>
+                                    <div class="form-group p-3">
+                                        <input type="password" name="password1" placeholder="password" class="form-control" />
+                                    </div>
+                                    <div class="form-group p-3">
+                                        <input type="password" name="password2" placeholder="re-enter password" class="form-control" />
+                                    </div>
+                                    <div class="text-center">
+                                        <!-- redirect to registration page put this in login page -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Register!</button>
+                                    </div>
+                                </form>
+                                <!-- Login redirect -->
+                                <div class="text-center">
+                                    <div class="text-center">
+                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/login">Already have an account? Log in!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CARD -->
+                    </section>
+                </div>
+            </div>
+        </main>
     </div>
-    <div class="d-flex justify-content center">
-        <!-- redirect to registration page put this in login page -->
-        <a class="btn btn-sm btn-outline-dark d-flex justify-content-center" href="/accounts/login">Already have an account? Log in!</a>      
-    </div>
-{% endblock %}
+    {% endblock %}

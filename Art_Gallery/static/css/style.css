@@ -20,6 +20,7 @@ img{
 	/* frame padding */
 	padding: 5px;
 	width: 100%;
+	/* image border shadow */
 	box-shadow: 0 0 15px rgba(0,0,0,0.3);
 	cursor: pointer;
 }
@@ -87,16 +88,19 @@ a.company_link:hover {
 
 /* navbar items (login logout cart) */
 nav .navbar-nav li a{
-	color: rgb(255, 0, 0) !important;
-}
-/* welcome message color */
-li {
-	color: rgb(255, 0, 0) !important;
+	color: rgb(0, 0, 0) !important;
+} 
+/* resize card when the screen is 1046 or more */
+/* @media (min-width: 1046px) {
+	.card {
+		width: 35rem;
+	}
+} */
+.credintial-card {
+	/* offset-x | offset-y | blur-radius | color */
+	box-shadow: 0 0 15px rgba(0, 162, 255, 0.4);
 }
 
-/* portrait details */
-.painting-details {
-	background-color:aqua;
+.card {
+	background-color: rgba(255,255,255,0.9);
 }
-
-/* carousel */

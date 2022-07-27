@@ -25,6 +25,8 @@ def carousel(request, pk=None):
         carouselObjects = Portrait.objects.get(pk=pk)
         # get query set of all image fields
         carouselImageObjects = Portrait.objects.filter(id=pk).values(
+            'name',
+            'price',
             'painting',
             'painting_back',
             'painting_bottom',

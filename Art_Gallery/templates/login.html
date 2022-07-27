@@ -1,26 +1,72 @@
 {% extends "index.html" %}
     {% block title %} Log in {% endblock %}
     {% block content %}
-        <!-- form for logging in -->
-        <form action="login" method="post">
-            <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
-            {% csrf_token %}
-            <!-- extend this to allow username or email for login credentials -->
-            <input type="text" name="username" placeholder="username"><br>
-            <input type="password" name="password" placeholder="password"><br>
-            <!-- on submit button click, request calls login action which directs to urls.py 
-                which directs to login function in views.py-->
-            <input type="submit">
-        </form>
-        <div>
-            <!-- DTF loop for error messages -->
-            {% for message in messages %}
-            <!-- jinja format to print the message -->
-            <h3>{{message}}</h3>
-            {% endfor %}
-        </div>
-        <div class="d-flex justify-content center">
-            <!-- redirect to registration page put this in login page -->
-            <a class="btn btn-sm btn-outline-dark d-flex justify-content-center" href="/accounts/register">New users register here!</a>      
-        </div>
+    <div class="p-5">
+        <main role="main">
+            <!-- centers content in center of page -->
+            <div class="row justify-content-center">
+                <div class="col-md-4 ">
+                    <section>
+                        <!-- CARD -->
+                        <div class="card credintial-card">
+                            <div class="card-body">
+                                <h2 class="card-title p-3">Sign in</h2>
+                                <!-- error messages -->
+                                <div class="ms-auto text-danger">
+                                    {% for message in messages %}
+                                    <!-- jinja format to print the message -->
+                                    <p>{{message}}</p>
+                                    {% endfor %}
+                                </div>
+                                <!-- end error messages -->
+                                <!-- form for logging in -->
+                                <form action="login" method="post">
+                                    <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
+                                    {% csrf_token %}
+                                    <!-- extend this to allow username or email for login credentials -->
+                                    <!-- Username input -->
+                                    <div class="form-group p-3">
+                                        <input type="text" name="username" placeholder="username" id="form2Example1" class="form-control" />
+                                    </div>
+                                    <div class="form-group p-3">
+                                        <input type="password" name="password" placeholder="password" id="form2Example1" class="form-control" />
+                                        <a class = "ms-auto" href="" style="text-decoration: none;">Forgot password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <!-- redirect to registration page put this in login page -->
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                    </div>
+                                </form>
+                                <!-- Register buttons -->
+                                <div class="text-center pb-3">
+                                    <!-- Register buttons -->
+                                    <div class="text-center">
+                                        <!-- redirect to registration page put this in login page -->
+                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/register">New users register here!</a>
+                                    </div>
+                                    <p class="card-text">or sign up with:</p>
+                                    <button type="button" class="btn btn-link btn-floating mx-1" style="background-color: rgb(0, 102, 255);">
+                                    <i class="fab fa-facebook-f"style="color: white;"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-google"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-twitter"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <i class="fab fa-github" style="color: black;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CARD -->
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
     {% endblock %}

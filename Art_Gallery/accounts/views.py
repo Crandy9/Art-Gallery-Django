@@ -7,6 +7,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 # accounts app views
 
+# only authenticated and authoritzed users can request this page
+def myaccount(request):
+    return render(request, 'myaccount.html')
+
+    
 # create register.html in template dir
 # CREATING NEW USERS
 # param is http request
@@ -19,12 +24,53 @@ def register(request):
         # and enter it into the db
         # ensure POST string is the same name as the field
         # in register.html file
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        username = request.POST['username']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
+        if len(request.POST['first_name']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter your first name')
+            # return to the register page again
+            return redirect('register')
+        else:
+            first_name = request.POST['first_name']
+        
+        if len(request.POST['last_name']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter your last name')
+            # return to the register page again
+            return redirect('register')
+        else:
+            last_name = request.POST['last_name']
+
+        if len(request.POST['username']) == 0:
+            # send error message to page
+            messages.info(request,'Username cannot be blank')
+            # return to the register page again
+            return redirect('register')
+        else:
+            username = request.POST['username']
+
+        if len(request.POST['email']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter a valid email address')
+            # return to the register page again
+            return redirect('register')
+        else:
+            email = request.POST['email']
+
+        if len(request.POST['password1']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter a password')
+            # return to the register page again
+            return redirect('register')
+        else:
+            password1 = request.POST['password1']
+
+        if len(request.POST['password2']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter a matching password')
+            # return to the register page again
+            return redirect('register')
+        else:
+            password2 = request.POST['password2']
 
         # before adding the user, verify passwords match, username is not taken, and email is not registered
         if password1 == password2:
@@ -73,9 +119,20 @@ def login(request):
     if request.method == 'POST':
         # get login data
         #username
-        username = request.POST['username']
-        #password
-        password = request.POST['password']
+        if len(request.POST['username']) == 0:
+            # send error message to page
+            messages.info(request,'Please enter a valid username')
+            # return to the login page again
+            return redirect('login')
+        else:
+            username = request.POST['username']
+
+        if len(request.POST['passowrd']) == 0:
+            messages.info(request,'Please enter a valid username')
+            return redirect('login')
+        else:
+            #password
+            password = request.POST['password']
         # check if username/password is in the db 
         # (later extend functionality to allow email to be entered in lieu of username)
         # use Django's auth module to check user-entered login credentials against db

@@ -10,16 +10,41 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
+    <div class="card">
+
     
      <!-- getting image data from carousel.html -->
-        {% if carouselObjects %}
-        <div class="painting_description gallery-item">
-            <!-- get object data from views.py -->
-            <p>{{carouselObjects.long_description}} </p>
+        <div class="container">
+            {% if carouselObjects %}
+
+                {% if "0" in carouselObjects.name %}
+                    <!-- skip it -->
+                    {% else %}
+                    <div class="card-title">
+                        <h4>{{carouselObjects.name}} </h4>
+                    </div>
+                {% endif %}
+                <div class="painting_description gallery-item">
+                    <!-- get object data from views.py -->
+                    <p>{{carouselObjects.long_description}} </p>
+                </div>
+            {% endif %}
+            <div class="text-end">
+                {% if carouselObjects %}
+                    {% if "0" in carouselObjects.price %}
+                        <!-- skip it -->
+                        {% else %}
+                        <div class="card-text">
+                            <h4>${{carouselObjects.price}} </h4>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <a class="btn btn-outline-info text-dark" href="/">Buy now</a>
+            </div>
         </div>
-        {% endif %}
+
+        <!-- CAROUSEL START -->
         {% if carouselObjects %}
-            <!-- CAROUSEL START -->
             <div class="owl-carousel owl-theme owl-loaded" id="myCarousel">
                 <!-- image -->
                 {% if "0" in carouselObjects.painting_left.url %}
@@ -78,6 +103,7 @@
                 {% endif %}
             </div>
         {% endif %}
+    </div>
         <!-- CAROUSEL END -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- owl carousel -->
