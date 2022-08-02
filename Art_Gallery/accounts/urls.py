@@ -10,5 +10,5 @@ urlpatterns = [
     # logout
     path('logout', views.logout, name='logout'),
     # my account page accounts/myaccount
-    path('myaccount', views.myaccount, name='myaccount')
+    path('myaccount/<int:pk>', views.myaccount, name='myaccount')
 ]

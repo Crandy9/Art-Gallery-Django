@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+# for translating between english and japanese
+from django.utils.translation import gettext_lazy as _
 
 import django
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,10 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
+# if using CacheMiddleware, put LocaleMiddleware after it.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,14 +124,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
+# the language code is the default language, change default to Japanese before deployment
+# create locale folder in current directory with english and japanese subfolders
+# install apt-get update then apt-get install gettext
+# run python manage.py makemessages --all
+# then run python manage.py compilemessages
+# see docs: https://docs.djangoproject.com/en/4.0/ref/django-admin/
+# default language, change to Japanese
+# list of supported languages http://www.i18nguy.com/unicode/language-identifiers.html
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
+
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -159,3 +171,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+# get current list of languages here 
+# https://github.com/django/django/blob/main/django/conf/global_settings.py
+LANGUAGES = [
+    ('ja', 'Japanese'),
+    ('en', _('English')),
+]
+# location of locale folders so django can find them in directory 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale/')
+]

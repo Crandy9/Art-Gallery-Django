@@ -8,8 +8,15 @@ from django.contrib.auth.models import User, auth
 # accounts app views
 
 # only authenticated and authoritzed users can request this page
-def myaccount(request):
-    return render(request, 'myaccount.html')
+def myaccount(request, pk=None):
+
+    # if user is logged in
+    if request.user.is_authenticated:
+        # log the user in, creates a sessionid cookie
+        return render(request,'myaccount.html')
+    # make a default error message and redirect to homepage
+    else:
+        return redirect('login')
 
     
 # create register.html in template dir
@@ -121,14 +128,14 @@ def login(request):
         #username
         if len(request.POST['username']) == 0:
             # send error message to page
-            messages.info(request,'Please enter a valid username')
+            messages.info(request,'username is invalid')
             # return to the login page again
             return redirect('login')
         else:
             username = request.POST['username']
 
-        if len(request.POST['passowrd']) == 0:
-            messages.info(request,'Please enter a valid username')
+        if len(request.POST['password']) == 0:
+            messages.info(request,'password entered was incorrect')
             return redirect('login')
         else:
             #password

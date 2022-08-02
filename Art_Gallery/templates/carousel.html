@@ -20,7 +20,7 @@
                 {% if "0" in carouselObjects.name %}
                     <!-- skip it -->
                     {% else %}
-                    <div class="card-title">
+                    <div class="card-title p-3">
                         <h4>{{carouselObjects.name}} </h4>
                     </div>
                 {% endif %}
@@ -38,8 +38,8 @@
                             <h4>${{carouselObjects.price}} </h4>
                         </div>
                     {% endif %}
+                <a class="btn btn-outline-info text-dark" href="/checkout/{{carouselObjects.id}}">Buy now</a>
                 {% endif %}
-                <a class="btn btn-outline-info text-dark" href="/">Buy now</a>
             </div>
         </div>
 

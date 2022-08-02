@@ -1,4 +1,4 @@
- 
+{% load i18n %}
 {% load static %}
 <!-- above inform Django that there are static files that need to be loaded in this index.html file -->
 
@@ -7,273 +7,313 @@
 <!-- copy/pasted from travello sample static file template -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xml:lang="ja">
 
-<head>
-	<title>{% block title %}Kaoru Art Gallery {% endblock %}</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--set browser tab icon-->
-    <link rel="shortcut icon" type="image/ico" href="{% static 'images/tab_icon.jpg' %}">
-	<!-- these two files are needed to properly implement collapsable hamburger menu -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0-beta1/css/bootstrap.min.css" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<head>
+		<title> {% block title %}Kaoru Art Gallery{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--set browser tab icon-->
+		<link rel="shortcut icon" type="image/ico" href="{% static 'images/tab_icon.jpg' %}">
+		<!-- these two files are needed to properly implement collapsable hamburger menu -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0-beta1/css/bootstrap.min.css" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-	<!-- font awesome -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-   <!-- specify all static files so Django can detect them using DTL -->
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
-	<script src="{% static 'js/jquery.min.js' %}"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<!-- custom css file -->
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<!-- font awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<!-- specify all static files so Django can detect them using DTL -->
+		<!-- owl carousel -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<!-- custom css file -->
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 	
-</head>
-<!-- background image. Ignore this error the syntax is correct -->
-<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
-	<!-- NAVBAR -->
+	</head>
+	<!-- background image. Ignore this error the syntax is correct -->
+	<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
+		<!-- NAVBAR -->
+		<!-- nav -->
+		<nav class="navbar navbar-expand-md navbar-light" style="background-color:rgb(255, 250, 219);">
+			<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
+			<div class="container">
+				<!-- navbar brand is the title -->
+				<a href="/" class="navbar-brand">
+					<!-- translation text see views.py home function-->
+					<img type="image/ico" src="{% static 'images/tab_icon.jpg' %}" style="border-radius: 50%;" width="30" height="30">
+					<!-- using load i18n declaration at top of template -->
+					{% translate "薫のアートギャラリー" %}
+				</a>
+				<!-- hamburger menu button  -->
+				<button 
+				class="navbar-toggler" 
+				type="button" 
+				data-toggle="collapse" 
+				data-target="#navbarSupportedContent" 
+				aria-controls="navbarSupportedContent" 
+				aria-expanded="false" 
+				aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<!-- area that is collapsed inside the hamburger icon -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
+					<ul class="navbar-nav ms-auto">
+						<!-- create conditions for displaying login/register or logout buttons -->
+						<!-- if user is logged in (has a cookie) show logout button-->
+						{% if user.is_authenticated %}
+							<!-- welcome user by using first name -->
+							<li class="nav-item m-1">Hello, {{user.first_name}}!</li>
+							<li class="nav-item m-1">
+								<a class="btn btn-outline-info" href="/accounts/myaccount/{{user.id}}" title="log out">My Account</a>
+							</li>
+							<li class="nav-item m-1">
+								<a class="btn btn-outline-info" href="/accounts/logout" title="log out">Log out</a>
+							</li>
+							
+							<!-- else if not logged in -->
+						{% else %}
+							<!-- redirect to login page -->
+							<li class="nav-item m-1">
+								<a class="btn btn-outline-info" href="/accounts/login">{% translate "ログイン" %}</a>
+							</li>
+							<!-- redirect to login page -->
+							<li class="nav-item m-1">
+								<a class="btn btn-outline-info" href="/accounts/register">{% translate "会員登録" %}</a>
+							</li>
+						{% endif %}
+						<!-- mercari icon -->
+						<li>
+							<a class="nav-item m-1" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" My Mercari ^_^">
+								<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
+							</a>
+						</li>
+						<!-- language translator dropdown -->
+						<li class="nav-item dropdown">
+							<a 
+							class="nav-link dropdown-toggle"  
+							href="#" 
+							id="navbarDropdown" 
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false">
+								Language
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<!-- perform translation and dynamically detect current language -->
+								{% get_current_language as LANGUAGE_CODE %}
+								{% get_available_languages as LANGUAGES %}
+								<!-- getting list of languages, in this case, English and Japanese -->
+								{% get_language_info_list for LANGUAGES as languages %}
 
-	<!-- nav -->
-	<nav class="navbar navbar-expand-md navbar-light" style="background-color:rgb(255, 250, 219);">
-		<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
-		<div class="container">
-			<!-- navbar brand is the title title -->
-			<a href="/" class="navbar-brand">Kaoru Art Gallery</a>
-			<!-- hamburger menu button  -->
-			<button 
-			class="navbar-toggler" 
-			type="button" 
-			data-toggle="collapse" 
-			data-target="#navbarSupportedContent" 
-			aria-controls="navbarSupportedContent" 
-			aria-expanded="false" 
-			aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			
-			<!-- area that is collapsed inside the hamburger icon -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
-				<ul class="navbar-nav ms-auto">
-					<!-- create conditions for displaying login/register or logout buttons -->
-					<!-- if user is logged in (has a cookie) show logout button-->
-					{% if user.is_authenticated %}
-						<!-- welcome user by using first name -->
-						<li class="nav-item m-1">Hello, {{user.first_name}}!</li>
-						<li class="nav-item m-1">
-							<a class="nav-link btn btn-outline-primary" href="/accounts/logout" title="log out">Log out</a>
-						</li>
-						
-						<!-- else if not logged in -->
-					{% else %}
-						<!-- redirect to login page -->
-						<li class="nav-item m-1">
-							<a class="btn btn-outline-info" href="/accounts/login">Sign in</a>
-						</li>
-						<!-- redirect to login page -->
-						<li class="nav-item m-1">
-							<a class="btn btn-outline-info" href="/accounts/register">Register</a>
-						</li>
-					{% endif %}
-					<!-- mercari icon -->
-					<li>
-						<a class="nav-item m-1" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" My Mercari ^_^">
-							<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
-						</a>
-					</li>
-					<!-- cart -->
-					<!-- <li class="m-1">
-						<a class ="nav-link" href="/cart" title="View Shopping Cart">Cart</a>
-					</li>  -->
-					<!-- end cart -->
-					<!-- JP/EN toggler -->
-					<input
-					class="language-change" 
-					type="checkbox" 
-					checked data-toggle="toggle" 
-					data-on="日本語" 
-					data-off="English" 
-					data-onstyle="success" 
-					data-offstyle="info">
-					<!-- end JP/EN toggler -->
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- END NAVBAR -->
-	<!-- login page see login.html -->
-	<div id="login_content">
-        {% block content %}{% endblock %}
-    </div>
-
-	<!--  PORTRAIT SECTION -->
-	<section class="gallery min-vh-100" >
-		<div class="container-lg">
-			<!-- carousel page see carousel.html -->
-			<div class="carousel">
-				{% block carousel1_content %}{% endblock %}
-			</div>
-			<!-- gy-4 controls vertical gutter (space between columns) width padding 
-				row-cols-2 means 2 colums for extra small screens < 576px
-				row-cols-sm-2 means 2 columns for small screens < 576px
-				row-cols-md-3 means 3 columns for medium screens >= 768px
-			-->
-			<div class="row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 ">
-				{% for paintingData in paintingObjects %}
-					<!-- posting images-->
-					<div class="card-deck">
-						<div class="card">
-							<div>
-								<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.name}}
-								</h4> 
-							</div>
-							<p class="card-text text-center">{{paintingData.short_description}}</p>
-							<!-- this class is what streamlines all image sizes dynamically -->
-							<div class= "card-img imagehover p-3">
-									<!-- making static images as baseURL variable called url, useful for dynamically adding images 
-									painting is the model datafield in models.py
-									gallery-item used by main.js -->
-									<a class="carousel-click" id="{{paintingData.pk}}" href="/carousel/">
-										<img src="{{paintingData.painting.url}}" />
+								{% for lang in languages %}
+								<li>
+									<a 
+									class="dropdown-item"
+									href="/{{lang.code}}/">
+										{{lang.name_local}}
 									</a>
-									<!-- THIS IS MODAL CODE, KEEPING IT FOR FUTURE POSSIBLE USE -->
-									<!-- <img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="{{paintingData.pk}}"
-									data-toggle="modal" 
-									data-target="painting-modal" 
-									data-name="{{paintingData.name}}" 
-									data-description="{{ paintingData.short_description }}"
-									data-price="${{ paintingData.price }}"> -->
-							</div>
-							<!-- </div> -->
-							<div class="row text-center">
-								<p class="col font-weight-bold">${{paintingData.price}}</p>
+								</li>
+								{% endfor %}
+							</ul>
+						</li>
+						<!-- end language language translator dropdown -->
+						<!-- cart -->
+						<!-- <li class="m-1">
+							<a class ="nav-link" href="/cart" title="View Shopping Cart">Cart</a>
+						</li>  -->
+						<!-- end cart -->
+						
+					</ul>
+				</div>
+				<!-- end of hamburger collapsable items -->
+			</div>
+		</nav>
+		<!-- END NAVBAR -->
+
+		<!-- login block see login.html -->
+		<div id="login_content">
+			{% block content %}{% endblock %}
+		</div>
+		<!-- end login block -->
+		<!-- my account block -->
+		<div>
+			{% block myaccount %}{% endblock %}
+		</div>
+		<!-- end my account block -->
+		<!--  PORTRAIT SECTION -->
+		<section class="gallery min-vh-100" >
+			<div class="container-lg">
+				<!-- carousel page see carousel.html -->
+				<div class="carousel">
+					{% block carousel1_content %}{% endblock %}
+				</div>
+				<!-- gy-4 controls vertical gutter (space between columns) width padding 
+					row-cols-2 means 2 colums for extra small screens < 576px
+					row-cols-sm-2 means 2 columns for small screens < 576px
+					row-cols-md-3 means 3 columns for medium screens >= 768px
+				-->
+				<div class="row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 ">
+					{% for paintingData in paintingObjects %}
+						<!-- posting images-->
+						<div class="card-deck">
+							<div class="card">
+								<div>
+									<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.name}}
+									</h4> 
+								</div>
+								<p class="card-text text-center">{{paintingData.short_description}}</p>
+								<!-- this class is what streamlines all image sizes dynamically -->
+								<div class= "card-img imagehover p-3">
+										<!-- making static images as baseURL variable called url, useful for dynamically adding images 
+										painting is the model datafield in models.py
+										gallery-item used by main.js -->
+										<a class="carousel-click" id="{{paintingData.pk}}" href="/carousel/">
+											<img src="{{paintingData.painting.url}}" />
+										</a>
+										<!-- THIS IS MODAL CODE, KEEPING IT FOR FUTURE POSSIBLE USE -->
+										<!-- <img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="{{paintingData.pk}}"
+										data-toggle="modal" 
+										data-target="painting-modal" 
+										data-name="{{paintingData.name}}" 
+										data-description="{{ paintingData.short_description }}"
+										data-price="${{ paintingData.price }}"> -->
+								</div>
+								<!-- </div> -->
+								<div class="row text-center">
+									<p class="col font-weight-bold">${{paintingData.price}}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
+					<!-- END Paintings -->
 			</div>
-				<!-- END Paintings -->
-		</div>
-	</section>
-	<!-- END PORTRAIT SECTION -->
+		</section>
+		<!-- END PORTRAIT SECTION -->
 
-	<!-- MODAL SECTION -->
-	<!-- id ''gallery modal is used by main.js to create modal -->
-	<div class="modal fade" id="painting-modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="painting-name"></h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-						<!-- <span aria-hidden="true">&times;</span> -->
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- div for description -->
-					<div>
-						<p id="modal-short-description"></p>
+		<!-- MODAL SECTION -->
+		<!-- id ''gallery modal is used by main.js to create modal -->
+		<div class="modal fade" id="painting-modal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="painting-name"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+							<!-- <span aria-hidden="true">&times;</span> -->
+						</button>
 					</div>
-					<!-- front modal image -->
-					<div>
-						<!-- when image in modal is clicked, go to that specific painting's page -->
-						<a class="carousel-click" href="/carousel/">
-							<img id="modal-img" src="" />
-						</a>
+					<div class="modal-body">
+						<!-- div for description -->
+						<div>
+							<p id="modal-short-description"></p>
+						</div>
+						<!-- front modal image -->
+						<div>
+							<!-- when image in modal is clicked, go to that specific painting's page -->
+							<a class="carousel-click" href="/carousel/">
+								<img id="modal-img" src="" />
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<!-- price -->
-					<p id="modal-price"></p>
-					<!-- add to cart -->
-					<a class ="nav-link" href="/" title="View Shopping Cart" id="modal_cart">Add to Cart</a>
+					<div class="modal-footer">
+						<!-- price -->
+						<p id="modal-price"></p>
+						<!-- add to cart -->
+						<a class ="nav-link" href="/" title="View Shopping Cart" id="modal_cart">Add to Cart</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- END MODAL -->
+		<!-- END MODAL -->
 
-	
-	<!-- Footer -->
-	<footer class="footer">
-		<div class="bg-transparent text-center footer_text p-1">
-			<!-- Add styling from .net web app -->
-			&copy;
-			2022 - Developed by
-				<a class="company_link" style="text-decoration:none;" 
-						href="https://lctechnologies.azurewebsites.net/" target="_blank">
-							LC Technologies
-				</a>
-				- Jesus Christ is King
-		</div>
-	</footer>
-	<!-- end Footer -->
+		
+		<!-- Footer -->
+		<footer class="footer">
+			<div class="bg-transparent text-center footer_text p-1">
+				<!-- Add styling from .net web app -->
+				&copy;
+				2022 - Developed by
+					<a class="company_link" style="text-decoration:none;" 
+							href="https://lctechnologies.azurewebsites.net/" target="_blank">
+								LC Technologies
+					</a>
+					- Jesus Christ is King
+			</div>
+		</footer>
+		<!-- end Footer -->
 
-	    <!-- jquery for carousel -->
-    <!-- jquery -->
-    <!-- owl carousel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-	<!-- When a link is clicked, grab all the data values and pop them inro the modal -->
-	<script type="text/javascript">
+			<!-- jquery for carousel -->
+		<!-- jquery -->
+		<!-- owl carousel -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+		<!-- When a link is clicked, grab all the data values and pop them inro the modal -->
+		<script type="text/javascript">
 
-		// JQuery start for modal -- not being used but kept for future possible use
-		$('.gallery-link').click(function(){
-			// get the primary key
-			// prime_key = $(this).attr("id");
-			// MODAL START
-			// painting name
-			$('#painting-name').html($(this).data('name'));
-			// painting description
-			$('#modal-short-description').html($(this).data('description'));
-			// painting
-			var src = $(this).attr("src");
-			$("#modal-img").prop("src",src);
-			//painting price
-			$('#modal-price').html($(this).data('price'));
-			// show the modal
-			//$('#painting-modal').modal('show');
-			// END MODAL
-		});
-		// END JQuery modal
-
-		// AJAX
-		$('.carousel-click').click(function(){
-			prime_key = $(this).attr("id");
-			$.ajax({
-				type: "GET",
-				// A string containing the URL to which the request is sent.
-				url: $(this).attr("href", '/carousel/' + prime_key),
-				// if success i.e. 200 response
-				success: function(data) {
-					console.log("success");
-				},
-				error() {
-					console.log("error");
-				}
+			// JQuery start for modal -- not being used but kept for future possible use
+			$('.gallery-link').click(function(){
+				// get the primary key
+				// prime_key = $(this).attr("id");
+				// MODAL START
+				// painting name
+				$('#painting-name').html($(this).data('name'));
+				// painting description
+				$('#modal-short-description').html($(this).data('description'));
+				// painting
+				var src = $(this).attr("src");
+				$("#modal-img").prop("src",src);
+				//painting price
+				$('#modal-price').html($(this).data('price'));
+				// show the modal
+				//$('#painting-modal').modal('show');
+				// END MODAL
 			});
-		})
-		// END AJAX
-	</script>
+			// END JQuery modal
+
+			// AJAX
+			$('.carousel-click').click(function(){
+				prime_key = $(this).attr("id");
+				$.ajax({
+					type: "GET",
+					// A string containing the URL to which the request is sent.
+					url: $(this).attr("href", '/carousel/' + prime_key),
+					// if success i.e. 200 response
+					success: function(data) {
+						console.log("success");
+					},
+					error() {
+						console.log("error");
+					}
+				});
+			})
+			// END AJAX
+		</script>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> 
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
-	<!-- <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script> -->
-	<script src="{% static 'js/main.js' %}"></script>
-	<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
-	<script src="{% static 'js/parallax.min.js' %}"></script>
-	
+
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> 
+		<!-- has to be v4 and placed on the bottom required to make hamburger button. work static file not working -->
+		<!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
+		<!-- needed for dropdown menu -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+		<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+		<script src="{% static 'js/parallax.min.js' %}"></script>
+		
 	</body>
 </html>

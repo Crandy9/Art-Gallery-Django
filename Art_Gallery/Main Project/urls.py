@@ -19,15 +19,25 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 from django.contrib.staticfiles.storage import staticfiles_storage
+
+#internationalization tools
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
+
 # main url mapping. All apps need to have their urls.py urls mapped here
 urlpatterns = [
     # tell this project file to 
     # import include above
     # '' indicates the home page
-    path('', include('Art_Gallery_App.urls')),
+    # path('', include('Art_Gallery_App.urls')),
     path('admin/', admin.site.urls),
     # access accounts app
     path('accounts/', include('accounts.urls'))
     ]
+
+# concatenates language suffix to url based on language
+urlpatterns += i18n_patterns (
+    path('', include('Art_Gallery_App.urls'))
+)
 # adding path
 urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

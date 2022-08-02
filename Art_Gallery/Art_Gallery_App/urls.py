@@ -5,10 +5,13 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+#internationalization tools
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
     # calls index function in views.py
-    # sends the pk
     path('', views.index, name='index'),
     path('carousel/<int:pk>', views.carousel, name='carousel'),
+    path('checkout/<int:pk>', views.checkout, name='checkout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
