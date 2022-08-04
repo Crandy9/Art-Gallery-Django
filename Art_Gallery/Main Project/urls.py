@@ -26,18 +26,20 @@ from django.utils.translation import gettext_lazy as _
 
 # main url mapping. All apps need to have their urls.py urls mapped here
 urlpatterns = [
-    # tell this project file to 
-    # import include above
     # '' indicates the home page
     # path('', include('Art_Gallery_App.urls')),
-    path('admin/', admin.site.urls),
-    # access accounts app
-    path('accounts/', include('accounts.urls'))
+    # path('admin/', admin.site.urls),
+    # # access accounts app
+    # path('accounts/', include('accounts.urls'))
     ]
 
 # concatenates language suffix to url based on language
+# to decide which url the homepage initially redirects to, change language in browser settings
 urlpatterns += i18n_patterns (
-    path('', include('Art_Gallery_App.urls'))
+    path('', include('Art_Gallery_App.urls')),
+    path('admin/', admin.site.urls), 
+    path('accounts/', include('accounts.urls')),
+    prefix_default_language=True
 )
 # adding path
 urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

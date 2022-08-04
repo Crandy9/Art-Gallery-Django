@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-01 07:26+0000\n"
+"POT-Creation-Date: 2022-08-03 08:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,133 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Art_Gallery_App/views.py:23 templates/index.html:57
-msgid "薫のアートギャラリー"
-msgstr "Kaoru Art Gallery"
+#: Main Project/settings.py:185
+msgid "English"
+msgstr ""
 
-#: Art_Gallery_App/views.py:24 templates/index.html:91
+#: accounts/views.py:41
+msgid "名を入力してください"
+msgstr "Please enter your first name"
+
+#: accounts/views.py:49
+msgid "姓を入力してください"
+msgstr "Please enter your first name"
+
+#: accounts/views.py:57 accounts/views.py:136
+msgid "ユーザー名を入力してください"
+msgstr "Please enter your first name"
+
+#: accounts/views.py:65
+msgid "有効なメールアドレスを入力してください"
+msgstr "Please enter your first name"
+
+#: accounts/views.py:73
+msgid "パスワードを入力して下さい"
+msgstr "re-enter password"
+
+#: accounts/views.py:81
+msgid "パスワードを再入力してください"
+msgstr "Please enter your first name"
+
+#: accounts/views.py:93
+msgid "ユーザー名は既に存在します。別のユーザー名を入力してください"
+msgstr "Username already exists. Please enter another username"
+
+#: accounts/views.py:99
+msgid ""
+"メールアドレスは既に登録されています。別のメールアドレスを入力してください"
+msgstr ""
+"This email address is already registered. Please use a different email "
+"address"
+
+#: accounts/views.py:113
+msgid "パスワードが一致していません。一致するパスワードを再入力してください"
+msgstr "Passwords do not match"
+
+#: accounts/views.py:143
+msgid "入力したパスワードが正しくありません。もう一度お試しください"
+msgstr "The password you entered is incorrect. Please try again"
+
+#: accounts/views.py:162
+msgid "このユーザーは存在しません"
+msgstr "Username does not exist"
+
+#: templates/index.html:57
+msgid "薫のアートギャラリー"
+msgstr "Kaoru's Art Gallery"
+
+#: templates/index.html:81
+msgid "アカウント"
+msgstr "My Account"
+
+#: templates/index.html:84
+msgid "ログアウト"
+msgstr "Log out"
+
+#: templates/index.html:91 templates/login.html:15 templates/login.html:39
 msgid "ログイン"
 msgstr "Sign in"
 
-#: Art_Gallery_App/views.py:25 templates/index.html:95
+#: templates/index.html:95 templates/register.html:15
 msgid "会員登録"
 msgstr "Create Account"
 
-#: Main Project/settings.py:181
-msgid "Japanese"
-msgstr ""
+#: templates/index.html:100
+msgid "メルカリ"
+msgstr "My Mercari"
 
-#: Main Project/settings.py:182
-msgid "English"
-msgstr ""
+#: templates/login.html:31 templates/register.html:39
+msgid "ユーザー名"
+msgstr "username"
+
+#: templates/login.html:34 templates/register.html:46
+msgid "パスワード"
+msgstr "password"
+
+#: templates/login.html:35
+msgid "パスワードをお忘れですか？"
+msgstr "forget your password?"
+
+#: templates/login.html:47
+msgid "アカウントをお持ちでない方"
+msgstr "Don't have an account? Register here!"
+
+#: templates/login.html:49
+msgid "または"
+msgstr "or login with:"
+
+#: templates/login.html:50
+msgid "フェイスブック"
+msgstr "Facebook"
+
+#: templates/login.html:54
+msgid "グーグル"
+msgstr "Google"
+
+#: templates/login.html:58
+msgid "ツイッター"
+msgstr "Twitter"
+
+#: templates/register.html:31
+msgid "名前"
+msgstr "first name"
+
+#: templates/register.html:35
+msgid "苗字"
+msgstr "last name"
+
+#: templates/register.html:43
+msgid "メールアドレス"
+msgstr "email address"
+
+#: templates/register.html:49
+msgid "パスワード再入力"
+msgstr "re-enter password"
+
+#: templates/register.html:53
+msgid "次へ"
+msgstr "Register!"
+
+#: templates/register.html:59
+msgid "アカウントをお持ちの方"
+msgstr "Already registered? Log in!"

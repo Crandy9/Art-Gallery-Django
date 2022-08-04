@@ -1,4 +1,6 @@
 {% extends "index.html" %}
+{% load i18n %}
+
     {% block title %} Log in {% endblock %}
     {% block content %}
     <div class="p-5">
@@ -10,7 +12,7 @@
                         <!-- CARD -->
                         <div class="card credintial-card">
                             <div class="card-body">
-                                <h2 class="card-title p-3">Sign in to your account</h2>
+                                <h2 class="card-title p-3">{% translate 'ログイン' %}</h2>
                                 <!-- error messages -->
                                 <div class="ms-auto text-danger">
                                     {% for message in messages %}
@@ -26,15 +28,15 @@
                                     <!-- extend this to allow username or email for login credentials -->
                                     <!-- Username input -->
                                     <div class="form-group p-3">
-                                        <input type="text" name="username" placeholder="username" id="form2Example1" class="form-control" />
+                                        <input type="text" name="username" placeholder="{% translate "ユーザー名" %}" id="form2Example1" class="form-control" />
                                     </div>
                                     <div class="form-group p-3">
-                                        <input type="password" name="password" placeholder="password" id="form2Example1" class="form-control" />
-                                        <a class = "ms-auto" href="" style="text-decoration: none;">Forgot password?</a>
+                                        <input type="password" name="password" placeholder="{% translate "パスワード" %}" id="form2Example1" class="form-control" />
+                                        <a class = "ms-auto" href="" style="text-decoration: none;">{% translate 'パスワードをお忘れですか？' %}</a>
                                     </div>
                                     <div class="text-center">
                                         <!-- redirect to registration page put this in login page -->
-                                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">{% translate 'ログイン' %}</button>
                                     </div>
                                 </form>
                                 <!-- Register buttons -->
@@ -42,23 +44,19 @@
                                     <!-- Register buttons -->
                                     <div class="text-center">
                                         <!-- redirect to registration page put this in login page -->
-                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/register">New users register here!</a>
+                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/register">{% translate 'アカウントをお持ちでない方' %}</a>
                                     </div>
-                                    <p class="card-text">or sign up with:</p>
-                                    <button type="button" class="btn btn-link btn-floating mx-1" style="background-color: rgb(0, 102, 255);">
+                                    <p class="card-text">{% translate 'または' %}</p>
+                                    <button type="button" class="btn btn-link btn-floating mx-1" style="background-color: rgb(0, 102, 255);" title=" {% translate 'フェイスブック' %}">
                                     <i class="fab fa-facebook-f"style="color: white;"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <button type="button" class="btn btn-link btn-floating mx-1" title=" {% translate 'グーグル' %}">
                                     <i class="fab fa-google"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
+                                    <button type="button" class="btn btn-link btn-floating mx-1" title=" {% translate 'ツイッター' %}">
                                     <i class="fab fa-twitter"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-github" style="color: black;"></i>
                                     </button>
                                 </div>
                             </div>

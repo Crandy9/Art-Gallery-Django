@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load mathfilters %}
 <!-- above inform Django that there are static files that need to be loaded in this index.html file -->
 
 <!-- when you want to use images, use this jinja format to create a variable -->
@@ -77,10 +78,10 @@
 							<!-- welcome user by using first name -->
 							<li class="nav-item m-1">Hello, {{user.first_name}}!</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/myaccount/{{user.id}}" title="log out">My Account</a>
+								<a class="btn btn-outline-info" href="/accounts/myaccount/{{user.id}}" title="log out">{% translate "アカウント" %}</a>
 							</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/logout" title="log out">Log out</a>
+								<a class="btn btn-outline-info" href="/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
 							</li>
 							
 							<!-- else if not logged in -->
@@ -96,7 +97,7 @@
 						{% endif %}
 						<!-- mercari icon -->
 						<li>
-							<a class="nav-item m-1" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" My Mercari ^_^">
+							<a class="nav-item m-1" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" {% translate 'メルカリ' %} ^_^">
 								<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
 							</a>
 						</li>
@@ -121,9 +122,11 @@
 
 								{% for lang in languages %}
 								<li>
+										<!-- keep language constant throughout page change -->
 									<a 
 									class="dropdown-item"
 									href="/{{lang.code}}/">
+										<!-- content of dropdown menu -->
 										{{lang.name_local}}
 									</a>
 								</li>
@@ -194,7 +197,15 @@
 								</div>
 								<!-- </div> -->
 								<div class="row text-center">
-									<p class="col font-weight-bold">${{paintingData.price}}</p>
+									<p class="col font-weight-bold">
+										{% get_current_language as LANGUAGE_CODE %}
+										{% if LANGUAGE_CODE == 'ja' %}
+										¥ {{paintingData.price}}
+										{% else %}
+										$ {{ paintingData.price|mul:.0075|floatformat:2}}
+										{% endif %}
+										
+									</p>
 								</div>
 							</div>
 						</div>
@@ -224,7 +235,9 @@
 						<!-- front modal image -->
 						<div>
 							<!-- when image in modal is clicked, go to that specific painting's page -->
-							<a class="carousel-click" href="/carousel/">
+							<a 
+							class="carousel-click" 
+							href="/carousel/">
 								<img id="modal-img" src="" />
 							</a>
 						</div>

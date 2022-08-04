@@ -14,4 +14,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('carousel/<int:pk>', views.carousel, name='carousel'),
     path('checkout/<int:pk>', views.checkout, name='checkout')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+
+urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

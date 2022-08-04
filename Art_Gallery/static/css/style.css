@@ -23,6 +23,8 @@ img{
 	/* image border shadow */
 	box-shadow: 0 0 15px rgba(0,0,0,0.3);
 	cursor: pointer;
+	filter: brightness(100%);
+	
 }
 
 /* size of modal image */

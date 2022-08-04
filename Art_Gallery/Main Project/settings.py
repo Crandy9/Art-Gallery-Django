@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mathfilters'
 ]
 # if using CacheMiddleware, put LocaleMiddleware after it.
 MIDDLEWARE = [
@@ -127,13 +128,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # the language code is the default language, change default to Japanese before deployment
 # create locale folder in current directory with english and japanese subfolders
 # install apt-get update then apt-get install gettext
-# run python manage.py makemessages --all
-# then run python manage.py compilemessages
+# since this will be in Japanese, run "python manage.py makemessages -l en"
+# then go translate the .po file
+# then run "python manage.py compilemessages"
 # see docs: https://docs.djangoproject.com/en/4.0/ref/django-admin/
 # default language, change to Japanese
 # list of supported languages http://www.i18nguy.com/unicode/language-identifiers.html
 
 LANGUAGE_CODE = 'ja'
+
 
 
 TIME_ZONE = 'UTC'

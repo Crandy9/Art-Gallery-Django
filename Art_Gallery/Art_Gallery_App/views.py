@@ -1,48 +1,47 @@
 from cgitb import text
 from urllib import response
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 from .models import *
 from django.core import serializers
-
+from django.http import HttpResponse
 # for translating between english and japanese
 from django.utils.translation import gettext as _
 # get_language identifies the language, activate activaes langauges, 
 # gettext gets string to be translated
 from django.utils.translation import get_language, activate, gettext
-
+from django.conf import settings
 
 #  put all translations here
 def translate(language):
-    current_lang = get_language()
-    print("\nCURRENT LANGUAGE:" + language + '\n')
+    pass
+    # current_lang = get_language()
+    # print("\nCURRENT LANGUAGE:" + language + '\n')
 
     # activate english
-    try:
-        activate(language)
+    # try:
+    #     activate(language)
         # underscore is short for gettext which will try to retrieve the translation
         # of the given strings, if they exist
-        title = _("薫のアートギャラリー")
-        sign_in = _("ログイン")
-        register = _("会員登録")
+        # title = _("薫のアートギャラリー")
+        # sign_in = _("ログイン")
+        # register = _("会員登録")
 
-    finally:
-        activate(current_lang)
+    # finally:
+    #     activate(current_lang)
     # return translations
-    return title, sign_in, register
+    # return title, sign_in, register
 
 def index(request, pk=None):
-
-    # since we want Japanese to load by default, trnaslate to English
-    trans = translate(language='en')
-    
     # dynamically access and fetch Portrait data from db or admin actions
     paintingObjects = Portrait.objects.all()
+
+    # trans = (name)
+    #print(name)
     # returns <QuerySet [<Portrait: NEW TEST>, <Portrait: TEST 2>]>
     context = {
         'paintingObjects': paintingObjects,
-        'trans': trans
+        # 'trans': trans
     }
 
 
@@ -52,8 +51,7 @@ def index(request, pk=None):
 def carousel(request, pk=None):
 
     if request.method == 'GET':
-        # since we want Japanese to load by default, trnaslate to English
-        trans = translate(language='en')
+
         # get the specific object by its pk
         # exclude empty or null values
         carouselObjects = Portrait.objects.get(pk=pk)
@@ -116,17 +114,12 @@ def carousel(request, pk=None):
 
         # return both carousel object and carousel list
         context = {
-            'carouselObjects': carouselObjects,
-            'trans': trans
+            'carouselObjects': carouselObjects
         }
 
         # return the data with the specific object data
         return render(request, "carousel.html", context)
 
 def checkout(request, pk=None):
-    # since we want Japanese to load by default, trnaslate to English
-    trans = translate(language='en')
-    context = {
-        'trans': trans
-    }
-    return render(request, 'checkout.html', context)
+
+    return render(request, 'checkout.html')

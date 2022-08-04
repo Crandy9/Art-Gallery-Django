@@ -1,4 +1,9 @@
 from django.shortcuts import render, redirect
+# for translating between english and japanese
+from django.utils.translation import gettext as _
+# get_language identifies the language, activate activaes langauges, 
+# gettext gets string to be translated
+from django.utils.translation import get_language, activate, gettext
 
 # to push POST data into database you need to use a model
 # django provides user models and auth models
@@ -33,7 +38,7 @@ def register(request):
         # in register.html file
         if len(request.POST['first_name']) == 0:
             # send error message to page
-            messages.info(request,'Please enter your first name')
+            messages.info(request,_('名を入力してください'))
             # return to the register page again
             return redirect('register')
         else:
@@ -41,7 +46,7 @@ def register(request):
         
         if len(request.POST['last_name']) == 0:
             # send error message to page
-            messages.info(request,'Please enter your last name')
+            messages.info(request,_('姓を入力してください'))
             # return to the register page again
             return redirect('register')
         else:
@@ -49,7 +54,7 @@ def register(request):
 
         if len(request.POST['username']) == 0:
             # send error message to page
-            messages.info(request,'Username cannot be blank')
+            messages.info(request,_('ユーザー名を入力してください'))
             # return to the register page again
             return redirect('register')
         else:
@@ -57,7 +62,7 @@ def register(request):
 
         if len(request.POST['email']) == 0:
             # send error message to page
-            messages.info(request,'Please enter a valid email address')
+            messages.info(request,_('有効なメールアドレスを入力してください'))
             # return to the register page again
             return redirect('register')
         else:
@@ -65,7 +70,7 @@ def register(request):
 
         if len(request.POST['password1']) == 0:
             # send error message to page
-            messages.info(request,'Please enter a password')
+            messages.info(request,_('パスワードを入力して下さい'))
             # return to the register page again
             return redirect('register')
         else:
@@ -73,7 +78,7 @@ def register(request):
 
         if len(request.POST['password2']) == 0:
             # send error message to page
-            messages.info(request,'Please enter a matching password')
+            messages.info(request, _('パスワードを再入力してください'))
             # return to the register page again
             return redirect('register')
         else:
@@ -85,13 +90,13 @@ def register(request):
             if User.objects.filter(username=username).exists():
                 # send error message to page using existing django messages module
                 # https://docs.djangoproject.com/en/4.0/ref/contrib/messages/
-                messages.info(request, 'Username already exists')
+                messages.info(request, _('ユーザー名は既に存在します。別のユーザー名を入力してください'))
                 # return to the register page again
                 return redirect('register')
             # if email is alrady registered
             elif User.objects.filter(email=email).exists():
                 # send error message to page
-                messages.info(request,'Email is already registered')
+                messages.info(request, _('メールアドレスは既に登録されています。別のメールアドレスを入力してください'))
                 # return to the register page again
                 return redirect('register')
             else:
@@ -105,7 +110,7 @@ def register(request):
 
         # passwords do not match
         else:
-            messages.info(request,'passwords do not match')
+            messages.info(request,_('パスワードが一致していません。一致するパスワードを再入力してください'))
             # return to the register page again
             return redirect('register')
 
@@ -128,14 +133,14 @@ def login(request):
         #username
         if len(request.POST['username']) == 0:
             # send error message to page
-            messages.info(request,'username is invalid')
+            messages.info(request,_('ユーザー名を入力してください'))
             # return to the login page again
             return redirect('login')
         else:
             username = request.POST['username']
 
         if len(request.POST['password']) == 0:
-            messages.info(request,'password entered was incorrect')
+            messages.info(request, _('入力したパスワードが正しくありません。もう一度お試しください'))
             return redirect('login')
         else:
             #password
@@ -154,7 +159,7 @@ def login(request):
             return redirect('/')
         # else if username is not in db
         else:
-            messages.error(request, 'username or password is incorrect')
+            messages.error(request, _('このユーザーは存在しません'))
             return redirect('login')
 
 # else if request is GET, go to login page

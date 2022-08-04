@@ -1,4 +1,6 @@
 {% extends "index.html" %}
+{% load i18n %}
+
     {% block title %} Register {% endblock %}
     {% block content %}
     <div class="p-5">
@@ -10,7 +12,7 @@
                         <!-- CARD -->
                         <div class="card credintial-card">
                             <div class="card-body">
-                                <h2 class="card-title p-3">Create Account!</h2>
+                                <h2 class="card-title p-3">{% translate "会員登録" %}</h2>
                                 <!-- error messages -->
                                 <div class="ms-auto text-danger">
                                     <!-- DTF loop for error messages -->
@@ -26,35 +28,35 @@
                                     {% csrf_token %}
                                     <!-- First name -->
                                     <div class="form-group p-3">
-                                        <input type="text" name="first_name" placeholder="first name" class="form-control" />
+                                        <input type="text" name="first_name" placeholder="{% translate "名前" %}" class="form-control" />
                                     </div>
                                     <!-- Last name -->
                                     <div class="form-group p-3">
-                                        <input type="text" name="last_name" placeholder="last name" class="form-control" />
+                                        <input type="text" name="last_name" placeholder="{% translate "苗字" %}" class="form-control" />
                                     </div>
                                     <!-- Username input -->
                                     <div class="form-group p-3">
-                                        <input type="text" name="username" placeholder="username"class="form-control" />
+                                        <input type="text" name="username" placeholder="{% translate "ユーザー名" %}" class="form-control" />
                                     </div>
                                     <!-- email input -->
                                     <div class="form-group p-3">
-                                        <input type="email" name="email" placeholder="email" class="form-control" />
+                                        <input type="email" name="email" placeholder="{% translate "メールアドレス" %}" class="form-control" />
                                     </div>
                                     <div class="form-group p-3">
-                                        <input type="password" name="password1" placeholder="password" class="form-control" />
+                                        <input type="password" name="password1" placeholder="{% translate "パスワード" %}" class="form-control" />
                                     </div>
                                     <div class="form-group p-3">
-                                        <input type="password" name="password2" placeholder="re-enter password" class="form-control" />
+                                        <input type="password" name="password2" placeholder="{% translate "パスワード再入力" %}" class="form-control" />
                                     </div>
                                     <div class="text-center">
                                         <!-- redirect to registration page put this in login page -->
-                                        <button type="submit" class="btn btn-primary btn-block mb-4">Register!</button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">{% translate "次へ" %}</button>
                                     </div>
                                 </form>
                                 <!-- Login redirect -->
                                 <div class="text-center">
                                     <div class="text-center">
-                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/login">Already have an account? Log in!</a>
+                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/accounts/login">{% translate "アカウントをお持ちの方" %}</a>
                                     </div>
                                 </div>
                             </div>
