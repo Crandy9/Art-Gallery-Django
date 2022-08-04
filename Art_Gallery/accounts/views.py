@@ -4,14 +4,16 @@ from django.utils.translation import gettext as _
 # get_language identifies the language, activate activaes langauges, 
 # gettext gets string to be translated
 from django.utils.translation import get_language, activate, gettext
-
 # to push POST data into database you need to use a model
 # django provides user models and auth models
 # messages is used for displaying error messages on html page
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from django.conf import settings
+from django.core.mail import send_mail
 # accounts app views
 from django.contrib.auth.decorators import login_required
+
 
 # only authenticated and authoritzed users can request this page
 @login_required(login_url='login')
@@ -116,9 +118,15 @@ def register(request):
             print("Register error language:" + get_language())
             # return to the register page again
             return redirect('register')
-
- 
         print("Register redirect to login language:" + get_language())
+
+        # SEND EMAIL TEST
+        subject = 'TIIIAAAANNNNKKK.'
+        message = "It's haaapaa. ANd I told ya. Cause I know ya. And you know that"
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.email,]
+        send_mail(subject,message,email_from,recipient_list)
+
         # redirect to login page to verify that registration worked
         # and prompt user to login
         return redirect('login')
