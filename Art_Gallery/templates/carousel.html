@@ -12,8 +12,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
+    {% get_current_language as LANGUAGE_CODE %}
     <div class="card">
-
     
      <!-- getting image data from carousel.html -->
         <div class="container">
@@ -21,26 +21,41 @@
 
                 {% if "0" in carouselObjects.name %}
                     <!-- skip it -->
-                    {% else %}
+                {% else %}
+                    {% if LANGUAGE_CODE == 'ja' %}
                     <div class="card-title p-3">
                         <h4>{{carouselObjects.name}} </h4>
                     </div>
+                    {% else %}
+                    <div class="card-title p-3">
+                        <h4>{{carouselObjects.english_name}} </h4>
+                    </div>
+                    {% endif %}
                 {% endif %}
                 <div class="painting_description gallery-item">
+                    {% if LANGUAGE_CODE == 'ja' %}
                     <!-- get object data from views.py -->
                     <p>{{carouselObjects.long_description}} </p>
+                    {% else %}
+                    <p>{{carouselObjects.english_long_description}} </p>
+                    {% endif %}
                 </div>
             {% endif %}
             <div class="text-end">
                 {% if carouselObjects %}
                     {% if "0" in carouselObjects.price %}
-                        <!-- skip it -->
-                        {% else %}
+                    <!-- skip it -->
+                    {% else %}
                         <div class="card-text">
-                            <h4>${{carouselObjects.price}} </h4>
+                            {% if LANGUAGE_CODE == 'ja' %}
+                            <h4>¥{{carouselObjects.price}} </h4>
+                            {% else %}
+                            <h4>${{carouselObjects.dollar_price}} </h4>
+                            {% endif %}
                         </div>
                     {% endif %}
-                <a class="btn btn-outline-info text-dark" href="/checkout/{{carouselObjects.id}}">Buy now</a>
+                    {% get_current_language as LANGUAGE_CODE %}
+                <a class="btn btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
                 {% endif %}
             </div>
         </div>

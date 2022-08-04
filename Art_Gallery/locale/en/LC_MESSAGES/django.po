@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 08:37+0000\n"
+"POT-Creation-Date: 2022-08-04 06:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Main Project/settings.py:185
+#: Main Project/settings.py:186
 msgid "English"
 msgstr ""
 
@@ -69,27 +69,35 @@ msgstr "The password you entered is incorrect. Please try again"
 msgid "このユーザーは存在しません"
 msgstr "Username does not exist"
 
-#: templates/index.html:57
+#: templates/carousel.html:58
+msgid "購入する"
+msgstr "Buy now"
+
+#: templates/index.html:58
 msgid "薫のアートギャラリー"
 msgstr "Kaoru's Art Gallery"
 
 #: templates/index.html:81
+msgid "こんにちは"
+msgstr "Hello"
+
+#: templates/index.html:83
 msgid "アカウント"
 msgstr "My Account"
 
-#: templates/index.html:84
+#: templates/index.html:86
 msgid "ログアウト"
 msgstr "Log out"
 
-#: templates/index.html:91 templates/login.html:15 templates/login.html:39
+#: templates/index.html:93 templates/login.html:15 templates/login.html:39
 msgid "ログイン"
 msgstr "Sign in"
 
-#: templates/index.html:95 templates/register.html:15
+#: templates/index.html:97 templates/register.html:15
 msgid "会員登録"
 msgstr "Create Account"
 
-#: templates/index.html:100
+#: templates/index.html:102
 msgid "メルカリ"
 msgstr "My Mercari"
 

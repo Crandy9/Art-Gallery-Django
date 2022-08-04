@@ -31,12 +31,17 @@ class Portrait(models.Model):
     painting = models.ImageField(upload_to= 'paintings', default=0, null=True,blank=True)
     long_description = models.TextField()
     price = models.IntegerField()
-    short_description = models.TextField()
+    short_description = models.TextField(default=0)
     painting_left = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
     painting_right = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
     painting_top = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
     painting_bottom = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
     painting_back = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    # English data
+    english_name = models.CharField(default=0,max_length= 100)
+    english_long_description = models.TextField(default=0, null=True,blank=True)
+    english_short_description = models.TextField(default=0, null=True,blank=True)
+    dollar_price = models.DecimalField(default =0, max_digits=10, decimal_places=2, blank=True)
     # name the objects in admin page
     def __str__(self):
         return self.name

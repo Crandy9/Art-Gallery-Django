@@ -11,8 +11,10 @@ from django.utils.translation import get_language, activate, gettext
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 # accounts app views
+from django.contrib.auth.decorators import login_required
 
 # only authenticated and authoritzed users can request this page
+@login_required(login_url='login')
 def myaccount(request, pk=None):
 
     # if user is logged in
@@ -111,11 +113,12 @@ def register(request):
         # passwords do not match
         else:
             messages.info(request,_('パスワードが一致していません。一致するパスワードを再入力してください'))
+            print("Register error language:" + get_language())
             # return to the register page again
             return redirect('register')
 
  
-
+        print("Register redirect to login language:" + get_language())
         # redirect to login page to verify that registration worked
         # and prompt user to login
         return redirect('login')
@@ -123,12 +126,14 @@ def register(request):
 
     # executed when http request is get to display the register page
     else:
+        print("Reegister get language:" + get_language())
         return render(request, 'register.html')
 
 # login def
 def login(request):
     # fetch user login data
     if request.method == 'POST':
+        print("Login POST language:" + get_language())
         # get login data
         #username
         if len(request.POST['username']) == 0:
@@ -164,10 +169,12 @@ def login(request):
 
 # else if request is GET, go to login page
     else:
+        print("Login GET language:" + get_language())
         return render(request, 'login.html')
 
 # logout
 def logout(request):
+    print("log out language:" + get_language())
     # removes cookie from browser
     auth.logout(request)
     # return to homepage

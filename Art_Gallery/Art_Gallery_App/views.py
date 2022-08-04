@@ -9,8 +9,9 @@ from django.http import HttpResponse
 from django.utils.translation import gettext as _
 # get_language identifies the language, activate activaes langauges, 
 # gettext gets string to be translated
-from django.utils.translation import get_language, activate, gettext
+from django.utils.translation import get_language, activate, get_language_from_request
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 #  put all translations here
 def translate(language):
@@ -33,15 +34,13 @@ def translate(language):
     # return title, sign_in, register
 
 def index(request, pk=None):
+    print("Homepage language:" + get_language())
     # dynamically access and fetch Portrait data from db or admin actions
     paintingObjects = Portrait.objects.all()
 
-    # trans = (name)
-    #print(name)
     # returns <QuerySet [<Portrait: NEW TEST>, <Portrait: TEST 2>]>
     context = {
-        'paintingObjects': paintingObjects,
-        # 'trans': trans
+        'paintingObjects': paintingObjects
     }
 
 
@@ -49,68 +48,12 @@ def index(request, pk=None):
     return render(request, "index.html", context)
 
 def carousel(request, pk=None):
-
     if request.method == 'GET':
+        print("Carousel language:" + get_language())
 
         # get the specific object by its pk
         # exclude empty or null values
         carouselObjects = Portrait.objects.get(pk=pk)
-        # get query set of all image fields
-        carouselImageObjects = Portrait.objects.filter(id=pk).values(
-            'id',
-            'name',
-            'price',
-            'painting',
-            'painting_back',
-            'painting_bottom',
-            'painting_left',
-            'painting_right',
-            'painting_top')
-        # returns something like:
-        '''
-        <QuerySet [{
-            'painting': 'paintings/painting2Main.png', 
-            'painting_back': '0', 
-            'painting_bottom': '0', 
-            'painting_left': 'carousel_paintings/painting2.1.png', 
-            'painting_right': 'carousel_paintings/painting2.2.png', 
-            'painting_top': 'carousel_paintings/painting2.3.png'
-        }]>
-
-        '''
-        # remove columns whose values are 0
-        carouselImageObjects = [{r:c for r,c in row.items() if c != '0'} for row in carouselImageObjects]
-        # returns a list of a dictionary of images like:
-        '''
-        [{
-            'painting': 'paintings/painting2Main.png', 
-            'painting_left': 'carousel_paintings/painting2.1.png', 
-            'painting_right': 'carousel_paintings/painting2.2.png', 
-            'painting_top': 'carousel_paintings/painting2.3.jpg'
-        }]
-        '''
-        # convert it from list to dictionary
-        carouselImageObjects = carouselImageObjects[0]
-        # returns a dictionary
-        '''
-        {
-            'painting': 'paintings/painting2Main.png', 
-            'painting_left': 'carousel_paintings/painting2.1.png', 
-            'painting_right': 'carousel_paintings/painting2.2.png', 
-            'painting_top': 'carousel_paintings/painting2.3.jpg'
-        }
-        '''
-        # convert dictionary values to a list
-        carousel_list = list(carouselImageObjects.values())
-        # returns a list
-        '''
-        [
-            'paintings/painting2Main.png', 
-            'carousel_paintings/painting2.1.png', 
-            'carousel_paintings/painting2.2.png', 
-            'carousel_paintings/painting2.3.jpg'
-            ]
-        '''
 
         # return both carousel object and carousel list
         context = {
@@ -120,6 +63,7 @@ def carousel(request, pk=None):
         # return the data with the specific object data
         return render(request, "carousel.html", context)
 
+@login_required(login_url='/accounts/login')
 def checkout(request, pk=None):
-
-    return render(request, 'checkout.html')
+    print("Checkout language:" + get_language())
+    return render(request, 'checkout.html', response)

@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 urlpatterns = [
     # calls index function in views.py
     path('', views.index, name='index'),
+    # by default, URL looks like this: /ja/carousel/14
     path('carousel/<int:pk>', views.carousel, name='carousel'),
     path('checkout/<int:pk>', views.checkout, name='checkout')
 ]

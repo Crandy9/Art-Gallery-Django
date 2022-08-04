@@ -6,9 +6,9 @@
 <!-- when you want to use images, use this jinja format to create a variable -->
 {% static "images" as baseUrl %}
 <!-- copy/pasted from travello sample static file template -->
-
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="ja" xml:lang="ja">
+<html lang="{{LANGUAGE_CODE}}" xml:lang="{{LANGUAGE_CODE}}">
 
 	<head>
 		<title> {% block title %}Kaoru Art Gallery{% endblock %}</title>
@@ -50,7 +50,7 @@
 			<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
 			<div class="container">
 				<!-- navbar brand is the title -->
-				<a href="/" class="navbar-brand">
+				<a href="/{{LANGUAGE_CODE}}/" class="navbar-brand">
 					<!-- translation text see views.py home function-->
 					<img type="image/ico" src="{% static 'images/tab_icon.jpg' %}" style="border-radius: 50%;" width="30" height="30">
 					<!-- using load i18n declaration at top of template -->
@@ -72,27 +72,28 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
 					<ul class="navbar-nav ms-auto">
+						{% get_current_language as LANGUAGE_CODE %}
 						<!-- create conditions for displaying login/register or logout buttons -->
 						<!-- if user is logged in (has a cookie) show logout button-->
 						{% if user.is_authenticated %}
 							<!-- welcome user by using first name -->
-							<li class="nav-item m-1">Hello, {{user.first_name}}!</li>
+							<li class="nav-item navbar-brand m-1">{% translate 'こんにちは' %}, {{user.first_name}}!</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/myaccount/{{user.id}}" title="log out">{% translate "アカウント" %}</a>
+								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/myaccount/{{user.id}}" title="My Account">{% translate "アカウント" %}</a>
 							</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
+								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
 							</li>
 							
 							<!-- else if not logged in -->
 						{% else %}
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/login">{% translate "ログイン" %}</a>
+								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/login">{% translate "ログイン" %}</a>
 							</li>
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/accounts/register">{% translate "会員登録" %}</a>
+								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/register">{% translate "会員登録" %}</a>
 							</li>
 						{% endif %}
 						<!-- mercari icon -->
@@ -101,39 +102,28 @@
 								<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
 							</a>
 						</li>
-						<!-- language translator dropdown -->
-						<li class="nav-item dropdown">
+						<!-- change language -->
+						<li>
+							{% get_current_language as LANGUAGE_CODE %}
+							{% if LANGUAGE_CODE == 'ja' %}
 							<a 
-							class="nav-link dropdown-toggle"  
-							href="#" 
+							class="nav-item nav-link mt-1"  
+							href="/en/" 
 							id="navbarDropdown" 
-							role="button"
-							data-bs-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false">
-								Language
+							role="button">
+								English
 							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<!-- perform translation and dynamically detect current language -->
-								{% get_current_language as LANGUAGE_CODE %}
-								{% get_available_languages as LANGUAGES %}
-								<!-- getting list of languages, in this case, English and Japanese -->
-								{% get_language_info_list for LANGUAGES as languages %}
-
-								{% for lang in languages %}
-								<li>
-										<!-- keep language constant throughout page change -->
-									<a 
-									class="dropdown-item"
-									href="/{{lang.code}}/">
-										<!-- content of dropdown menu -->
-										{{lang.name_local}}
-									</a>
-								</li>
-								{% endfor %}
-							</ul>
+							{% else %}
+							<a 
+							class="nav-item nav-link mt-1"  
+							href="/ja/" 
+							id="navbarDropdown" 
+							role="button">
+								日本語
+							</a>
+							{% endif %}
 						</li>
-						<!-- end language language translator dropdown -->
+						<!-- end change language -->
 						<!-- cart -->
 						<!-- <li class="m-1">
 							<a class ="nav-link" href="/cart" title="View Shopping Cart">Cart</a>
@@ -171,20 +161,30 @@
 				-->
 				<div class="row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 ">
 					{% for paintingData in paintingObjects %}
+					{% get_current_language as LANGUAGE_CODE %}
 						<!-- posting images-->
 						<div class="card-deck">
 							<div class="card">
 								<div>
+									{% if LANGUAGE_CODE == 'ja' %}
 									<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.name}}
 									</h4> 
+									{% else %}
+									<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.english_name}}
+									</h4> 
+									{% endif %}
 								</div>
+								{% if LANGUAGE_CODE == 'ja' %}
 								<p class="card-text text-center">{{paintingData.short_description}}</p>
+								{% else %}
+								<p class="card-text text-center">{{paintingData.english_short_description}}</p>
+								{% endif %}
 								<!-- this class is what streamlines all image sizes dynamically -->
 								<div class= "card-img imagehover p-3">
 										<!-- making static images as baseURL variable called url, useful for dynamically adding images 
 										painting is the model datafield in models.py
 										gallery-item used by main.js -->
-										<a class="carousel-click" id="{{paintingData.pk}}" href="/carousel/">
+										<a class="carousel-click" id="{{paintingData.pk}}" href="/{{LANGUAGE_CODE}}/carousel/">
 											<img src="{{paintingData.painting.url}}" />
 										</a>
 										<!-- THIS IS MODAL CODE, KEEPING IT FOR FUTURE POSSIBLE USE -->
@@ -198,11 +198,10 @@
 								<!-- </div> -->
 								<div class="row text-center">
 									<p class="col font-weight-bold">
-										{% get_current_language as LANGUAGE_CODE %}
 										{% if LANGUAGE_CODE == 'ja' %}
-										¥ {{paintingData.price}}
+										¥{{paintingData.price}}
 										{% else %}
-										$ {{ paintingData.price|mul:.0075|floatformat:2}}
+										${{paintingData.dollar_price}}
 										{% endif %}
 										
 									</p>
@@ -277,7 +276,7 @@
 		<script type="text/javascript">
 
 			// JQuery start for modal -- not being used but kept for future possible use
-			$('.gallery-link').click(function(){
+			/**$('.gallery-link').click(function(){
 				// get the primary key
 				// prime_key = $(this).attr("id");
 				// MODAL START
@@ -293,8 +292,9 @@
 				// show the modal
 				//$('#painting-modal').modal('show');
 				// END MODAL
-			});
+			}); 
 			// END JQuery modal
+			*/ 
 
 			// AJAX
 			$('.carousel-click').click(function(){
