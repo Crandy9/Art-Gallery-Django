@@ -75,7 +75,7 @@ a.company_link:hover {
 		color: rgb(203, 255, 255);
 	}
 }
-/* when screen is less than 459px */
+/* when screen is less than 460px */
 
 @media( max-width: 459px) {
 	.footer_text {
@@ -86,7 +86,16 @@ a.company_link:hover {
 	}
 }
 
+/* when screen is 552 or less, make long description text small */
+@media(max-width: 552px) {
+	#long_desc {
+		font-size: small;
+	}
+}
 
+.owl-carousel .owl-stage .owl-theme .owl-loaded {
+	margin: 0 auto; 
+}
 
 /* navbar items (login logout cart) */
 nav .navbar-nav li a{
@@ -105,4 +114,31 @@ nav .navbar-nav li a{
 
 .card {
 	background-color: rgba(255,255,255,0.9);
+}
+
+
+.dropdown .dropdown-menu {
+	-webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+
+	max-height: 0;
+	display: block;
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.dropdown.show .dropdown-menu {
+	-webkit-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-moz-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-ms-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-o-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+
+	max-height: 190px;
+	opacity: 1;
+	visibility: visible;
 }

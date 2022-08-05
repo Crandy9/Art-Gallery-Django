@@ -157,6 +157,7 @@ USE_TZ = False
 STATIC_URL = 'static/'
 
 # send email
+# https://www.sitepoint.com/django-send-email/
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = 587

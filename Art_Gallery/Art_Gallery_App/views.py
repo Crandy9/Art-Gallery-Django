@@ -13,26 +13,6 @@ from django.utils.translation import get_language, activate, get_language_from_r
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
-#  put all translations here
-def translate(language):
-    pass
-    # current_lang = get_language()
-    # print("\nCURRENT LANGUAGE:" + language + '\n')
-
-    # activate english
-    # try:
-    #     activate(language)
-        # underscore is short for gettext which will try to retrieve the translation
-        # of the given strings, if they exist
-        # title = _("薫のアートギャラリー")
-        # sign_in = _("ログイン")
-        # register = _("会員登録")
-
-    # finally:
-    #     activate(current_lang)
-    # return translations
-    # return title, sign_in, register
-
 def index(request, pk=None):
     print("Homepage language:" + get_language())
     # dynamically access and fetch Portrait data from db or admin actions

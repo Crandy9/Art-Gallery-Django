@@ -54,12 +54,16 @@
 					<!-- translation text see views.py home function-->
 					<img type="image/ico" src="{% static 'images/tab_icon.jpg' %}" style="border-radius: 50%;" width="30" height="30">
 					<!-- using load i18n declaration at top of template -->
-					{% translate "薫のアートギャラリー" %}
+					Kaoru's Art Gallery
 				</a>
+				{% if user.is_authenticated %}
+				<!-- welcome user by using first name -->
+				<span class="nav-item navbar-text text-dark">{% translate 'こんにちは' %}, {{user.first_name}}!</span>
+				{% endif %}
 				<!-- hamburger menu button  -->
 				<button 
 				class="navbar-toggler" 
-				type="button" 
+				type="button btn-sm" 
 				data-toggle="collapse" 
 				data-target="#navbarSupportedContent" 
 				aria-controls="navbarSupportedContent" 
@@ -67,7 +71,7 @@
 				aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				
+
 				<!-- area that is collapsed inside the hamburger icon -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
@@ -76,66 +80,82 @@
 						<!-- create conditions for displaying login/register or logout buttons -->
 						<!-- if user is logged in (has a cookie) show logout button-->
 						{% if user.is_authenticated %}
-							<!-- welcome user by using first name -->
-							<li class="nav-item navbar-brand m-1">{% translate 'こんにちは' %}, {{user.first_name}}!</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/myaccount/{{user.id}}" title="My Account">{% translate "アカウント" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/myaccount/{{user.id}}" title="My Account">{% translate "アカウント" %}</a>
 							</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
 							</li>
 							
 							<!-- else if not logged in -->
 						{% else %}
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/login">{% translate "ログイン" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/login">{% translate "ログイン" %}</a>
 							</li>
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info" href="/{{LANGUAGE_CODE}}/accounts/register">{% translate "会員登録" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/register">{% translate "会員登録" %}</a>
 							</li>
 						{% endif %}
-						<!-- mercari icon -->
-						<li>
-							<a class="nav-item m-1" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" {% translate 'メルカリ' %} ^_^">
-								<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" class="d-inline-block align-top"/>
-							</a>
-						</li>
-						<!-- change language -->
-						<li>
-							{% get_current_language as LANGUAGE_CODE %}
-							{% if LANGUAGE_CODE == 'ja' %}
-							<a 
-							class="nav-item nav-link mt-1"  
-							href="/en/" 
-							id="navbarDropdown" 
-							role="button">
-								English
-							</a>
-							{% else %}
-							<a 
-							class="nav-item nav-link mt-1"  
-							href="/ja/" 
-							id="navbarDropdown" 
-							role="button">
-								日本語
-							</a>
-							{% endif %}
-						</li>
-						<!-- end change language -->
-						<!-- cart -->
-						<!-- <li class="m-1">
-							<a class ="nav-link" href="/cart" title="View Shopping Cart">Cart</a>
-						</li>  -->
-						<!-- end cart -->
-						
+							<!-- mercari icon -->
+							<li>
+								<a class="navbar-brand" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" {% translate 'メルカリ' %} ^_^">
+									<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" />
+								</a>
+							</li>
+							<!-- cart -->
+							<!-- <li class="m-1">
+								<a class ="nav-link" href="/cart" title="View Shopping Cart">Cart</a>
+							</li>  -->
+							<!-- end cart -->
 					</ul>
 				</div>
 				<!-- end of hamburger collapsable items -->
 			</div>
 		</nav>
 		<!-- END NAVBAR -->
+
+		<!-- change language -->
+		<div class="container container d-flex justify-content-end mt-2 ">
+			{% get_current_language as LANGUAGE_CODE %}
+			{% get_available_languages as LANGUAGES %}
+			{% get_language_info_list for LANGUAGES as languages %}
+			<div class="dropdown ">
+				<button 
+				class="btn btn-sm btn-info dropdown-toggle text-light fw-bold"
+				id="dropdownMenuLink" 
+				type="button"
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false"
+				style="background-color:rgb(25, 144, 255);">
+				Language
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="min-width: 100px !important;">
+					<!-- The set_language redirect 18n view called by post method 
+						id is what allows
+					-->
+					<li>
+						<form action="{% url 'set_language' %}" method="post" id="ja">
+							{% csrf_token %}
+							<input name="next" type="hidden" value="{{ redirect_to }}">
+							<input name="language" type="hidden" value="ja" />
+						</form>
+						<button class="dropdown-item btn btn-sm" type="submit" form="ja" value="Submit">日本語</button>
+						<div class="dropdown-divider"></div>
+					</li>
+					<li>
+						<form action="{% url 'set_language' %}" method="post" id="en">
+							{% csrf_token %}
+							<input name="next" type="hidden" value="{{ redirect_to }}">
+							<input name="language" type="hidden" value="en" />
+						</form>
+						<button class="dropdown-item btn btn-sm" type="submit" form="en" value="Submit">English</button>
+					</li>
+				</ul>
+			</div>
+		</div>
 
 		<!-- login block see login.html -->
 		<div id="login_content">

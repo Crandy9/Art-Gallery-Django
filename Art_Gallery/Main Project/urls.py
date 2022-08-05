@@ -26,14 +26,11 @@ from django.utils.translation import gettext_lazy as _
 
 # main url mapping. All apps need to have their urls.py urls mapped here
 urlpatterns = [
-    # '' indicates the home page
-    # path('', include('Art_Gallery_App.urls')),
-    # path('admin/', admin.site.urls),
-    # # access accounts app
-    # path('accounts/', include('accounts.urls'))
+    # allows language choice to be persistent, see index.html post
+     path('i18n/', include('django.conf.urls.i18n')),
     ]
 
-# concatenates language suffix to url based on language
+# concatenates language suffix to url based on language choice
 # to decide which url the homepage initially redirects to, change language in browser settings
 urlpatterns += i18n_patterns (
     path('', include('Art_Gallery_App.urls')),

@@ -16,7 +16,7 @@
     <div class="card">
     
      <!-- getting image data from carousel.html -->
-        <div class="container">
+        <div class="container p-2">
             {% if carouselObjects %}
 
                 {% if "0" in carouselObjects.name %}
@@ -35,9 +35,9 @@
                 <div class="painting_description gallery-item">
                     {% if LANGUAGE_CODE == 'ja' %}
                     <!-- get object data from views.py -->
-                    <p>{{carouselObjects.long_description}} </p>
+                    <p id="long_desc">{{carouselObjects.long_description}} </p>
                     {% else %}
-                    <p>{{carouselObjects.english_long_description}} </p>
+                    <p id="long_desc">{{carouselObjects.english_long_description}} </p>
                     {% endif %}
                 </div>
             {% endif %}
@@ -55,14 +55,14 @@
                         </div>
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
-                <a class="btn btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
+                <a class="btn btn-sm btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
                 {% endif %}
             </div>
         </div>
 
         <!-- CAROUSEL START -->
         {% if carouselObjects %}
-            <div class="owl-carousel owl-theme owl-loaded" id="myCarousel">
+            <div class="owl-carousel owl-theme owl-loaded" id="myCarousel" style=" margin: 0 auto !important;">
                 <!-- image -->
                 {% if "0" in carouselObjects.painting_left.url %}
                 <!-- skip it -->
@@ -133,7 +133,6 @@
                     $(".owl-carousel").owlCarousel({
                         items:3,
                         loop:true,
-                        margin: 10,
                         nav:true,
                         dots: false,
                         autoplay: false,
