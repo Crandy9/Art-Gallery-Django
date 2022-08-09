@@ -42,13 +42,15 @@ INSTALLED_APPS = [
     # this is the format to add your models for db migration
     # appname.apps.AppnameConfig
     'Art_Gallery_App.apps.Art_Gallery_AppConfig',
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mathfilters'
+    'mathfilters',
+    'phonenumber_field'
 ]
 # if using CacheMiddleware, put LocaleMiddleware after it.
 MIDDLEWARE = [

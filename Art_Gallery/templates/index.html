@@ -81,21 +81,21 @@
 						<!-- if user is logged in (has a cookie) show logout button-->
 						{% if user.is_authenticated %}
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/myaccount/{{user.id}}" title="My Account">{% translate "アカウント" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/account/myaccount/{{user.id}}" title="My Account">{% translate "アカウント" %}</a>
 							</li>
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/logout" title="log out">{% translate "ログアウト" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/account/logout" title="log out">{% translate "ログアウト" %}</a>
 							</li>
 							
 							<!-- else if not logged in -->
 						{% else %}
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/login">{% translate "ログイン" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/account/login">{% translate "ログイン" %}</a>
 							</li>
 							<!-- redirect to login page -->
 							<li class="nav-item m-1">
-								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/accounts/register">{% translate "会員登録" %}</a>
+								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/account/register">{% translate "会員登録" %}</a>
 							</li>
 						{% endif %}
 							<!-- mercari icon -->
@@ -167,6 +167,10 @@
 			{% block myaccount %}{% endblock %}
 		</div>
 		<!-- end my account block -->
+		<!-- checkout -->
+		<div>
+			{% block checkout %}{% endblock %}
+		</div>
 		<!--  PORTRAIT SECTION -->
 		<section class="gallery min-vh-100" >
 			<div class="container-lg">

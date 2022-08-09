@@ -43,7 +43,7 @@ def carousel(request, pk=None):
         # return the data with the specific object data
         return render(request, "carousel.html", context)
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/account/login')
 def checkout(request, pk=None):
-    print("Checkout language:" + get_language())
-    return render(request, 'checkout.html', response)
+
+    return render(request, 'checkout.html')
