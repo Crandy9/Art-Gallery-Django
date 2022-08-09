@@ -28,15 +28,15 @@ class Portrait(models.Model):
     # pics is the folder name where images will be placed under media folder uploaded to paintings subfolder
     # painting field was originally called destinations and upload_to= 'pics'
     # when renaming, I had to delete the pics folder manually and re-upload the images from computer.
-    painting = models.ImageField(upload_to= 'paintings', default=0, null=True,blank=True)
+    painting = models.ImageField(default=0, upload_to= 'paintings', null=True,blank=True)
     long_description = models.TextField()
     price = models.IntegerField()
     short_description = models.TextField(default=0)
-    painting_left = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
-    painting_right = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
-    painting_top = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
-    painting_bottom = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
-    painting_back = models.ImageField(upload_to= 'carousel_paintings', default=0, null=True,blank=True)
+    painting_left = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_right = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_top = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_bottom = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_back = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
     # English data
     english_name = models.CharField(default=0,max_length= 100)
     english_long_description = models.TextField(default=0, null=True,blank=True)

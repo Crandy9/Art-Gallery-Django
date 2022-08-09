@@ -14,12 +14,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
     {% get_current_language as LANGUAGE_CODE %}
     <div class="card">
-    
+    <!-- CAUTION if you delete an image in the admin page or clear the default "0" value and then do not upload an image, a valueerror will occur 
+        also, if you only upload 1 or 2 images, then the carousel will duplicate the images to have three images displayed on the default page size
+        image file names cannot have "0" in them as they are the default flag used to skip fields
+    -->
      <!-- getting image data from carousel.html -->
         <div class="container p-2">
             {% if carouselObjects %}
-
-                {% if "0" in carouselObjects.name %}
+                {% if "0" in carouselObjects.name  %}
                     <!-- skip it -->
                 {% else %}
                     {% if LANGUAGE_CODE == 'ja' %}
@@ -62,63 +64,63 @@
 
         <!-- CAROUSEL START -->
         {% if carouselObjects %}
-            <div class="owl-carousel owl-theme owl-loaded" id="myCarousel" style=" margin: 0 auto !important;">
-                <!-- image -->
-                {% if "0" in carouselObjects.painting_left.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting_left.url}}" />
-                    </div>
+        <div class="owl-carousel owl-theme owl-loaded" id="myCarousel" style=" margin: 0 auto !important;">
+            <!-- image -->
+            {% if "0" in carouselObjects.painting_left.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting_left.url}}" />
                 </div>
-                {% endif %}
-                {% if "0" in carouselObjects.painting.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting.url}}" />
-                    </div>
-                </div>
-                {% endif %}
-                {% if "0" in carouselObjects.painting_right.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting_right.url}}" />
-                    </div>
-                </div>
-                {% endif %}
-                {% if "0" in carouselObjects.painting_top.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting_top.url}}" />
-                    </div>
-                </div>
-                {% endif %}
-                {% if "0" in carouselObjects.painting_bottom.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting_bottom.url}}" />
-                    </div>
-                </div>
-                {% endif %}
-                {% if "0" in carouselObjects.painting_back.url %}
-                <!-- skip it -->
-                {% else %}
-                <div class="item">
-                    <div class="slide-content">
-                        <img src="{{carouselObjects.painting_back.url}}" />
-                    </div>
-                </div>
-                {% endif %}
             </div>
+            {% endif %}
+            {% if "0" in carouselObjects.painting.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting.url}}" />
+                </div>
+            </div>
+            {% endif %}
+            {% if "0" in carouselObjects.painting_right.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting_right.url}}" />
+                </div>
+            </div>
+            {% endif %}
+            {% if "0" in carouselObjects.painting_top.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting_top.url}}" />
+                </div>
+            </div>
+            {% endif %}
+            {% if "0" in carouselObjects.painting_bottom.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting_bottom.url}}" />
+                </div>
+            </div>
+            {% endif %}
+            {% if "0" in carouselObjects.painting_back.url %}
+            <!-- skip it -->
+            {% else %}
+            <div class="item">
+                <div class="slide-content">
+                    <img src="{{carouselObjects.painting_back.url}}" />
+                </div>
+            </div>
+            {% endif %}
+        </div>
         {% endif %}
     </div>
         <!-- CAROUSEL END -->
@@ -131,7 +133,7 @@
             //function createCarousel() {
                 // console.log("Carousel js called")
                     $(".owl-carousel").owlCarousel({
-                        items:3,
+                        items: 3,
                         loop:true,
                         nav:true,
                         dots: false,
