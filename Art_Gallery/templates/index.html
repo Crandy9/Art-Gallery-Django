@@ -39,14 +39,12 @@
 		<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-	
 	</head>
 	<!-- background image. Ignore this error the syntax is correct -->
 	<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
 		<!-- NAVBAR -->
-		<!-- nav -->
-		<nav class="navbar navbar-expand-md navbar-light" style="background-color:rgb(255, 250, 219);">
+		<!-- sticky nav -->
+		<nav class="navbar sticky-top navbar-expand-md navbar-light" style="background-color:rgba(255, 253, 218, 0.9);">
 			<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
 			<div class="container">
 				<!-- navbar brand is the title -->
@@ -60,21 +58,29 @@
 				<!-- welcome user by using first name -->
 				<span class="nav-item navbar-text text-dark">{% translate 'こんにちは' %}, {{user.first_name}}!</span>
 				{% endif %}
-				<!-- hamburger menu button  -->
-				<button 
+
+				<!--hamburger button animation -->
+				<!-- hamburger menu button  --> 
+				<button
 				class="navbar-toggler" 
-				type="button btn-sm" 
+				type="button" 
 				data-toggle="collapse" 
 				data-target="#navbarSupportedContent" 
 				aria-controls="navbarSupportedContent" 
 				aria-expanded="false" 
 				aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
+				<!-- animated toggler -->
+				<div id="nav-icon">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
 				</button>
-
 				<!-- area that is collapsed inside the hamburger icon -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side-->
+					<hr>
+					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side when not collapsed-->
 					<ul class="navbar-nav ms-auto">
 						{% get_current_language as LANGUAGE_CODE %}
 						<!-- create conditions for displaying login/register or logout buttons -->
@@ -101,7 +107,7 @@
 							<!-- mercari icon -->
 							<li>
 								<a class="navbar-brand" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" {% translate 'メルカリ' %} ^_^">
-									<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48" />
+									<img src="{% static 'images/svg_mercari_icon_red.svg' %}" alt="mercari" width="48" height="48"/>
 								</a>
 							</li>
 							<!-- cart -->
@@ -199,9 +205,9 @@
 									{% endif %}
 								</div>
 								{% if LANGUAGE_CODE == 'ja' %}
-								<p class="card-text text-center">{{paintingData.short_description}}</p>
+								<p class="card-text text-center px-5">{{paintingData.short_description}}</p>
 								{% else %}
-								<p class="card-text text-center">{{paintingData.english_short_description}}</p>
+								<p class="card-text text-center px-5">{{paintingData.english_short_description}}</p>
 								{% endif %}
 								<!-- this class is what streamlines all image sizes dynamically -->
 								<div class= "card-img imagehover p-3">
@@ -219,7 +225,7 @@
 										data-description="{{ paintingData.short_description }}"
 										data-price="${{ paintingData.price }}"> -->
 								</div>
-								<!-- </div> -->
+								<!-- yen or dollar display-->
 								<div class="row text-center">
 									<p class="col font-weight-bold">
 										{% if LANGUAGE_CODE == 'ja' %}
@@ -227,7 +233,6 @@
 										{% else %}
 										${{paintingData.dollar_price}}
 										{% endif %}
-										
 									</p>
 								</div>
 							</div>
@@ -279,7 +284,7 @@
 		
 		<!-- Footer -->
 		<footer class="footer">
-			<div class="bg-transparent text-center footer_text p-1">
+			<div class="bg-transparent text-center footer_text p-1" style="font-size: small;">
 				<!-- Add styling from .net web app -->
 				&copy;
 				2022 - Developed by
@@ -337,6 +342,14 @@
 				});
 			})
 			// END AJAX
+		</script>
+		<script>
+			// for  hamburger animation
+			$(document).ready(function(){
+				$('#nav-icon').click(function(){
+					$(this).toggleClass('open');
+				});
+			});
 		</script>
 
 
