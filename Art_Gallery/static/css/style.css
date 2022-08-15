@@ -112,12 +112,17 @@ nav .navbar-nav li a{
 .navbar {
 	border-bottom: ridge rgba(0, 110, 255, 0.3);
 }
-/* resize card when the screen is 1046 or more */
-/* @media (min-width: 1046px) {
-	.card {
-		width: 35rem;
-	}
-} */
+/* dropdown navbar animation */
+.navbar-collapse {
+	-webkit-transition: height .15s ease !important;
+	-o-transition: height .15s ease !important;
+	transition: height .15s ease !important;
+}
+/* hamburger button border color */
+.navbar-toggler {
+	color:rgb(60, 200, 255) !important;
+}
+
 .credintial-card {
 	/* offset-x | offset-y | blur-radius | color */
 	box-shadow: 0 0 15px rgba(0, 162, 255, 0.4);
@@ -182,7 +187,7 @@ nav .navbar-nav li a{
 	*/
 	width: 30px;
 	/* hamburger stroke color */
-	background: #000000;
+	background: rgba(61, 61, 61, 0.8);
 	/* keeps animation center */
 	left: 0;
 	-webkit-transform: rotate(0deg);
@@ -190,10 +195,10 @@ nav .navbar-nav li a{
 	-o-transform: rotate(0deg);
 	transform: rotate(0deg);
 	/* animation speed */
-	-webkit-transition: .15s ease-in-out;
-	-moz-transition: .15s ease-in-out;
-	-o-transition: .15s ease-in-out;
-	transition: .15s ease-in-out;
+	-webkit-transition: .2s ease-in-out;
+	-moz-transition: .2s ease-in-out;
+	-o-transition: .2s ease-in-out;
+	transition: .2s ease-in-out;
   }
   /* Icon */
 /* first stroke*/
@@ -245,9 +250,3 @@ nav .navbar-nav li a{
 	left: 50%;
   } 
 
-/* dropdown navbar animation */
-.navbar-collapse {
-	-webkit-transition: height .15s ease !important;
-	-o-transition: height .15s ease !important;
-	transition: height .15s ease !important;
-}

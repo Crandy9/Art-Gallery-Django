@@ -12,16 +12,25 @@ from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate, get_language_from_request
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from account.models import Account
 
 def index(request, pk=None):
     print("Homepage language:" + get_language())
     # dynamically access and fetch Portrait data from db or admin actions
     paintingObjects = Portrait.objects.all()
 
-    # returns <QuerySet [<Portrait: NEW TEST>, <Portrait: TEST 2>]>
-    context = {
-        'paintingObjects': paintingObjects
-    }
+    if pk is not None:
+        #pass Account data 
+        account = Account.objects.get(user_id=pk)
+        context = {
+            'paintingObjects': paintingObjects,
+            'account': account
+        }
+    else:
+        # returns <QuerySet [<Portrait: NEW TEST>, <Portrait: TEST 2>]>
+        context = {
+            'paintingObjects': paintingObjects,
+        }
 
 
     # display  index.html file in templates folder with data 

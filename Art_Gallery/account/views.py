@@ -3,31 +3,88 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 # get_language identifies the language, activate activaes langauges, 
 # gettext gets string to be translated
-from django.utils.translation import get_language, activate, gettext
+from django.utils.translation import get_language
 # to push POST data into database you need to use a model
-# django provides user models and auth models
 # messages is used for displaying error messages on html page
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.conf import settings
-from django.core.mail import send_mail
 # accounts app views
 from django.contrib.auth.decorators import login_required
+# import AccountForm
+from account.forms import *
+from .models import Account
+from phonenumber_field.modelfields import PhoneNumberField
+# used for sending emails on account creation
+from django.core.mail import send_mail, EmailMessage
+# converts html template to a string message for emails
+from django.template.loader import render_to_string
+# import success messsage
+from django.contrib.messages.views import SuccessMessageMixin
+
+# send welcome email message to new users on registration
+def register_success_email(request):
+    # see register_success_email template
+    # name is the context dictionary used to get the correct user name for email
+    template = render_to_string('../templates/register_success_email.html', {'name':request.user.first_name})
+    email = EmailMessage(
+        # email subject title default is 'subject'
+        'ご登録ありがとうございます！-- Thank you for registering!',
+        # email template default is 'body'
+        template,
+        # this will be changed to Kaoru's new gmail 
+        settings.EMAIL_HOST_USER,
+        # recipient list
+        [request.user.email],
+    )
+    email.fail_silently=False
+    email.send()
+
+
 
 
 # only authenticated and authoritzed users can request this page
+# render AccountForm here
 @login_required(login_url='login')
-def myaccount(request, pk=None):
+def userAccount(request, pk=None):
+    # get user form
+    user_form = UserForm(request.POST if request.POST else None, instance=request.user)
+    # get account form
+    account_form = AccountForm(request.POST if request.POST else None, instance = Account.objects.get(user=request.user))
 
-    # if user is logged in
-    if request.user.is_authenticated:
-        # log the user in, creates a sessionid cookie
-        return render(request,'myaccount.html')
-    # make a default error message and redirect to homepage
-    else:
-        return redirect('login')
+    if request.method == 'POST':
+        print('\n')
+        print("ACCOUNT FORM IS VALID: " + str(account_form.is_valid()))
+        print('\n')
+        print("USER FORM IS VALID: " + str(user_form.is_valid()))
+        print('\n')
 
-    
+        # first check if form is valid
+        if account_form.is_valid() and user_form.is_valid(): # and user_form.is_valid():
+            
+            user_form.save()
+            account_form.save()
+            # send success message
+            # Your account changes have been saved!
+            context = {
+                'account_form': account_form,
+                'user_form': user_form,
+            }
+            # set success message
+            messages.success(request, _('変更が正常に保存されました'))
+            return render(request,'myaccount.html',context)
+        else:
+            context = {
+                'account_form': account_form,
+                'user_form': user_form,
+            }
+            return render(request,'myaccount.html',context)
+    context = {
+        'account_form': account_form,
+        'user_form': user_form,
+    }    
+    return render(request, 'myaccount.html',context)  
+
 # create register.html in template dir
 # CREATING NEW USERS
 # param is http request
@@ -64,6 +121,7 @@ def register(request):
         else:
             username = request.POST['username']
 
+        # need to validate email other than just length
         if len(request.POST['email']) == 0:
             # send error message to page
             messages.info(request,_('有効なメールアドレスを入力してください'))
@@ -106,42 +164,60 @@ def register(request):
             else:
                 # create a new user for each object instance
                 # all of these params are available in the model object that Django provides
-                user = User.objects.create_user(username = username, password = password1, email = email, first_name = first_name, last_name = last_name)
+                # need to validate email
+                user = User.objects.create_user(
+                    username = username, 
+                    password = password1, 
+                    email = email, 
+                    first_name = first_name, 
+                    last_name = last_name
+                )
 
                 # save the user to the db, refresh table, then view again in pgadmin
                 user.save()
-                # send error message to page
+                # also create and save user account
+                user_account = Account.objects.create(
+                    user=user,
+                )
+                user_account.save()
 
+                # send thank you email to new user
+                # register_success_email template
+                # name is the context dictionary used to get the correct user name for email
+                template = render_to_string('../templates/register_success_email.html', {'name':user.first_name})
+                email = EmailMessage(
+                    # email subject title default is 'subject'
+                    'ご登録ありがとうございます！-- Thank you for registering!',
+                    # email template default is 'body'
+                    template,
+                    # this will be changed to Kaoru's new gmail 
+                    settings.EMAIL_HOST_USER,
+                    # recipient list
+                    [user.email],
+                )
+                email.fail_silently=False
+                email.send()
         # passwords do not match
         else:
             messages.info(request,_('パスワードが一致していません。一致するパスワードを再入力してください'))
-            print("Register error language:" + get_language())
             # return to the register page again
             return redirect('register')
-        print("Register redirect to login language:" + get_language())
 
-        # SEND EMAIL TEST
-        subject = 'TIIIAAAANNNNKKK.'
-        message = "It's haaapaa. ANd I told ya. Cause I know ya. And you know that"
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.email,]
-        send_mail(subject,message,email_from,recipient_list)
 
         # redirect to login page to verify that registration worked
         # and prompt user to login
+        messages.info(request, _('アカウントが作成されました！ログインしてください'))
         return redirect('login')
 
 
     # executed when http request is get to display the register page
     else:
-        print("Reegister get language:" + get_language())
         return render(request, 'register.html')
 
 # login def
 def login(request):
     # fetch user login data
     if request.method == 'POST':
-        print("Login POST language:" + get_language())
         # get login data
         #username
         if len(request.POST['username']) == 0:
@@ -168,6 +244,7 @@ def login(request):
         if user is not None:
             # log the user in, creates a sessionid cookie
             auth.login(request, user)
+            key = user.pk
             # redirect to home
             return redirect('/')
         # else if username is not in db
@@ -177,12 +254,10 @@ def login(request):
 
 # else if request is GET, go to login page
     else:
-        print("Login GET language:" + get_language())
         return render(request, 'login.html')
 
 # logout
 def logout(request):
-    print("log out language:" + get_language())
     # removes cookie from browser
     auth.logout(request)
     # return to homepage

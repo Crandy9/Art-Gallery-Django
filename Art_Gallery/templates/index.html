@@ -44,7 +44,7 @@
 	<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
 		<!-- NAVBAR -->
 		<!-- sticky nav -->
-		<nav class="navbar sticky-top navbar-expand-md navbar-light" style="background-color:rgba(255, 253, 218, 0.9);">
+		<nav class="navbar sticky-top navbar-expand-md navbar-light" style="background-color:rgba(255, 253, 218, 0.95);">
 			<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
 			<div class="container">
 				<!-- navbar brand is the title -->
@@ -56,7 +56,7 @@
 				</a>
 				{% if user.is_authenticated %}
 				<!-- welcome user by using first name -->
-				<span class="nav-item navbar-text text-dark">{% translate 'こんにちは' %}, {{user.first_name}}!</span>
+				<span class="nav-item navbar-text text-dark">{% translate 'こんにちは' %} {{user.username}}!</span>
 				{% endif %}
 
 				<!--hamburger button animation -->
@@ -173,6 +173,14 @@
 			{% block myaccount %}{% endblock %}
 		</div>
 		<!-- end my account block -->
+		<!-- confirm account email -->
+		{% block confirmAccount %}
+		{% endblock %}
+		<!-- end confrim account email -->
+		<!-- account confirmed -->
+		{% block account_confirmed %}
+		{% endblock %}
+		<!-- end account confirmed -->
 		<!-- checkout -->
 		<div>
 			{% block checkout %}{% endblock %}
