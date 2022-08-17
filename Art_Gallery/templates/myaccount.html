@@ -1,7 +1,8 @@
 {% extends "index.html" %}
 {% load i18n %}
+{% load static %}
 {% block title %}{% translate 'アカウント詳細' %}{% endblock %}
-{% block myaccount %}
+{% block myaccountcontent %}
 
 <style>
     .errorlist {
@@ -155,9 +156,24 @@
                                 <!-- submit account change form -->
                                 <div class="text-center">
                                     <!-- redirect to registration page put this in login page -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-2 mt-3">{% translate "変更を保存する" %}</button>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block mb-2 mt-3">{% translate "変更を保存する" %}</button>
                                 </div>
                             </form>
+                            <!-- delete user -->
+                            <div class="text-center">
+                                <!-- delete account -->
+                                <a role = "button" onclick="showDeleteContent()" class="btn btn-danger btn-sm btn-block mb-2 mt-3" id="first_chance">{% translate "アカウントを削除する" %}</a>
+                            </div>
+                            <div class="text-center" id="final_decision"  style="display:none">
+                                <!-- Are you sure you want to delete your account? (This operation cannot be undone) -->
+                                <p class="text-danger mt-3" style="white-space: pre-line;">{% translate 'アカウントを削除してもよろしいですか？' %}
+                                    {% translate '(警告！この操作は元に戻せません)'%}
+                                </p>
+                                <!-- delete account -->
+                                <a role="button" href="/{{LANGUAGE_CODE}}/account/deleteaccount" class="btn btn-danger btn-sm btn-block mb-2 mt-3">{% translate "アカウントを削除する" %}</a>
+                                <!-- cancel -->
+                                <a role="button" href=""class="btn btn-outline-info btn-sm btn-block mb-2 mt-3" style="color: black;">{% translate "キャンセル" %}</a>
+                            </div>
                         </div>
                     </div>
                     <!-- END CARD -->
@@ -167,6 +183,10 @@
     </main>
 </div>
 <script>
+    // when account button is clicked, show final warning message
+    function showDeleteContent() {
+        $('#final_decision').show();
+    }
     // get country dropdown id from browser dev tools
     // django hides the tag information
     var country = document.getElementById("id_country");

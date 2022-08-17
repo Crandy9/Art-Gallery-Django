@@ -18,8 +18,11 @@ from django.utils.translation import gettext as _
 from account.forms import *
 from django.http import HttpResponseRedirect
 
+
+
+
 def index(request, pk=None):
-    print("Homepage language:" + get_language())
+    print("\nHomepage language:" + get_language() + '\n')
     # dynamically access and fetch Portrait data from db or admin actions
     paintingObjects = Portrait.objects.all()
 
@@ -64,12 +67,13 @@ from account.views import userAccount
 # also using login_required decorator
 @login_required(login_url='/account/login')
 def checkout(request, pk=None):
-    # uri of account page
-    account_uri= reverse(userAccount, kwargs={'pk':request.user.account.user_id})
 
-    # GET
+
     # if user hasn't updated or entered account info, redirect to account page with message
     if request.user.account.address_entered == False:
+        # get URL of account page
+        # userAccount is the view name, and kwargs is the account's user_id which is the user's pk
+        account_uri= reverse(userAccount, kwargs={'pk':request.user.account.user_id})
         # Please update your shipping address before continuing with your purchase.
         messages.info(request, _('購入を続行する前に、配送先住所を更新してください。'))
 
@@ -79,3 +83,8 @@ def checkout(request, pk=None):
         return redirect(uri)
     # else render the checkout template
     return render(request, 'checkout.html')
+
+# handle 404s, 500 server errors, 
+def error(request, exception):
+    return render(request,'error.html')
+

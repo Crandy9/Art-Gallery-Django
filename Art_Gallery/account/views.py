@@ -23,7 +23,38 @@ from django.template.loader import render_to_string
 from django.contrib.messages.views import SuccessMessageMixin
 
 
+# boolean to turn off emails
+EMAIL_ON = True
 
+# forgot password
+def password_reset(request):
+    return render(request, 'passwordreset.html')
+
+def delete_account(request):
+
+    this_user = request.user
+    this_user.delete()
+    # send farewell email
+    # name is the context dictionary used to get the correct user name for email
+    template = render_to_string('../templates/account_deleted_email.html', {'name':request.user.first_name})
+    email = EmailMessage(
+        # email subject title default is 'subject'
+        'あなたのアカウントは削除されました -- Your Account has been Deleted',
+        # email template default is 'body'
+        template,
+        # this will be changed to Kaoru's new gmail 
+        settings.EMAIL_HOST_USER,
+        # recipient list
+        [request.user.email],
+    )
+    email.fail_silently=False
+    # eonly send email if this flag is true
+    if EMAIL_ON:
+        email.send()
+    # account successfully deleted
+    messages.warning(request, _('アカウントが正常に削除されました'))
+    # return home with account deleted message
+    return redirect('/')
 
 # only authenticated and authoritzed users can request this page
 # render AccountForm here
@@ -71,8 +102,10 @@ def userAccount(request, pk=None):
                 [request.user.email],
             )
             email.fail_silently=False
-            # enable this after testing
-            email.send()
+            # eonly send email if this flag is true
+            if EMAIL_ON:
+                email.send()
+
             
             # check if next param was in url for redirection
             if 'next' in request.POST:
@@ -132,14 +165,23 @@ def register(request):
             return redirect('register')
         else:
             username = request.POST['username']
-
         # need to validate email other than just length
         if len(request.POST['email']) == 0:
             # send error message to page
             messages.info(request,_('有効なメールアドレスを入力してください'))
             # return to the register page again
             return redirect('register')
+        # lazily checking email
+        elif not '@' in request.POST['email']:
+            # lazy checking of email signautres
+            print("Attempted email address: " + str(request.POST['email']) + '\n')
+            # send error message to page
+            messages.info(request,_('有効なメールアドレスを入力してください'))
+            # return to the register page again
+            return redirect('register')
         else:
+            # lazy checking of email signautres
+            print("Attempted email address: " + str(request.POST['email']) + '\n')
             email = request.POST['email']
 
         if len(request.POST['password1']) == 0:
@@ -208,7 +250,9 @@ def register(request):
                     [user.email],
                 )
                 email.fail_silently=False
-                email.send()
+                # only send the email if this flag is true
+                if EMAIL_ON:
+                    email.send()
         # passwords do not match
         else:
             messages.info(request,_('パスワードが一致していません。一致するパスワードを再入力してください'))
@@ -278,3 +322,4 @@ def logout(request):
     auth.logout(request)
     # return to homepage
     return redirect('/')
+

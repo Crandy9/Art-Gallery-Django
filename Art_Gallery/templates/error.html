@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+<div class="container justify-content-center">
+    {% if LANGUAGE_CODE == 'ja' %}   
+    <h1>
+        このページの読み込み中に問題が発生しました。後でもう一度お試しください。
+    </h1> 
+    <p>Error Status code: </p>
+    <a href="/" role="button">トップページ</a>
+
+    {% else %}
+    <h1>
+        There was a problem loading this page. Please try again later.
+    </h1>
+    <p>Error Status code: {{request.Status}}</p>
+
+    <a href="/" role="button">Return to homepage</a>
+    {% endif %}
+</div>

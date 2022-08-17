@@ -1,8 +1,7 @@
 {% extends "index.html" %}
 {% load i18n %}
-
     {% block title %} Register {% endblock %}
-    {% block content %}
+    {% block registercontent %}
     <div class="p-5">
         <main role="main">
             <!-- centers content in center of page -->
@@ -14,16 +13,13 @@
                             <div class="card-body">
                                 <h2 class="card-title p-3">{% translate "会員登録" %}</h2>
                                 <!-- error messages -->
-                                <div class="ms-auto text-danger">
-                                    <!-- DTF loop for error messages -->
-                                    {% for message in messages %}
-                                    <!-- jinja format to print the message -->
+                                {% for message in messages %}
                                     <h3>{{message}}</h3>
-                                    {% endfor %}
+                                {% endfor %}
                                 </div>
                                 <!-- end error messages -->
                                 <!-- form for logging in -->
-                                <form action="register" method="post">
+                                <form action="register" method="post" novalidate id="accountForm">
                                     <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
                                     {% csrf_token %}
                                     <!-- First name -->

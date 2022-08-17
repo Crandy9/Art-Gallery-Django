@@ -38,5 +38,8 @@ urlpatterns += i18n_patterns (
     path('account/', include('account.urls')),
     prefix_default_language=True
 )
+# add a flag for
+# handling the 404 error
+# handler404 = 'Art_Gallery_App.views.error'
 # adding path
 urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,5 +12,8 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     # my account page accounts/myaccount
     # path('myaccount/<int:pk>', views.myaccount, name='myaccount')
-    path('myaccount/<int:pk>', views.userAccount, name='myaccount')
+    path('myaccount/<int:pk>', views.userAccount, name='myaccount'),
+    path('deleteaccount', views.delete_account, name='delete_account'),
+    path('passwordreset', views.password_reset, name='password_reset'),
+
 ]

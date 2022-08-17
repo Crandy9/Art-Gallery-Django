@@ -122,6 +122,16 @@
 		</nav>
 		<!-- END NAVBAR -->
 
+		<!-- ACCOUNT DELETED MESSAGE -->
+		{% if messages %}
+		<div style="background:rgba(224, 255, 223, 0.9);">
+			{% for message in messages %}
+				{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+				<p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
+				{% endif %}
+			{% endfor %}
+		</div>
+		{% endif %}
 		<!-- change language -->
 		<div class="container container d-flex justify-content-end mt-2 ">
 			{% get_current_language as LANGUAGE_CODE %}
@@ -163,34 +173,32 @@
 			</div>
 		</div>
 
+		<!-- register block -->
+		<div id="register_content">
+			{% block registercontent %}{% endblock %}
+		</div>
 		<!-- login block see login.html -->
 		<div id="login_content">
-			{% block content %}{% endblock %}
+			{% block logincontent %}{% endblock %}
 		</div>
-		<!-- end login block -->
 		<!-- my account block -->
-		<div>
-			{% block myaccount %}{% endblock %}
+		<div id="myaccount_content">
+			{% block myaccountcontent %}{% endblock %}
 		</div>
-		<!-- end my account block -->
-		<!-- confirm account email -->
-		{% block confirmAccount %}
-		{% endblock %}
-		<!-- end confrim account email -->
-		<!-- account confirmed -->
-		{% block account_confirmed %}
-		{% endblock %}
-		<!-- end account confirmed -->
-		<!-- checkout -->
-		<div>
-			{% block checkout %}{% endblock %}
+		<!-- checkout block-->
+		<div id="checkout_content">
+			{% block checkoutcontent %}{% endblock %}
+		</div>
+		<!-- password reset block-->
+		<div id="password_reset_content">
+			{% block passwordresetcontent %}{% endblock %}
 		</div>
 		<!--  PORTRAIT SECTION -->
 		<section class="gallery min-vh-100" >
 			<div class="container-lg">
 				<!-- carousel page see carousel.html -->
 				<div class="carousel">
-					{% block carousel1_content %}{% endblock %}
+					{% block carousel_content %}{% endblock %}
 				</div>
 				<!-- gy-4 controls vertical gutter (space between columns) width padding 
 					row-cols-2 means 2 colums for extra small screens < 576px

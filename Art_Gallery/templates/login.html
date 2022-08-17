@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 {% load i18n %}
-
-    {% block title %} Log in {% endblock %}
-    {% block content %}
+{% load static %}
+{% block title %} {% translate 'ログイン' %}{% endblock %}
+{% block logincontent %}
     <div class="p-5">
         <main role="main">
             <!-- centers content in center of page -->
@@ -37,9 +37,10 @@
                                     <div class="form-group p-3">
                                         <input type="text" name="username" placeholder="{% translate "ユーザー名" %}" id="form2Example1" class="form-control" />
                                     </div>
+                                    {% get_current_language as LANGUAGE_CODE %}
                                     <div class="form-group p-3">
                                         <input type="password" name="password" placeholder="{% translate "パスワード" %}" id="form2Example1" class="form-control" />
-                                        <a class = "ms-auto" href="" style="text-decoration: none;">{% translate 'パスワードをお忘れですか？' %}</a>
+                                        <a class = "ms-auto" href="/account/passwordreset" style="text-decoration: none;">{% translate 'パスワードをお忘れですか？' %}</a>
                                     </div>
                                     <div class="text-center">
                                         <!-- redirect to registration page put this in login page -->
@@ -53,7 +54,7 @@
                                         <!-- redirect to registration page put this in login page -->
                                         <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/account/register">{% translate 'アカウントをお持ちでない方' %}</a>
                                     </div>
-                                    <p class="card-text">{% translate 'または' %}</p>
+                                    <!-- <p class="card-text">{% translate 'または' %}</p>
                                     <button type="button" class="btn btn-link btn-floating mx-1" style="background-color: rgb(0, 102, 255);" title=" {% translate 'フェイスブック' %}">
                                     <i class="fab fa-facebook-f"style="color: white;"></i>
                                     </button>
@@ -64,7 +65,7 @@
 
                                     <button type="button" class="btn btn-link btn-floating mx-1" title=" {% translate 'ツイッター' %}">
                                     <i class="fab fa-twitter"></i>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
