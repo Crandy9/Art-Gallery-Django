@@ -8,13 +8,14 @@ from . import views
 #internationalization tools
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
-
+from account.views import userAccount
 urlpatterns = [
     # calls index function in views.py
     path('', views.index, name='index'),
     # by default, URL looks like this: /ja/carousel/14
     path('carousel/<int:pk>', views.carousel, name='carousel'),
-    path('checkout/<int:pk>', views.checkout, name='checkout')
+    path('checkout/<int:pk>', views.checkout, name='checkout'),
+
 ]
 
 

@@ -14,10 +14,10 @@
                             <div class="card-body">
                                 <h2 class="card-title p-3">{% translate 'ログイン' %}</h2>
                                 <!-- error messages -->
-                                <div class="text-center text-success">
+                                <div style="background:rgba(224, 255, 223, 0.9);">
                                     {% for message in messages %}
                                     <!-- jinja format to print the message -->
-                                    <p>{{message}}</p>
+                                    <p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
                                     {% endfor %}
                                 </div>
                                 <!-- end error messages -->
@@ -25,6 +25,13 @@
                                 <form action="login" method="post">
                                     <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
                                     {% csrf_token %}
+                                    <!-- check GET request object if 'next' appears in URL for redirects after login 
+                                    -->
+                                    {% if request.GET.next %}
+                                        <!-- ex.) if url is http://127.0.0.1:8000/ja/account/login?next=/ja/checkout/4
+                                            request.GET.next will equal /ja/checkout/4 -->
+                                        <input type="hidden" name="next" value="{{request.GET.next}}">
+                                    {% endif %}
                                     <!-- extend this to allow username or email for login credentials -->
                                     <!-- Username input -->
                                     <div class="form-group p-3">

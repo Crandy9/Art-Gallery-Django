@@ -30,9 +30,9 @@
                     <div class="card credintial-card">
                         <div class="card-body">
                             {% if messages %}
-                                <div class="text-center text-success">
+                                <div style="background:rgba(224, 255, 223, 0.9);">
                                     {% for message in messages %}
-                                    <p>{{message}}</p>
+                                    <p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
                                     {% endfor %}
                                 </div>
                             {% endif %}
@@ -49,6 +49,11 @@
                             <form method="post" novalidate id="accountForm">
                                 <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
                                 {% csrf_token %}
+                                {% if request.GET.next %}
+                                <!-- ex.) if url is http://127.0.0.1:8000/ja/account/login?next=/ja/checkout/4
+                                    request.GET.next will equal /ja/checkout/4 -->
+                                <input type="hidden" name="next" value="{{request.GET.next}}">
+                                {% endif %}
                                 <!-- USER DATA -->
                                 <!-- first name -->
                                 <div class="form-group p-1">
@@ -123,6 +128,12 @@
                                     <label for="state">{% translate '州' %}</label>
                                     {{ account_form.state }} 
                                 </div>
+                                <!-- city -->
+                                <div class="form-group p-1" id="city">
+                                    {{ account_form.city.errors }} 
+                                    <label for="city">{% translate '市区町村 (市/町)' %}</label>
+                                    {{ account_form.city }} 
+                                </div>
                                 <!-- street 1 -->
                                 <div class="form-group p-1" id="street1">
                                     {{ account_form.street1.errors }} 
@@ -133,12 +144,6 @@
                                 <div class="form-group p-1" id="street2">
                                     <label for="street2">{% translate '部屋番号（該当する場合)' %}</label>
                                     {{ account_form.street2 }} 
-                                </div>
-                                <!-- city -->
-                                <div class="form-group p-1" id="city">
-                                    {{ account_form.city.errors }} 
-                                    <label for="city">{% translate '市区町村 (市/町)' %}</label>
-                                    {{ account_form.city }} 
                                 </div>
                                 <!-- verify format for Japanese post code and US zip code -->
                                 <div class="form-group p-1" id="postal-code">
@@ -161,4 +166,36 @@
         </div>
     </main>
 </div>
+<script>
+    // get country dropdown id from browser dev tools
+    // django hides the tag information
+    var country = document.getElementById("id_country");
+    // get state value
+    var state = document.getElementById("id_state");
+    // get prefecture value
+    var prefecture = document.getElementById("id_prefecture");
+
+    function onChange() {
+        var selectedCountry = country.value;
+        var changedState = state.value;
+        var changedPref = prefecture.value;
+
+
+        if (selectedCountry == 'JP') {
+            // hide us state dropdown and set state value to null 
+            $('#state-dropdown').hide();
+            // and show Japanese prefectures dropdown
+            $('#prefecture-dropdown').show();
+
+        }
+        else if (selectedCountry == 'US') {
+            // hide Japanese prefectures and show us state dropdown 
+            $('#state-dropdown').show();
+            $('#prefecture-dropdown').hide();
+        }
+    }
+    // this retrieves the new country text 
+    country.onchange = onChange;
+    onChange();
+</script>
 {% endblock %}

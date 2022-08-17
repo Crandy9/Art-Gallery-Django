@@ -125,6 +125,8 @@ class AccountForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
 
+        # setting order for prefecture dropdowns
+        self.fields['prefecture'].queryset = Account.objects.order_by('prefecture')
         for field_name, field in self.fields.items():
             # giving placeholders to textfields
             if field_name == 'phone_number':

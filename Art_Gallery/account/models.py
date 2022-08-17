@@ -61,6 +61,9 @@ PREFECTURES = {
 }
 
 STATES = (
+    ('Armed Forces','Armed Forces - AA'),
+    ('Armed Forces Europe','Armed Forces Europe - AE'),
+    ('Armed Forces Pacific','Armed Forces Pacific - AP'),
     ('Alabama','Alabama'),
     ('Alaska','Alaska'),
     ('Arizona','Arizona'),
@@ -113,9 +116,6 @@ STATES = (
     ('West Virginia','West Virginia'),
     ('Wisconsin','Wisconsin'),
     ('Wyoming','Wyoming'),
-    ('Armed Forces','Armed Forces - AA'),
-    ('Armed Forces Europe','Armed Forces Europe - AE'),
-    ('Armed Forces Pacific','Armed Forces Pacific - AP'),
     ('Guam','Guam'),
     ('Puerto Rico', 'Puerto Rico'),
 )
@@ -134,15 +134,7 @@ class Account(models.Model):
     phone_number = models.CharField(max_length=14,blank=True,null=True)
     date_created = models.DateTimeField(auto_now_add=True,null=True)
     # Shipping Addresses:
-    # Japanese Shipping Address requirements:
-
-
-    # US Shipping Address requirements:
-    # street, 
-    # town/city, 
-    # state, 
-    # postal code XXXXX or XXXXX-XXXX
-
+    # US Shipping Address 
     street1 = models.CharField(max_length=100, blank=True)
     street2 = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=50, blank=True)
@@ -150,19 +142,9 @@ class Account(models.Model):
     state = models.CharField(choices =STATES, max_length=50, blank=True, null=True)
     prefecture = models.CharField(choices=PREFECTURES, max_length=50, blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True)
+    address_entered = models.BooleanField(default=False)
 
 
     def __str__(self):
         # return str(self.user)
         return self.user.username
-
-
-# @receiver(post_save, sender=User)
-# def create_account(sender, instance, created, **kwargs):
-#     if created:
-#         Account.objects.create(user=instance)
-#     instance.account.save()
-
-# @receiver(post_save, sender=User)
-# def save_account(sender, instance, **kwargs):
-#     instance.accounts.save()

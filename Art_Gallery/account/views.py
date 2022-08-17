@@ -22,24 +22,6 @@ from django.template.loader import render_to_string
 # import success messsage
 from django.contrib.messages.views import SuccessMessageMixin
 
-# send welcome email message to new users on registration
-def register_success_email(request):
-    # see register_success_email template
-    # name is the context dictionary used to get the correct user name for email
-    template = render_to_string('../templates/register_success_email.html', {'name':request.user.first_name})
-    email = EmailMessage(
-        # email subject title default is 'subject'
-        'ご登録ありがとうございます！-- Thank you for registering!',
-        # email template default is 'body'
-        template,
-        # this will be changed to Kaoru's new gmail 
-        settings.EMAIL_HOST_USER,
-        # recipient list
-        [request.user.email],
-    )
-    email.fail_silently=False
-    email.send()
-
 
 
 
@@ -60,19 +42,49 @@ def userAccount(request, pk=None):
         print('\n')
 
         # first check if form is valid
-        if account_form.is_valid() and user_form.is_valid(): # and user_form.is_valid():
-            
+        if account_form.is_valid() and user_form.is_valid():
             user_form.save()
             account_form.save()
+            # set address_entered flag to true so user can make purchases
+            account_user = Account.objects.get(user=request.user)
+            account_user.address_entered = True
+            account_user.save()
             # send success message
             # Your account changes have been saved!
             context = {
                 'account_form': account_form,
                 'user_form': user_form,
             }
-            # set success message
-            messages.success(request, _('変更が正常に保存されました'))
-            return render(request,'myaccount.html',context)
+
+            # send notice when user makes a change to account
+            # changed_account_notice template
+            # name is the context dictionary used to get the correct user name for email
+            template = render_to_string('../templates/changed_account_notice.html', {'name':request.user.first_name})
+            email = EmailMessage(
+                # email subject title default is 'subject'
+                'アカウント情報変更のお知らせ-- There was a change to your account',
+                # email template default is 'body'
+                template,
+                # this will be changed to Kaoru's new gmail 
+                settings.EMAIL_HOST_USER,
+                # recipient list
+                [request.user.email],
+            )
+            email.fail_silently=False
+            # enable this after testing
+            email.send()
+            
+            # check if next param was in url for redirection
+            if 'next' in request.POST:
+                #  this should be the checkout url
+                return redirect(request.POST.get('next'))
+            # else just display the form again with success msg
+            else:
+                # set success message
+                messages.success(request, _('変更が正常に保存されました'))
+                return render(request,'myaccount.html',context)
+
+        # if form is not valid, redisplay form with error msgs
         else:
             context = {
                 'account_form': account_form,
@@ -245,8 +257,12 @@ def login(request):
             # log the user in, creates a sessionid cookie
             auth.login(request, user)
             key = user.pk
-            # redirect to home
-            return redirect('/')
+            # redirect to home or other redirection
+            # check if next param was in url for redirection
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('/')
         # else if username is not in db
         else:
             messages.error(request, _('このユーザーは存在しません'))

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-15 06:49+0000\n"
+"POT-Creation-Date: 2022-08-16 06:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Main Project/settings.py:207
+#: Art_Gallery_App/views.py:73
+msgid "購入を続行する前に、配送先住所を更新してください。"
+msgstr "Please update your shipping address before continuing with your purchase."
+
+#: Main Project/settings.py:208
 msgid "English"
 msgstr ""
 
-#: account/forms.py:28 account/views.py:102
+#: account/forms.py:28 account/views.py:104
 msgid "名を入力してください"
 msgstr "Please enter your first name"
 
-#: account/forms.py:36 account/views.py:110
+#: account/forms.py:36 account/views.py:112
 msgid "姓を入力してください"
 msgstr "Please enter your last name"
 
-#: account/forms.py:44
+#: account/forms.py:43
 msgid ""
 "有効なメールアドレスを入力してください。(配達をサポートするために使用される可"
 "能性があります)"
@@ -38,11 +42,11 @@ msgstr ""
 "Please enter a valid email address (in case we need to contact you in "
 "regards to your shipment)"
 
-#: account/forms.py:57 templates/myaccount.html:76 templates/register.html:43
+#: account/forms.py:52 templates/myaccount.html:92 templates/register.html:43
 msgid "メールアドレス"
 msgstr "email address"
 
-#: account/forms.py:79 account/forms.py:81
+#: account/forms.py:68
 msgid ""
 "有効な電話番号を入力して下さい\n"
 "(配達をサポートするために使用される可能性があります)"
@@ -50,90 +54,98 @@ msgstr ""
 "Please enter a valid phone number\n"
 "(in case we need to contact you in regards to your shipment)"
 
-#: account/forms.py:88
+#: account/forms.py:70
+msgid "有効な電話番号を入力して下さい)"
+msgstr "Please enter a valid phone number"
+
+#: account/forms.py:77
 msgid "ドロップダウン メニューから国を選択してください"
 msgstr "Please select a country from the dropdown menu."
 
-#: account/forms.py:100
+#: account/forms.py:89
 msgid "ドロップダウン メニューから州を選択してください"
 msgstr "Please select a state from the dropdown menu."
 
-#: account/forms.py:111
+#: account/forms.py:100
 msgid "ドロップダウン メニューから府県を選択してください"
 msgstr "Please select a prefecture from the dropdown menu."
 
-#: account/forms.py:118
+#: account/forms.py:107
 msgid "有効な住所を入力して下さい"
 msgstr "Please enter a valid street address"
 
-#: account/forms.py:125
+#: account/forms.py:114
 msgid "有効な市区町村を入力して下さい"
 msgstr "Please enter a valid city name"
 
-#: account/forms.py:132
+#: account/forms.py:121
 msgid "有効な郵便番号を入力して下さい"
 msgstr "Please enter a valid zip code"
 
-#: account/forms.py:142
+#: account/forms.py:133
 msgid "例：000-0000-0000"
 msgstr "ex) 000-000-0000"
 
-#: account/forms.py:144
+#: account/forms.py:135
 msgid "住所"
 msgstr "street 1"
 
-#: account/forms.py:146
+#: account/forms.py:137
 msgid "部屋番号"
 msgstr "street 2"
 
-#: account/forms.py:148
+#: account/forms.py:139
 msgid "例：〇〇市〇〇町"
 msgstr "ex) Chattanooga"
 
-#: account/forms.py:150
+#: account/forms.py:141
 msgid "例 ： 000-0000"
 msgstr "ex) 12345 or 12312-1231"
 
-#: account/views.py:74
+#: account/views.py:76
 msgid "変更が正常に保存されました"
 msgstr "Changes saved successfully"
 
-#: account/views.py:118 account/views.py:224
+#: account/views.py:120 account/views.py:227
 msgid "ユーザー名を入力してください"
 msgstr "Please enter a username"
 
-#: account/views.py:127
+#: account/views.py:129
 msgid "有効なメールアドレスを入力してください"
 msgstr "Please enter a valid email address."
 
-#: account/views.py:135
+#: account/views.py:137
 msgid "パスワードを入力して下さい"
 msgstr "re-enter password"
 
-#: account/views.py:143
+#: account/views.py:145
 msgid "パスワードを再入力してください"
 msgstr "Please enter your first name"
 
-#: account/views.py:155
+#: account/views.py:157
 msgid "ユーザー名は既に存在します。別のユーザー名を入力してください"
 msgstr "Username already exists. Please enter another username"
 
-#: account/views.py:161
+#: account/views.py:163
 msgid ""
 "メールアドレスは既に登録されています。別のメールアドレスを入力してください"
 msgstr ""
 "This email address is already registered. Please use a different email "
 "address"
 
-#: account/views.py:202
+#: account/views.py:204
 msgid "パスワードが一致していません。一致するパスワードを再入力してください"
 msgstr "Passwords do not match"
 
-#: account/views.py:231
+#: account/views.py:211
+msgid "アカウントが作成されました！ログインしてください"
+msgstr "Account created! Please login."
+
+#: account/views.py:234
 msgid "入力したパスワードが正しくありません。もう一度お試しください"
 msgstr "The password you entered is incorrect. Please try again"
 
-#: account/views.py:251
+#: account/views.py:254
 msgid "このユーザーは存在しません"
 msgstr "Username does not exist"
 
@@ -165,7 +177,7 @@ msgstr "Create Account"
 msgid "メルカリ"
 msgstr "My Mercari"
 
-#: templates/login.html:31 templates/myaccount.html:65
+#: templates/login.html:31 templates/myaccount.html:81
 #: templates/register.html:39
 msgid "ユーザー名"
 msgstr "username"
@@ -202,59 +214,59 @@ msgstr "Twitter"
 msgid "アカウント詳細"
 msgstr "My Account"
 
-#: templates/myaccount.html:23
+#: templates/myaccount.html:39
 msgid "アカウント情報の編集"
 msgstr "Edit Account Information"
 
-#: templates/myaccount.html:28
+#: templates/myaccount.html:44
 msgid "これらのエラーを修正してください"
 msgstr "Please correct the errors below and try again."
 
-#: templates/myaccount.html:40
+#: templates/myaccount.html:56
 msgid "氏名"
 msgstr "Name"
 
-#: templates/myaccount.html:44 templates/register.html:31
+#: templates/myaccount.html:60 templates/register.html:31
 msgid "名前"
 msgstr "first name"
 
-#: templates/myaccount.html:54 templates/register.html:35
+#: templates/myaccount.html:70 templates/register.html:35
 msgid "苗字"
 msgstr "last name"
 
-#: templates/myaccount.html:88
+#: templates/myaccount.html:103
 msgid "電話番号"
 msgstr "Phone number"
 
-#: templates/myaccount.html:96
+#: templates/myaccount.html:111
 msgid "国/地域"
 msgstr "Country"
 
-#: templates/myaccount.html:102
+#: templates/myaccount.html:117
 msgid "都道府県"
 msgstr "Prefecture"
 
-#: templates/myaccount.html:108
+#: templates/myaccount.html:123
 msgid "州"
 msgstr "State"
 
-#: templates/myaccount.html:114
-msgid "住所 (丁目・番地・号)"
-msgstr "Street 1"
-
-#: templates/myaccount.html:119
-msgid "部屋番号（該当する場合)"
-msgstr "Street 2 (if applicable)"
-
-#: templates/myaccount.html:125
+#: templates/myaccount.html:129
 msgid "市区町村 (市/町)"
 msgstr "City"
 
-#: templates/myaccount.html:131
+#: templates/myaccount.html:135
+msgid "住所 (丁目・番地・号)"
+msgstr "Street 1"
+
+#: templates/myaccount.html:140
+msgid "部屋番号（該当する場合)"
+msgstr "Street 2 (if applicable)"
+
+#: templates/myaccount.html:146
 msgid "郵便番号"
 msgstr "Zip-Code"
 
-#: templates/myaccount.html:138
+#: templates/myaccount.html:153
 msgid "変更を保存する"
 msgstr "Save Changes"
 
@@ -270,28 +282,17 @@ msgstr "Register!"
 msgid "アカウントをお持ちの方"
 msgstr "Already registered? Log in!"
 
-#~ msgid "アカウントが作成されました！ログインしてください。"
-#~ msgstr "Account created! Please login."
-
 #~ msgid "例"
 #~ msgstr "Example"
 
 #~ msgid "有効なメールアドレスを入力してください。"
 #~ msgstr "Please enter a valid email address."
 
-#~ msgid "有効な電話番号を入力して下さい"
-#~ msgstr "Please enter a valid phone number"
-
 #~ msgid "日本"
 #~ msgstr "Japan"
 
 #~ msgid "アメリカ"
 #~ msgstr "United States"
-
-#, fuzzy
-#~| msgid "アカウントをお持ちでない方"
-#~ msgid "アカウントの変更を保存しました！"
-#~ msgstr "Don't have an account? Register here!"
 
 #~ msgid "マイアカウント"
 #~ msgstr "My Account"
