@@ -244,10 +244,13 @@
 								<!-- yen or dollar display-->
 								<div class="row text-center">
 									<p class="col font-weight-bold">
-										{% if LANGUAGE_CODE == 'ja' %}
+										{% if user.account.country == 'JP' %}
 										¥{{paintingData.price}}
-										{% else %}
+										{% elif user.account.country == 'US' %}
 										${{paintingData.dollar_price}}
+										<!-- make yen default if user hasn't updated country yet -->
+										{% else %}
+										¥{{paintingData.price}}
 										{% endif %}
 									</p>
 								</div>

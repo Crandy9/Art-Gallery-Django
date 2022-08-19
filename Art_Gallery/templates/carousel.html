@@ -48,10 +48,13 @@
                     <!-- skip it -->
                     {% else %}
                         <div class="card-text">
-                            {% if LANGUAGE_CODE == 'ja' %}
-                            <h4>¥{{carouselObjects.price}} </h4>
+                            {% if user.account.country == 'JP' %}
+                            ¥{{carouselObjects.price}}
+                            {% elif user.account.country == 'US' %}
+                            ${{carouselObjects.dollar_price}}
+                            <!-- make yen default if user hasn't updated country yet -->
                             {% else %}
-                            <h4>${{carouselObjects.dollar_price}} </h4>
+                            ¥{{carouselObjects.price}}
                             {% endif %}
                         </div>
                     {% endif %}
