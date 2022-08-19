@@ -41,7 +41,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	</head>
 	<!-- background image. Ignore this error the syntax is correct -->
-	<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody">
+	<body style="background-image:url({% static 'images/bg2.jpg' %})" class="myBody"">
 		<!-- NAVBAR -->
 		<!-- sticky nav -->
 		<nav class="navbar sticky-top navbar-expand-md navbar-light" style="background-color:rgba(255, 253, 218, 0.95);">
@@ -104,6 +104,12 @@
 								<a class="btn btn-outline-info btn-sm" href="/{{LANGUAGE_CODE}}/account/register">{% translate "会員登録" %}</a>
 							</li>
 						{% endif %}
+						<li id="japanFlag">
+							<button class="dropdown-item btn btn-sm" value="Submit">Japan</button>
+						</li>
+						<li id="unitedStatesFlag">
+							<button class="dropdown-item btn btn-sm" value="Submit">United States</button>
+						</li>
 							<!-- mercari icon -->
 							<!-- <li>
 								<a class="navbar-brand" href="https://jp.mercari.com/user/profile/430366596" target="_blank" style="text-decoration:none;" title=" {% translate 'メルカリ' %} ^_^">
@@ -149,8 +155,7 @@
 				Language
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="min-width: 100px !important;">
-					<!-- The set_language redirect 18n view called by post method 
-						id is what allows
+					<!-- The set_language redirect 18n view called by post method
 					-->
 					<li>
 						<form action="{% url 'set_language' %}" method="post" id="ja">
@@ -242,17 +247,18 @@
 										data-price="${{ paintingData.price }}"> -->
 								</div>
 								<!-- yen or dollar display-->
-								<div class="row text-center">
-									<p class="col font-weight-bold">
-										{% if user.account.country == 'JP' %}
-										¥{{paintingData.price}}
-										{% elif user.account.country == 'US' %}
-										${{paintingData.dollar_price}}
-										<!-- make yen default if user hasn't updated country yet -->
-										{% else %}
-										¥{{paintingData.price}}
-										{% endif %}
-									</p>
+								<div class="container row text-center">
+									<div class="jpy_currency" id="jpy-price-{{paintingData.pk}}">
+										<p class="col font-weight-bold" id="jpy">
+											¥{{paintingData.price}}
+										</p>
+									</div>
+									<!-- initially show jpy -->
+									<div class="usd_currency" id="usd-price-{{paintingData.pk}}">
+										<p class="col font-weight-bold" id="usd">
+											${{paintingData.dollar_price}}
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -262,6 +268,197 @@
 			</div>
 		</section>
 		<!-- END PORTRAIT SECTION -->
+
+					<!-- call currency changer script -->
+					<!-- show price based on country -->
+					<!-- get coutntry variable -->
+					{{ user.account.country|json_script:'currentCountry' }}
+					<!-- get user authenticated boolean -->
+					{{user.is_authenticated|json_script:'user_is_logged_in'}}
+					<script>
+
+						// variable of user's country
+						var currentCountry = JSON.parse(document.getElementById('currentCountry').textContent);
+						var user_logged_in = JSON.parse(document.getElementById('user_is_logged_in').textContent);
+
+						const japanElement = document.getElementById("japanFlag").addEventListener("click", hideUSD);
+						const unitedStatesElement = document.getElementById("unitedStatesFlag").addEventListener("click", hideJPY);
+						
+						// session storage to display and persist price based on country
+						var unitedStatesChosen = sessionStorage.getItem('unitedStatesChosen');
+
+						// will hold the divs of each painting which contains the prices
+						var jpy_list = []
+						var usd_list = []
+						// reading cookie
+						function hideUSD() {
+							if (user_logged_in == false) {
+								// set sessionstorage item
+								sessionStorage.setItem('unitedStatesChosen', 'false');
+								console.clear();
+								// when Japan country is clicked, hide usd and show jpy
+								for (usd_ids of usd_list) {
+									$(usd_ids).hide();
+								}
+								for (jpy_ids of jpy_list) {
+									$(jpy_ids).show();
+								}							
+							}
+						}
+
+						function hideJPY() {
+							if (user_logged_in == false) {
+								sessionStorage.setItem('unitedStatesChosen', 'true');
+								console.clear();
+								changedToUSA = true;
+								// when United States country is clicked, hide jpy and show usd
+								for (jpy_ids of jpy_list) {
+									$(`${jpy_ids}`).hide();
+								}
+								for (usd_ids of usd_list) {
+									$(`${usd_ids}`).show();
+								}
+							}
+						}
+
+						// on page load, only show jpy
+						function initialCountry() {
+							// when user is anonymous
+							if (user_logged_in == false) {
+
+								// get object instances of jpy divs
+								var jpyPrices = document.getElementsByClassName('jpy_currency');
+								// get object instances of usd divs
+								var usdPrices = document.getElementsByClassName('usd_currency');
+
+								// iterate over image objects to get ids of each image object's jpy prices
+								for (let jpy_price of jpyPrices) {
+									// get ids of div for each pictures jpy and usd prices
+									let jpy_price_ids = jpy_price.id;
+									// push it to list
+									jpy_list.push('#' + jpy_price_ids)
+								}
+
+								// iterate over image objects to get ids of each image object's usd prices
+								for (let usd_price of usdPrices) {
+									// get ids of div for each pictures jpy and usd prices
+									let usd_price_ids = usd_price.id;
+									// push it to list
+									usd_list.push('#' + usd_price_ids)
+								}
+								
+								
+								if (unitedStatesChosen == 'false') {
+									for (items of usd_list) {
+										$(`${items}`).hide();
+									}
+								}
+								else if (unitedStatesChosen == 'true') {
+									for (items of jpy_list) {
+										$(`${items}`).hide();
+									}
+								}
+								// if it is null
+								else {
+									// hide us items
+									for (items of usd_list) {
+										$(`${items}`).hide();
+									}
+									// show jpy items
+									for (items of jpy_list) {
+										$(`${items}`).show();
+									}
+								}
+							}
+							// else if the user is logged in but hasn't selected a country do same as above
+							else if (user_logged_in == true) {
+								// need to repopulate list
+								loggedInCountrySelect();
+								sessionStorage.removeItem('unitedStatesChosen');
+								//if the user is logged in but hasn't selected a country do same as above
+								if (currentCountry == 'JP') {
+									console.log('Inside if Logged in current country: ' + currentCountry)
+									// remove US flag and disable JP flag
+									// hide us items
+									for (items of usd_list) {
+										$(`${items}`).hide();
+									}
+
+									$('#japanFlag').show();
+									$('#japanFlag').attr('disabled','disabled');
+									$('#unitedStatesFlag').hide();
+									$('#unitedStatesFlag').attr('disabled','disabled');
+								}
+								else if (currentCountry == 'US') {
+									// remove US flag and disable JP flag
+									for (items of jpy_list) {
+										$(`${items}`).hide();
+									}
+
+									$('#unitedStatesFlag').show();
+									$('#unitedStatesFlag').attr('disabled','disabled');
+									$('#japanFlag').hide();
+									$('#japanFlag').attr('disabled','disabled');
+
+								}
+								// user hasn't updated their country yet
+								else if (currentCountry == null){
+									loggedInCountrySelect();
+								}
+							}
+
+						}
+						// same thing as initialCountry but for logged in users who haven't selected a country
+						function loggedInCountrySelect() {
+								// get object instances of jpy divs
+								var jpyPrices = document.getElementsByClassName('jpy_currency');
+								// get object instances of usd divs
+								var usdPrices = document.getElementsByClassName('usd_currency');
+
+								// iterate over image objects to get ids of each image object's jpy prices
+								for (let jpy_price of jpyPrices) {
+									// get ids of div for each pictures jpy and usd prices
+									let jpy_price_ids = jpy_price.id;
+									console.log("Logged in Painting Object's jpy price ids: " + jpy_price_ids + '\n')
+									// push it to list
+									jpy_list.push('#' + jpy_price_ids)
+								}
+
+								// iterate over image objects to get ids of each image object's usd prices
+								for (let usd_price of usdPrices) {
+									// get ids of div for each pictures jpy and usd prices
+									let usd_price_ids = usd_price.id;
+									console.log("Logged in Painting Object's usd price ids: " + usd_price_ids + '\n')
+									// push it to list
+									usd_list.push('#' + usd_price_ids)
+								}
+								
+								
+								if (unitedStatesChosen == 'false') {
+									for (items of usd_list) {
+										$(`${items}`).hide();
+									}
+								}
+								else if (unitedStatesChosen == 'true') {
+									for (items of jpy_list) {
+										$(`${items}`).hide();
+									}
+								}
+								// if it is null
+								else {
+									// hide us items
+									for (items of usd_list) {
+										$(`${items}`).hide();
+									}
+									// show jpy items
+									for (items of jpy_list) {
+										$(`${items}`).show();
+									}
+								}
+						}
+						// called onbody
+						initialCountry()
+					</script>
 
 		<!-- MODAL SECTION -->
 		<!-- id ''gallery modal is used by main.js to create modal -->
@@ -353,10 +550,8 @@
 					url: $(this).attr("href", '/carousel/' + prime_key),
 					// if success i.e. 200 response
 					success: function(data) {
-						console.log("success");
 					},
 					error() {
-						console.log("error");
 					}
 				});
 			})

@@ -47,15 +47,15 @@
                     {% if "0" in carouselObjects.price %}
                     <!-- skip it -->
                     {% else %}
+                        <!-- yen or dollar display-->
                         <div class="card-text">
-                            {% if user.account.country == 'JP' %}
-                            ¥{{carouselObjects.price}}
-                            {% elif user.account.country == 'US' %}
-                            ${{carouselObjects.dollar_price}}
-                            <!-- make yen default if user hasn't updated country yet -->
-                            {% else %}
-                            ¥{{carouselObjects.price}}
-                            {% endif %}
+                            <div class="jpy_currency" id="jpy-price-{{carouselObjects.pk}}">
+                                ¥{{carouselObjects.price}}
+                            </div>
+                            <!-- initially show jpy -->
+                            <div class="usd_currency" id="usd-price-{{carouselObjects.pk}}">
+                                ${{carouselObjects.dollar_price}}
+                            </div>
                         </div>
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
@@ -125,12 +125,16 @@
         </div>
         {% endif %}
     </div>
+    <script>
+        var unitedStatesChosen = sessionStorage.getItem('unitedStatesChosen');
+    </script>
         <!-- CAROUSEL END -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- owl carousel -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
         {% block carousel_js %} 
             <script>
+            // cookie
             // OWL CAROUSEL JS
             //function createCarousel() {
                 // console.log("Carousel js called")
