@@ -1,40 +1,143 @@
 {% extends "index.html" %}
 {% load i18n %}
 {% load static %}
+{% static "images" as baseUrl %}
 {% block title %}{% translate 'チェックアウト' %}{% endblock %}
 {% block checkoutcontent %}
+{% get_current_language as LANGUAGE_CODE %}
 
-<div class="row gy-0 row-cols-1 row-cols-sm-2 row-cols-md-3 bg-transparent">
-    <!-- show image that is going to be purchased -->
-    <div class="card-deck  mx-auto">
-        <div class="card">
+<div class="container bg-light mt-5 rounded-lg border border-info rounded">
+    <!-- Please review your order before purchasing -->
+    <p class="fw-bold mt-2">{{currentUser.first_name}}, {% translate '購入する前に注文を確認してください。' %}</p>
+    <hr>
+    <div class="row">
+        <!-- show image that is going to be purchased -->
+        <div class="col-sm">
             <!-- display image to the left -->
-            <div class="card-img">
-                <h1>{{currentUser.first_name}}, Please review before purchasing</h1>
+            {% if product %}
+                <img src="{{product.painting.url}}" class="card-img heckout_img pl-0" 
+                    style="
+                    height: 180px; 
+                    width: 180px; 
+                    aspect-ratio: auto 180/180;"/>
+            {% endif %}
+        </div>
+        <!-- column 2 name, price, sizes -->
+        <ul class="col-sm" style="list-style: none">
+            <!-- Painting name -->
+            <li>
                 {% if product %}
-                    <img src="{{product.painting.url}}" class="card-img heckout_img p-3"/>
+                    {% if LANGUAGE_CODE == 'ja' %}
+                    <div class="card-title text-center" id="painting_name">
+                        {{product.name}}
+                    </div> 
+                    {% else %}
+                    <div class="card-title text-center" id="painting_name">
+                        {{product.english_name}}
+                    </div> 
+                    {% endif %}
                 {% endif %}
-            </div>
+                <!-- dimensions -->
+                <p class= "text-center" style="font-size: 12px;">(4x2x2 inches)</p>
+            </li>
+            <!-- price -->
+            <li>
+                    {% if currentUser %}
+                        <!-- Japan product form -->
+                        {% if currentUser.account.country == 'JP' %}
+                            {% if product %}
+                                <!-- subtotal -->
+                                <span class="card-text" style="float: left;">{% translate '商品の小計：' %}</span>
+                                <span class= "card-text" style="float: right;">¥{{product.price}}</span>
+                                <br>
+                                <!-- shipping and handing gotta contact Japan Post about these prices-->
+                                <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
+                                <span class= "card-text" style="float: right;">¥410</span>
+                                <br>
+                                <!-- total -->
+                                <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
+                                <span class= "card-text" style="float: right;">¥{{product.price|add:410}}</span>
+                                <br>
+                            {% endif %}
+                        <!-- United States product form -->
+                        {% elif currentUser.account.country == 'US' %}
+                            {% if product %}
+                                <!-- subtotal -->
+                                <p class="card-text" style="float: left;">{% translate '商品の小計：' %}</p>
+                                <p class= "card-text" style="float: right;">${{product.dollar_price}}</p>
+                                <br>
+                                <!-- shipping and handing gotta contact Japan Post about these prices-->
+                                <p class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</p>
+                                <p class= "card-text" style="float: right;">$30</p>
+                                <br>
+                                <!-- total -->
+                                <p class="card-text" style="float: left;">{% translate '合計：' %}</p>
+                                <p class= "card-text" style="float: right;">${{dollar_price.price|add:410}}</p>
+                                <br>
+                            {% endif %}
+                        {% else %}
+                        {% endif %}
+                    {% endif %}
+            </li>
+
+        </ul>
+        <!-- column 3 user's name, email and shipping address -->
+        <ul class="col-sm align-items-start" style="list-style: none">
+            {% if currentUser %}
+                <p class="text-secondary" style="font-size: small;">{% translate '配送先住所が正しいことを確認してください。これは、私たちがあなたの商品を郵送する住所です。' %}</p>
+                <li >
+                    <p>
+                        <!-- name -->
+                        {{currentUser.first_name}}
+                        {{currentUser.last_name}}
+                        <br>
+                        <!-- email -->
+                        {{currentUser.email}}
+                        <br>
+                        <!-- phone number -->
+                        {{currentUser.account.phone_number}}
+                        <br>
+                        <!-- street1 -->
+                        {{currentUser.account.street1}}
+                        <br>
+                        <!-- street2 if entered -->
+                        {% if currentUser.account.street2 %}
+                            {{currentUser.account.street2}}
+                            <br>
+                        {% endif %}
+                        {{currentUser.account.city}}
+                        <br>
+                        <!-- prefecture if Japan -->
+                        {% if currentUser.account.country == 'JP' %}
+                            {{currentUser.account.prefecture}}
+                            <br>
+                            日本 - Japan
+                            <br>
+                        {% else %}
+                            <!-- state -->
+                            {{currentUser.account.state}}
+                            <br>
+                            United States of America
+                            <br>
+                        {% endif %}
+                        <!-- postal code -->
+                        {{currentUser.account.postal_code}}
+                        <br>
+                    </p>
+                </li>
+            {% endif %}
+        </div>
+        <hr>
+        <!-- checkout button -->
+        <div class="text-center">
+            <a role="button" class="btn btn-info btn-block mb-2 mt-3 mr-1">
+                <!-- place order -->
+                {% translate '注文する' %}
+            </a>
+            <a role="button" href="../../{{LANGUAGE_CODE}}/"class="btn btn-secondary btn-sm btn-block mb-2 mt-3 rounded-0 ml-1">
+                {% translate "キャンセル" %}
+            </a>
         </div>
     </div>
-    <!-- purchase info -->
-    <div>
-        {% if currentUser %}
-            <!-- Japan product form -->
-            {% if currentUser.country == 'JP' %}
-                {% if product %}
-                <h4>{{product.price}}</h4>
-                {% endif %}
-            <!-- Japan product form -->
-            {% else %}
-                {% if product %}
-                <h4>{{product.dollar_price}}</h4>
-                {% endif %}
-            {% endif %}
-        {% endif %}
-    </div>
 </div>
-
-
-
 {% endblock %}

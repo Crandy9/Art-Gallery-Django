@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-17 05:23+0000\n"
+"POT-Creation-Date: 2022-08-22 07:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Art_Gallery_App/views.py:75
+#: Art_Gallery_App/views.py:78
 msgid "購入を続行する前に、配送先住所を更新してください。"
 msgstr ""
 "Please update your shipping address before continuing with your purchase."
 
-#: Main Project/settings.py:213
+#: Main Project/settings.py:210
 msgid "English"
 msgstr ""
 
-#: account/forms.py:28 account/views.py:122
+#: account/forms.py:28 account/views.py:147
 msgid "名を入力してください"
 msgstr "Please enter your first name"
 
-#: account/forms.py:36 account/views.py:130
+#: account/forms.py:36 account/views.py:155
 msgid "姓を入力してください"
 msgstr "Please enter your last name"
 
@@ -43,7 +43,7 @@ msgstr ""
 "Please enter a valid email address (in case we need to contact you in "
 "regards to your shipment)"
 
-#: account/forms.py:52 templates/myaccount.html:97 templates/register.html:43
+#: account/forms.py:52 templates/myaccount.html:98 templates/register.html:39
 msgid "メールアドレス"
 msgstr "email address"
 
@@ -103,58 +103,58 @@ msgstr "ex) Chattanooga"
 msgid "例 ： 000-0000"
 msgstr "ex) 12345 or 12312-1231"
 
-#: account/views.py:32
+#: account/views.py:55
 msgid "アカウントが正常に削除されました"
 msgstr "Account successfully deleted"
 
-#: account/views.py:92
+#: account/views.py:117
 msgid "変更が正常に保存されました"
 msgstr "Changes saved successfully"
 
-#: account/views.py:138 account/views.py:254
+#: account/views.py:163 account/views.py:281
 msgid "ユーザー名を入力してください"
 msgstr "Please enter a username"
 
-#: account/views.py:146 account/views.py:154
+#: account/views.py:171 account/views.py:179
 msgid "有効なメールアドレスを入力してください"
 msgstr "Please enter a valid email address."
 
-#: account/views.py:164
+#: account/views.py:189
 msgid "パスワードを入力して下さい"
 msgstr "re-enter password"
 
-#: account/views.py:172
+#: account/views.py:197
 msgid "パスワードを再入力してください"
 msgstr "Please enter your first name"
 
-#: account/views.py:184
+#: account/views.py:209
 msgid "ユーザー名は既に存在します。別のユーザー名を入力してください"
 msgstr "Username already exists. Please enter another username"
 
-#: account/views.py:190
+#: account/views.py:215
 msgid ""
 "メールアドレスは既に登録されています。別のメールアドレスを入力してください"
 msgstr ""
 "This email address is already registered. Please use a different email "
 "address"
 
-#: account/views.py:231
+#: account/views.py:258
 msgid "パスワードが一致していません。一致するパスワードを再入力してください"
 msgstr "Passwords do not match"
 
-#: account/views.py:238
+#: account/views.py:265
 msgid "アカウントが作成されました！ログインしてください"
 msgstr "Account created! Please login."
 
-#: account/views.py:261
+#: account/views.py:288
 msgid "入力したパスワードが正しくありません。もう一度お試しください"
 msgstr "The password you entered is incorrect. Please try again"
 
-#: account/views.py:285
+#: account/views.py:312
 msgid "このユーザーは存在しません"
 msgstr "Username does not exist"
 
-#: templates/carousel.html:60
+#: templates/carousel.html:62
 msgid "購入する"
 msgstr "Buy now"
 
@@ -162,148 +162,183 @@ msgstr "Buy now"
 msgid "チェックアウト"
 msgstr "Checkout"
 
-#: templates/index.html:59
-msgid "こんにちは"
-msgstr "Hello"
+#: templates/checkout.html:11
+msgid "購入する前に注文を確認してください。"
+msgstr "please review your order before purchasing"
 
-#: templates/index.html:90
-msgid "アカウント"
-msgstr "My Account"
+#: templates/checkout.html:47 templates/checkout.html:62
+msgid "商品の小計："
+msgstr "Subtotal:"
 
-#: templates/index.html:93
-msgid "ログアウト"
-msgstr "Log out"
+#: templates/checkout.html:50 templates/checkout.html:65
+msgid "配送料・手数料："
+msgstr "Shipping/Handling:"
 
-#: templates/index.html:100 templates/login.html:15 templates/login.html:46
-msgid "ログイン"
-msgstr "Sign in"
+#: templates/checkout.html:68
+msgid "合計："
+msgstr "Total:"
 
-#: templates/index.html:104 templates/register.html:15
-msgid "会員登録"
-msgstr "Create Account"
+#: templates/checkout.html:83
+msgid ""
+"配送先住所が正しいことを確認してください。これは、私たちがあなたの商品を郵送"
+"する住所です。"
+msgstr ""
+"Please make sure your shipping address is correct. This is the address we "
+"will use when sending your item."
 
-#: templates/index.html:109
-msgid "メルカリ"
-msgstr "My Mercari"
+#: templates/checkout.html:131
+msgid "注文する"
+msgstr "place order"
 
-#: templates/login.html:38 templates/myaccount.html:86
-#: templates/register.html:39
-msgid "ユーザー名"
-msgstr "username"
-
-#: templates/login.html:41 templates/register.html:46
-msgid "パスワード"
-msgstr "password"
-
-#: templates/login.html:42
-msgid "パスワードをお忘れですか？"
-msgstr "forget your password?"
-
-#: templates/login.html:54
-msgid "アカウントをお持ちでない方"
-msgstr "Don't have an account? Register here!"
-
-#: templates/login.html:56
-msgid "または"
-msgstr "or login with:"
-
-#: templates/login.html:57
-msgid "フェイスブック"
-msgstr "Facebook"
-
-#: templates/login.html:61
-msgid "グーグル"
-msgstr "Google"
-
-#: templates/login.html:65
-msgid "ツイッター"
-msgstr "Twitter"
-
-#: templates/myaccount.html:3
-msgid "アカウント詳細"
-msgstr "My Account"
-
-#: templates/myaccount.html:39
-msgid "アカウント情報の編集"
-msgstr "Edit Account Information"
-
-#: templates/myaccount.html:44
-msgid "これらのエラーを修正してください"
-msgstr "Please correct the errors below and try again."
-
-#: templates/myaccount.html:61
-msgid "氏名"
-msgstr "Name"
-
-#: templates/myaccount.html:65 templates/register.html:31
-msgid "名前"
-msgstr "first name"
-
-#: templates/myaccount.html:75 templates/register.html:35
-msgid "苗字"
-msgstr "last name"
-
-#: templates/myaccount.html:108
-msgid "電話番号"
-msgstr "Phone number"
-
-#: templates/myaccount.html:116
-msgid "国/地域"
-msgstr "Country"
-
-#: templates/myaccount.html:122
-msgid "都道府県"
-msgstr "Prefecture"
-
-#: templates/myaccount.html:128
-msgid "州"
-msgstr "State"
-
-#: templates/myaccount.html:134
-msgid "市区町村 (市/町)"
-msgstr "City"
-
-#: templates/myaccount.html:140
-msgid "住所 (丁目・番地・号)"
-msgstr "Street 1"
-
-#: templates/myaccount.html:145
-msgid "部屋番号（該当する場合)"
-msgstr "Street 2 (if applicable)"
-
-#: templates/myaccount.html:151
-msgid "郵便番号"
-msgstr "Zip-Code"
-
-#: templates/myaccount.html:158
-msgid "変更を保存する"
-msgstr "Save Changes"
-
-#: templates/myaccount.html:164 templates/myaccount.html:172
-msgid "アカウントを削除する"
-msgstr "delete account"
-
-#: templates/myaccount.html:168
-msgid "アカウントを削除してもよろしいですか？"
-msgstr "Are you sure you want to delete your account?"
-
-#: templates/myaccount.html:169
-msgid "(警告！この操作は元に戻せません)"
-msgstr "(WARNING! This action cannot be undone)"
-
-#: templates/myaccount.html:174
+#: templates/checkout.html:134 templates/myaccount.html:175
 msgid "キャンセル"
 msgstr "cancel"
 
-#: templates/register.html:49
+#: templates/index.html:60
+msgid "こんにちは"
+msgstr "Hello"
+
+#: templates/index.html:91
+msgid "アカウント"
+msgstr "My Account"
+
+#: templates/index.html:94
+msgid "ログアウト"
+msgstr "Log out"
+
+#: templates/index.html:101 templates/login.html:4 templates/login.html:15
+#: templates/login.html:47
+msgid "ログイン"
+msgstr "Sign in"
+
+#: templates/index.html:105 templates/register.html:14
+msgid "会員登録"
+msgstr "Create Account"
+
+#: templates/index.html:121
+msgid "メルカリ"
+msgstr "My Mercari"
+
+#: templates/login.html:38 templates/myaccount.html:87
+#: templates/register.html:35
+msgid "ユーザー名"
+msgstr "username"
+
+#: templates/login.html:42 templates/register.html:42
+msgid "パスワード"
+msgstr "password"
+
+#: templates/login.html:43
+msgid "パスワードをお忘れですか？"
+msgstr "forget your password?"
+
+#: templates/login.html:55
+msgid "アカウントをお持ちでない方"
+msgstr "Don't have an account? Register here!"
+
+#: templates/login.html:57
+msgid "または"
+msgstr "or login with:"
+
+#: templates/login.html:58
+msgid "フェイスブック"
+msgstr "Facebook"
+
+#: templates/login.html:62
+msgid "グーグル"
+msgstr "Google"
+
+#: templates/login.html:66
+msgid "ツイッター"
+msgstr "Twitter"
+
+#: templates/myaccount.html:4
+msgid "アカウント詳細"
+msgstr "My Account"
+
+#: templates/myaccount.html:40
+msgid "アカウント情報の編集"
+msgstr "Edit Account Information"
+
+#: templates/myaccount.html:45
+msgid "これらのエラーを修正してください"
+msgstr "Please correct the errors below and try again."
+
+#: templates/myaccount.html:62
+msgid "氏名"
+msgstr "Name"
+
+#: templates/myaccount.html:66 templates/register.html:27
+msgid "名前"
+msgstr "first name"
+
+#: templates/myaccount.html:76 templates/register.html:31
+msgid "苗字"
+msgstr "last name"
+
+#: templates/myaccount.html:109
+msgid "電話番号"
+msgstr "Phone number"
+
+#: templates/myaccount.html:117
+msgid "国/地域"
+msgstr "Country"
+
+#: templates/myaccount.html:123
+msgid "都道府県"
+msgstr "Prefecture"
+
+#: templates/myaccount.html:129
+msgid "州"
+msgstr "State"
+
+#: templates/myaccount.html:135
+msgid "市区町村 (市/町)"
+msgstr "City"
+
+#: templates/myaccount.html:141
+msgid "住所 (丁目・番地・号)"
+msgstr "Street 1"
+
+#: templates/myaccount.html:146
+msgid "部屋番号（該当する場合)"
+msgstr "Street 2 (if applicable)"
+
+#: templates/myaccount.html:152
+msgid "郵便番号"
+msgstr "Zip-Code"
+
+#: templates/myaccount.html:159
+msgid "変更を保存する"
+msgstr "Save Changes"
+
+#: templates/myaccount.html:165 templates/myaccount.html:173
+msgid "アカウントを削除する"
+msgstr "delete account"
+
+#: templates/myaccount.html:169
+msgid "アカウントを削除してもよろしいですか？"
+msgstr "Are you sure you want to delete your account?"
+
+#: templates/myaccount.html:170
+msgid "(警告！この操作は元に戻せません)"
+msgstr "(WARNING! This action cannot be undone)"
+
+#: templates/passwordreset.html:4
+#, fuzzy
+#| msgid "パスワードを入力して下さい"
+msgid "パスワードを再設定する"
+msgstr "re-enter password"
+
+#: templates/register.html:45
 msgid "パスワード再入力"
 msgstr "re-enter password"
 
-#: templates/register.html:53
+#: templates/register.html:49
 msgid "次へ"
 msgstr "Register!"
 
-#: templates/register.html:59
+#: templates/register.html:55
 msgid "アカウントをお持ちの方"
 msgstr "Already registered? Log in!"
 
