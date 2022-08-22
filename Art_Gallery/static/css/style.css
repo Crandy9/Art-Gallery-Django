@@ -187,7 +187,7 @@ nav .navbar-nav li a{
 	*/
 	width: 30px;
 	/* hamburger stroke color */
-	background: rgba(61, 61, 61, 0.8);
+	background: rgba(0, 0, 0, 0.8);
 	/* keeps animation center */
 	left: 0;
 	-webkit-transform: rotate(0deg);
@@ -249,4 +249,23 @@ nav .navbar-nav li a{
 	width: 0%;
 	left: 50%;
   } 
+
+/*fade in items*/
+.gallery {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+	45% {
+		opacity:0;
+	}
+    100% {
+        opacity: 1;
+     }
+}
 

@@ -82,7 +82,15 @@ def checkout(request, pk=None):
         uri = f'{account_uri}?next={request.path}'
         return redirect(uri)
     # else render the checkout template
-    return render(request, 'checkout.html')
+    # get the object's id
+    product = Portrait.objects.get(pk=pk)
+    # get user's country to charge correct currency
+    currentUser = request.user
+    context = {
+        'currentUser': currentUser,
+        'product':product
+    }
+    return render(request, 'checkout.html', context)
 
 # handle 404s, 500 server errors, 
 def error(request, exception):

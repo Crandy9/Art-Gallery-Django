@@ -3,5 +3,38 @@
 {% load static %}
 {% block title %}{% translate 'チェックアウト' %}{% endblock %}
 {% block checkoutcontent %}
-    CHECKOUT BUYYY
+
+<div class="row gy-0 row-cols-1 row-cols-sm-2 row-cols-md-3 bg-transparent">
+    <!-- show image that is going to be purchased -->
+    <div class="card-deck  mx-auto">
+        <div class="card">
+            <!-- display image to the left -->
+            <div class="card-img">
+                <h1>{{currentUser.first_name}}, Please review before purchasing</h1>
+                {% if product %}
+                    <img src="{{product.painting.url}}" class="card-img heckout_img p-3"/>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- purchase info -->
+    <div>
+        {% if currentUser %}
+            <!-- Japan product form -->
+            {% if currentUser.country == 'JP' %}
+                {% if product %}
+                <h4>{{product.price}}</h4>
+                {% endif %}
+            <!-- Japan product form -->
+            {% else %}
+                {% if product %}
+                <h4>{{product.dollar_price}}</h4>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+
 {% endblock %}
