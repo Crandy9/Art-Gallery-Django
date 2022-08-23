@@ -213,3 +213,5 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale/')
 ]
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -28,20 +28,36 @@ class Portrait(models.Model):
     # pics is the folder name where images will be placed under media folder uploaded to paintings subfolder
     # painting field was originally called destinations and upload_to= 'pics'
     # when renaming, I had to delete the pics folder manually and re-upload the images from computer.
-    painting = models.ImageField(default=0, upload_to= 'paintings', null=True,blank=True)
+    main_painting = models.ImageField(default=0, upload_to= 'paintings', null=True,blank=True)
     long_description = models.TextField()
-    price = models.IntegerField()
     short_description = models.TextField(default=0)
-    painting_left = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
-    painting_right = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
-    painting_top = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
-    painting_bottom = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
-    painting_back = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    # extra paintings not required
+    painting_2 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_3 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_4 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_5 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_6 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_7 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_8 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_9 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    painting_10 = models.ImageField(default=0, upload_to= 'carousel_paintings', null=True,blank=True)
+    # price
+    price = models.IntegerField()
+    japan_shipping_price = models.IntegerField(default=0, null=True,blank=True)
+    dollar_price = models.DecimalField(default =0, max_digits=10, decimal_places=2, blank=True)
+    usa_shipping_price = models.IntegerField(default=0, null=True,blank=True)
+
+
     # English data
     english_name = models.CharField(default=0,max_length= 100)
     english_long_description = models.TextField(default=0, null=True,blank=True)
     english_short_description = models.TextField(default=0, null=True,blank=True)
-    dollar_price = models.DecimalField(default =0, max_digits=10, decimal_places=2, blank=True)
+    # size in centimeters
+    cm_size = models.CharField(default=0,max_length= 100, null=True,blank=True)
+    # inches
+    in_size = models.CharField(default=0,max_length= 100, null=True,blank=True)
+    # is sold label
+    is_sold = models.BooleanField(default=False)
     # name the objects in admin page using the name attribute
     def __str__(self):
         return self.name

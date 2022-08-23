@@ -8,14 +8,18 @@
 
 <div class="container bg-light mt-5 rounded-lg border border-info rounded">
     <!-- Please review your order before purchasing -->
+    {% if LANGUAGE_CODE == 'ja' %}
+    <p class="fw-bold mt-2">{{currentUser.first_name}}さん, {% translate '購入する前に注文を確認してください。' %}</p>
+    {% else %}
     <p class="fw-bold mt-2">{{currentUser.first_name}}, {% translate '購入する前に注文を確認してください。' %}</p>
+    {% endif %}
     <hr>
     <div class="row">
         <!-- show image that is going to be purchased -->
         <div class="col-sm">
             <!-- display image to the left -->
             {% if product %}
-                <img src="{{product.painting.url}}" class="card-img heckout_img pl-0" 
+                <img src="{{product.main_painting.url}}" class="card-img heckout_img pl-0" 
                     style="
                     height: 180px; 
                     width: 180px; 
@@ -38,7 +42,13 @@
                     {% endif %}
                 {% endif %}
                 <!-- dimensions -->
-                <p class= "text-center" style="font-size: 12px;">(4x2x2 inches)</p>
+                <!-- cm -->
+                <p class= "text-center" style="font-size: 12px;">
+                    ({{product.cm_size}})
+                    <br>
+                    ({{product.in_size}})
+                </p>
+
             </li>
             <!-- price -->
             <li>
@@ -56,6 +66,7 @@
                                 <br>
                                 <!-- total -->
                                 <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
+                                <!-- add japan shipping price field to model -->
                                 <span class= "card-text" style="float: right;">¥{{product.price|add:410}}</span>
                                 <br>
                             {% endif %}
@@ -63,16 +74,17 @@
                         {% elif currentUser.account.country == 'US' %}
                             {% if product %}
                                 <!-- subtotal -->
-                                <p class="card-text" style="float: left;">{% translate '商品の小計：' %}</p>
-                                <p class= "card-text" style="float: right;">${{product.dollar_price}}</p>
+                                <span class="card-text" style="float: left;">{% translate '商品の小計：' %}</span>
+                                <span class= "card-text" style="float: right;">${{product.dollar_price}}</span>
                                 <br>
                                 <!-- shipping and handing gotta contact Japan Post about these prices-->
-                                <p class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</p>
-                                <p class= "card-text" style="float: right;">$30</p>
+                                <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
+                                <span class= "card-text" style="float: right;">$30</span>
                                 <br>
                                 <!-- total -->
-                                <p class="card-text" style="float: left;">{% translate '合計：' %}</p>
-                                <p class= "card-text" style="float: right;">${{dollar_price.price|add:410}}</p>
+                                <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
+                                <!-- add us shipping price field to model -->
+                                <span class= "card-text" style="float: right;">${{product.dollar_price|add:410}}</span>
                                 <br>
                             {% endif %}
                         {% else %}

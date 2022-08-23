@@ -55,10 +55,7 @@
 					<!-- using load i18n declaration at top of template -->
 					Kaoru's Art Gallery
 				</a>
-				{% if user.is_authenticated %}
-				<!-- welcome user by using first name -->
-				<span class="nav-item navbar-text text-dark">{% translate 'こんにちは' %} {{user.username}}!</span>
-				{% endif %}
+
 
 				<!--hamburger button animation -->
 				<!-- hamburger menu button  --> 
@@ -78,12 +75,12 @@
 					<span></span>
 				</div>
 				</button>
+				{% get_current_language as LANGUAGE_CODE %}
 				<!-- area that is collapsed inside the hamburger icon -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<hr>
 					<!-- nav bar items (login, register, about, etc.) ms auto moves list items to right side when not collapsed-->
 					<ul class="navbar-nav ms-auto">
-						{% get_current_language as LANGUAGE_CODE %}
 						<!-- create conditions for displaying login/register or logout buttons -->
 						<!-- if user is logged in (has a cookie) show logout button-->
 						{% if user.is_authenticated %}
@@ -128,9 +125,11 @@
 							</li>  -->
 							<!-- end cart -->
 					</ul>
+					<hr>
 				</div>
-				<!-- end of hamburger collapsable items -->
+
 			</div>
+
 		</nav>
 		<!-- END NAVBAR -->
 
@@ -144,11 +143,23 @@
 			{% endfor %}
 		</div>
 		{% endif %}
-		<!-- change language -->
-		<div class="container container d-flex justify-content-end mt-2 ">
+		<!-- change language d-flex must be on this div -->
+		<div class="container d-flex justify-content-end mt-2">
 			{% get_current_language as LANGUAGE_CODE %}
 			{% get_available_languages as LANGUAGES %}
 			{% get_language_info_list for LANGUAGES as languages %}
+
+			<!-- welcome user-->
+			{% if user.is_authenticated %}
+				<div class="pt-1" style="display: table !important; margin: 0 auto !important;">
+					{% if LANGUAGE_CODE == 'ja' %}
+					<span class = "text-light bg-info fw-bold px-2 py-1" style="font-size: small;">{% translate 'こんにちは' %} {{user.username}}さん！</span>
+					{% else %}
+					<span class = "text-light bg-info fw-bold px-2 py-1" style="font-size: small;">{% translate 'こんにちは' %} {{user.username}}!</span>
+					{% endif %}
+				</div>
+			{% endif %}
+
 			<div class="dropdown ">
 				<button 
 				class="btn btn-sm btn-info dropdown-toggle text-light fw-bold"
@@ -242,7 +253,7 @@
 										painting is the model datafield in models.py
 										gallery-item used by main.js -->
 										<a class="carousel-click" id="{{paintingData.pk}}" href="/{{LANGUAGE_CODE}}/carousel/">
-											<img src="{{paintingData.painting.url}}" />
+											<img src="{{paintingData.main_painting.url}}" />
 										</a>
 										<!-- THIS IS MODAL CODE, KEEPING IT FOR FUTURE POSSIBLE USE -->
 										<!-- <img src="{{paintingData.painting.url}}" class="gallery-item gallery-link" id="{{paintingData.pk}}"
