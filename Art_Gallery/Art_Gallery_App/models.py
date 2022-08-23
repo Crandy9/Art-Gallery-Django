@@ -45,7 +45,7 @@ class Portrait(models.Model):
     price = models.IntegerField()
     japan_shipping_price = models.IntegerField(default=0, null=True,blank=True)
     dollar_price = models.DecimalField(default =0, max_digits=10, decimal_places=2, blank=True)
-    usa_shipping_price = models.IntegerField(default=0, null=True,blank=True)
+    usa_shipping_price = models.DecimalField(default =0, max_digits=10, decimal_places=2, blank=True)
 
 
     # English data

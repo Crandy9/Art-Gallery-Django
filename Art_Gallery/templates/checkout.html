@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% load i18n %}
 {% load static %}
+{% load mathfilters %}
 {% static "images" as baseUrl %}
 {% block title %}{% translate 'チェックアウト' %}{% endblock %}
 {% block checkoutcontent %}
@@ -15,6 +16,20 @@
     {% endif %}
     <hr>
     <div class="row">
+        <!-- Painting name -->
+        <div>
+            {% if product %}
+                {% if LANGUAGE_CODE == 'ja' %}
+                <div class="card-title text-center" id="painting_name">
+                    <h4>{{product.name}}</h4>
+                </div> 
+                {% else %}
+                <div class="card-title text-center" id="painting_name">
+                    <h4> {{product.english_name}}</h4>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
         <!-- show image that is going to be purchased -->
         <div class="col-sm">
             <!-- display image to the left -->
@@ -24,34 +39,19 @@
                     height: 180px; 
                     width: 180px; 
                     aspect-ratio: auto 180/180;"/>
-            {% endif %}
-        </div>
-        <!-- column 2 name, price, sizes -->
-        <ul class="col-sm" style="list-style: none">
-            <!-- Painting name -->
-            <li>
-                {% if product %}
-                    {% if LANGUAGE_CODE == 'ja' %}
-                    <div class="card-title text-center" id="painting_name">
-                        {{product.name}}
-                    </div> 
-                    {% else %}
-                    <div class="card-title text-center" id="painting_name">
-                        {{product.english_name}}
-                    </div> 
-                    {% endif %}
-                {% endif %}
                 <!-- dimensions -->
                 <!-- cm -->
-                <p class= "text-center" style="font-size: 12px;">
+                <p style="font-size: 12px; margin-left: 14%;">
                     ({{product.cm_size}})
                     <br>
                     ({{product.in_size}})
                 </p>
-
-            </li>
+            {% endif %}
+        </div>
+        <!-- column 2 name, price, sizes -->
+        <ul class="col-sm" style="list-style: none">
             <!-- price -->
-            <li>
+            <div class="mt-5">
                     {% if currentUser %}
                         <!-- Japan product form -->
                         {% if currentUser.account.country == 'JP' %}
@@ -62,12 +62,12 @@
                                 <br>
                                 <!-- shipping and handing gotta contact Japan Post about these prices-->
                                 <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
-                                <span class= "card-text" style="float: right;">¥410</span>
+                                <span class= "card-text" style="float: right;">¥{{product.japan_shipping_price}}</span>
                                 <br>
                                 <!-- total -->
                                 <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
                                 <!-- add japan shipping price field to model -->
-                                <span class= "card-text" style="float: right;">¥{{product.price|add:410}}</span>
+                                <span class= "card-text" style="float: right;">¥{{product.price|add:product.japan_shipping_price}}</span>
                                 <br>
                             {% endif %}
                         <!-- United States product form -->
@@ -79,18 +79,18 @@
                                 <br>
                                 <!-- shipping and handing gotta contact Japan Post about these prices-->
                                 <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
-                                <span class= "card-text" style="float: right;">$30</span>
+                                <span class= "card-text" style="float: right;">${{product.usa_shipping_price}}</span>
                                 <br>
                                 <!-- total -->
                                 <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
                                 <!-- add us shipping price field to model -->
-                                <span class= "card-text" style="float: right;">${{product.dollar_price|add:410}}</span>
+                                <span class= "card-text" style="float: right;">${{product.dollar_price|add:product.usa_shipping_price}}</span>
                                 <br>
                             {% endif %}
                         {% else %}
                         {% endif %}
                     {% endif %}
-            </li>
+            </div>
 
         </ul>
         <!-- column 3 user's name, email and shipping address -->

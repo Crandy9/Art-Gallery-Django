@@ -88,8 +88,27 @@ a.company_link:hover {
 
 /* when screen is 552 or less, make long description text small */
 @media(max-width: 552px) {
-	#long_desc {
+	#carousel_long_desc {
 		font-size: small;
+	}
+}
+
+/* when screen is 900 or less, make short description text small */
+@media(max-width: 900px) {
+	#homepage_short_description {
+		font-size: small !important;
+	}
+	#jpy, #usd {
+		font-size: small !important;
+	}
+}
+/* when screen is 759 or more, make short description text normal and title large */
+@media(min-width: 759px) {
+	#homepage_short_description {
+		font-size:medium !important
+	}
+	#painting_name {
+		font-size: larger !important;
 	}
 }
 
@@ -129,7 +148,7 @@ nav .navbar-nav li a{
 }
 
 .card {
-	background-color: rgba(255,255,255,0.9);
+	background-color: rgba(255,255,255,0.95);
 }
 
 

@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% load i18n %}
+{% load static %}
+{% load mathfilters %}
+{% static "images" as baseUrl %}
+{% block title %}{% translate 'ありがとうございました！' %}{% endblock %}
+{% block thankyoucontent %}
+{% get_current_language as LANGUAGE_CODE %}
+<h1>Thank you</h1>
+{% endblock %}

@@ -211,6 +211,9 @@
 		<div id="checkout_content">
 			{% block checkoutcontent %}{% endblock %}
 		</div>
+		<!-- thank you page block -->
+		{% block thankyoucontent %}
+		{% endblock %}
 		<!-- password reset block-->
 		<div id="password_reset_content">
 			{% block passwordresetcontent %}{% endblock %}
@@ -222,12 +225,13 @@
 				<div class="carousel">
 					{% block carousel_content %}{% endblock %}
 				</div>
-				<!-- gy-4 controls vertical gutter (space between columns) width padding 
+				<!-- gy controls vertical gutter (space between row) padding 
+					gx controls vertical gutter (space between columns) padding
 					row-cols-2 means 2 colums for extra small screens < 576px
 					row-cols-sm-2 means 2 columns for small screens < 576px
 					row-cols-md-3 means 3 columns for medium screens >= 768px
 				-->
-				<div class="row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 ">
+				<div class="row gy-4 gx-3 row-cols-2 row-cols row-cols-sm-2 row-cols-md-3 ">
 					{% for paintingData in paintingObjects %}
 					{% get_current_language as LANGUAGE_CODE %}
 						<!-- posting images-->
@@ -235,20 +239,20 @@
 							<div class="card">
 								<div>
 									{% if LANGUAGE_CODE == 'ja' %}
-									<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.name}}
-									</h4> 
+									<p class= "card-title text-start pt-3 px-4 fw-bold" id="painting_name">{{paintingData.name}}
+									</p> 
 									{% else %}
-									<h4 class= "card-title text-start p-3" id="painting_name">{{paintingData.english_name}}
-									</h4> 
+									<p class= "card-title text-start pt-3 px-4 fw-bold" id="painting_name">{{paintingData.english_name}}
+									</p> 
 									{% endif %}
 								</div>
 								{% if LANGUAGE_CODE == 'ja' %}
-								<p class="card-text text-center px-5">{{paintingData.short_description}}</p>
+								<p class="text-secondary text-center px-1" style="font-size: small;" id="homepage_short_description">{{paintingData.short_description}}</p>
 								{% else %}
-								<p class="card-text text-center px-5">{{paintingData.english_short_description}}</p>
+								<p class="text-secondary text-center px-1" style="font-size: small;" id="homepage_short_description">{{paintingData.english_short_description}}</p>
 								{% endif %}
 								<!-- this class is what streamlines all image sizes dynamically -->
-								<div class= "card-img imagehover p-3">
+								<div class= "card-img imagehover p-1">
 										<!-- making static images as baseURL variable called url, useful for dynamically adding images 
 										painting is the model datafield in models.py
 										gallery-item used by main.js -->

@@ -12,12 +12,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">	
     {% get_current_language as LANGUAGE_CODE %}
+
+
     <div class="card">
-    <!-- CAUTION if you delete an image in the admin page or clear the default "0" value and then do not upload an image, a valueerror will occur 
-        also, if you only upload 1 or 2 images, then the carousel will duplicate the images to have three images displayed on the default page size
-        image file names cannot have "0" in them as they are the default flag used to skip fields
-    -->
-     <!-- getting image data from carousel.html -->
+        <!-- portrait name -->
         <div class="container p-2">
             {% if carouselObjects %}
                 {% if "0" in carouselObjects.name  %}
@@ -33,37 +31,8 @@
                     </div>
                     {% endif %}
                 {% endif %}
-                <div class="painting_description gallery-item">
-                    {% if LANGUAGE_CODE == 'ja' %}
-                    <!-- get object data from views.py -->
-                    <p id="long_desc">{{carouselObjects.long_description}} </p>
-                    {% else %}
-                    <p id="long_desc">{{carouselObjects.english_long_description}} </p>
-                    {% endif %}
-                </div>
             {% endif %}
-            <div class="text-end">
-                {% if carouselObjects %}
-                    {% if "0" in carouselObjects.price %}
-                    <!-- skip it -->
-                    {% else %}
-                        <!-- yen or dollar display-->
-                        <div class="card-text">
-                            <div class="jpy_currency" id="jpy-price-{{carouselObjects.pk}}">
-                                ¥{{carouselObjects.price}}
-                            </div>
-                            <!-- initially show jpy -->
-                            <div class="usd_currency" id="usd-price-{{carouselObjects.pk}}">
-                                ${{carouselObjects.dollar_price}}
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <a class="btn btn-sm btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
-                {% endif %}
-            </div>
         </div>
-
         <!-- CAROUSEL START -->
         {% if carouselObjects %}
         <div class="owl-carousel owl-theme owl-loaded" id="myCarousel" style=" margin: 0 auto !important;">
@@ -169,11 +138,53 @@
             {% endif %}
         </div>
         {% endif %}
+        <!-- CAROUSEL END -->
+
+    <!-- CAUTION if you delete an image in the admin page or clear the default "0" value and then do not upload an image, a valueerror will occur 
+        also, if you only upload 1 or 2 images, then the carousel will duplicate the images to have three images displayed on the default page size
+        image file names cannot have "0" in them as they are the default flag used to skip fields
+    -->
+     <!-- getting image data from carousel.html -->
+        <!--  -->
+        <div class="container p-2">
+            {% if carouselObjects %}
+                <div class="painting_description gallery-item">
+                    {% if LANGUAGE_CODE == 'ja' %}
+                    <!-- get object data from views.py -->
+                    <p id="carousel_long_desc">{{carouselObjects.long_description}} </p>
+                    {% else %}
+                    <p id="carousel_long_desc">{{carouselObjects.english_long_description}} </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="text-end">
+                {% if carouselObjects %}
+                    {% if "0" in carouselObjects.price %}
+                    <!-- skip it -->
+                    {% else %}
+                        <!-- yen or dollar display-->
+                        <div class="card-text">
+                            <div class="jpy_currency" id="jpy-price-{{carouselObjects.pk}}">
+                                ¥{{carouselObjects.price}}
+                            </div>
+                            <!-- initially show jpy -->
+                            <div class="usd_currency" id="usd-price-{{carouselObjects.pk}}">
+                                ${{carouselObjects.dollar_price}}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <a class="btn btn-sm btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- end description  -->
     </div>
+    <!-- card end -->
+
     <script>
         var unitedStatesChosen = sessionStorage.getItem('unitedStatesChosen');
     </script>
-        <!-- CAROUSEL END -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- owl carousel -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
