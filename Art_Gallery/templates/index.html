@@ -267,6 +267,14 @@
 										data-description="{{ paintingData.short_description }}"
 										data-price="${{ paintingData.price }}"> -->
 								</div>
+								<!-- check if painting has been sold -->
+								{% if paintingData.is_sold is True %}
+								<div class="container row text-center">
+									<p class="col font-weight-bold">
+										Sold
+									</p>
+								</div>
+								{% else %}
 								<!-- yen or dollar display-->
 								<div class="container row text-center">
 									<div class="jpy_currency" id="jpy-price-{{paintingData.pk}}">
@@ -281,6 +289,7 @@
 										</p>
 									</div>
 								</div>
+								{% endif %}
 							</div>
 						</div>
 					{% endfor %}

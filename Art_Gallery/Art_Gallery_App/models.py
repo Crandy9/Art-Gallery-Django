@@ -1,6 +1,6 @@
 from email.policy import default
 from django.db import models
-
+import uuid
 #Art_Gallery_app models.py
 
 # Create your models here for dbs.
@@ -11,11 +11,6 @@ from django.db import models
 # to convert class to model, specify model in params (models.Model)
 # give it a singular object name not plural admin appends an (s) to end of model name.
 class Portrait(models.Model):
-
-    # uninitialized class variables 
-    # primary char var
-    # id: int id not needed when migrating models to db, 
-    # primary key will be automatically created
 
     # object characteristics which will be columns in db
     # to accurately specify each type of field (string, numbers, emails etc.), follow
@@ -58,6 +53,8 @@ class Portrait(models.Model):
     in_size = models.CharField(default=0,max_length= 100, null=True,blank=True)
     # is sold label
     is_sold = models.BooleanField(default=False)
+    # order number
+    uuid = models.UUIDField(editable=False, default=uuid.uuid4, unique=True)
     # name the objects in admin page using the name attribute
     def __str__(self):
         return self.name

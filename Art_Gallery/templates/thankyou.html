@@ -1,10 +1,56 @@
 {% extends "index.html" %}
 {% load i18n %}
 {% load static %}
-{% load mathfilters %}
-{% static "images" as baseUrl %}
 {% block title %}{% translate 'ありがとうございました！' %}{% endblock %}
 {% block thankyoucontent %}
 {% get_current_language as LANGUAGE_CODE %}
-<h1>Thank you</h1>
+<!-- 
+# thankyou page showing successful payment details
+# show thankyou message
+# purchase summary:
+# painting name
+# amount paid
+# order number (This number will be used to confirm your purchase in the event we need to contact you regarding your shipment, )
+# expected delivery date
+# set this painting's isSold field to true
+ -->
+<div class="container mt-5" style="background-color: rgba(255,255,255,0.9);">
+    <!-- Your payment has been accepted. Thank you for your purchase! -->
+    <h2> {% translate 'お支払いが完了いたしました。' %} </h2>
+    <!-- Thank you for your purchase! -->
+    <h2> {% translate 'ご購入誠にありがとうございます！' %} </h2>
+    <!-- order summary -->
+    <h5>{% translate 'お支払い概要' %}</h5>
+    <hr>
+    {% if purchasedPainting %}
+        <!-- painting purchased: -->
+        <p>{% translate '購入した絵画' %}: 
+            {% if LANGUAGE_CODE == 'ja' %}
+                {{purchasedPainting.name}}
+            {% else %}
+                {{purchasedPainting.english_name}}
+            {% endif %}
+        </p>
+        <img class ="img-thumbnail" src="{{purchasedPainting.main_painting.url}}" alt="" style="
+        height: 180px; 
+        width: 180px; 
+        aspect-ratio: auto 180/180;">
+        <!-- amount paid: -->
+        <p>{% translate '払込金額' %}: 
+            {% if currentUser %}
+                {% if currentUser.country == 'JP' %}
+                    ¥{{purchasedPainting.price}}
+                {% else %}
+                    ${{purchasedPainting.dollar_price}}
+                {% endif %}
+            {% endif %}
+        </p>
+    {% endif %}
+
+    {% if orderId %}
+        <!-- order number -->
+        <p>{% translate '注文番号' %}: {{orderId}}</p>
+    {% endif %}
+</div>
+
 {% endblock %}

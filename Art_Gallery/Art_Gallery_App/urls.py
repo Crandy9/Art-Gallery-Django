@@ -15,6 +15,7 @@ urlpatterns = [
     # by default, URL looks like this: /ja/carousel/14
     path('carousel/<int:pk>', views.carousel, name='carousel'),
     path('checkout/<int:pk>', views.checkout, name='checkout'),
+    path('thankyou/<int:pk>', views.thankyou, name='thankyou'),
     path('error',views.error, name='error'),
 ]
 

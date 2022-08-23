@@ -6,4 +6,8 @@ from .models import *
 
 # this is really cool because in the admin page you can add data for
 # each of the fields you created in your models.py class object
-admin.site.register(Portrait)
+# readonly_fields = ['uuid']
+# admin.site.register(Portrait)
+@admin.register(Portrait)
+class AdminClassName(admin.ModelAdmin):
+    readonly_fields = ['uuid']

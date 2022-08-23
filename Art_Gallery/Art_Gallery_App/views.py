@@ -45,7 +45,6 @@ def index(request, pk=None):
 
 def carousel(request, pk=None):
     if request.method == 'GET':
-        print("Carousel language:" + get_language())
 
         # get the specific object by its pk
         # exclude empty or null values
@@ -91,6 +90,47 @@ def checkout(request, pk=None):
         'product':product
     }
     return render(request, 'checkout.html', context)
+
+
+# thankyou page showing successful payment details
+# show thankyou message
+# purchase summary:
+# painting name
+# amount paid
+# order number (This number will be used to confirm your purchase in the event we need to contact you regarding your shipment, )
+# expected delivery date
+# set this painting's isSold field to true
+
+# pk is portrait id
+@login_required
+def thankyou(request, pk=None):
+    
+    # get specific image
+    purchasedPainting = Portrait.objects.get(pk=pk)
+    # set this image's isSold field to True
+    purchasedPainting.is_sold = True
+    print( 'Painting '+ str(purchasedPainting) + ' is sold: ' + str(purchasedPainting.is_sold))
+    # save it
+    purchasedPainting.save()
+    # get current user
+    currentUser = request.user
+    # get painting uuid and converting it to string
+    uuid = str(purchasedPainting.uuid)
+    print("Painting's uuid: " + str(uuid) + '\n')
+    # only give last 12 chars to user to be used for order number
+    orderId = uuid[-8:]
+    print("OrderId: " + str(orderId) + '\n')
+
+    context = {
+        'currentUser': currentUser,
+        'purchasedPainting': purchasedPainting,
+        'orderId': orderId
+    }
+
+    # send email to user with data
+
+    return render(request, 'thankyou.html', context)
+
 
 # handle 404s, 500 server errors, 
 def error(request, exception):
