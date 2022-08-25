@@ -101,6 +101,20 @@ a.company_link:hover {
 	#jpy, #usd {
 		font-size: small !important;
 	}
+	/*register and my account forms*/
+	.form-control {
+        height: 25px !important;
+        font-size: 0.9 rem !important;
+      }
+    #id_country, #id_state, #id_prefecture {
+        height: 35px !important;
+    }
+	#register-redirect-button {
+		font-size: 13px !important;
+
+	}
+
+
 }
 /* when screen is 759 or more, make short description text normal and title large */
 @media(min-width: 759px) {
@@ -121,7 +135,7 @@ nav .navbar-nav li a{
 	color: rgb(0, 0, 0) !important;
 } 
 
-/* align nav items center */
+/* align nav items in collapsed hamburger menu center */
 .navbar-nav {
 	text-align: center !important;
 }
@@ -131,7 +145,7 @@ nav .navbar-nav li a{
 .navbar {
 	border-bottom: ridge rgba(0, 110, 255, 0.3);
 }
-/* dropdown navbar animation */
+/* hamburger navbar animation */
 .navbar-collapse {
 	-webkit-transition: height .15s ease !important;
 	-o-transition: height .15s ease !important;
@@ -151,7 +165,7 @@ nav .navbar-nav li a{
 	background-color: rgba(255,255,255,0.95);
 }
 
-
+/* language dropdown */
 .dropdown .dropdown-menu {
 	-webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
 	-moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;

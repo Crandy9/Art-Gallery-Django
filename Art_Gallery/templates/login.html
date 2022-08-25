@@ -3,6 +3,7 @@
 {% load static %}
 {% block title %} {% translate 'ログイン' %}{% endblock %}
 {% block logincontent %}
+
     <div class="p-5">
         <main role="main">
             <!-- centers content in center of page -->
@@ -34,25 +35,27 @@
                                     {% endif %}
                                     <!-- extend this to allow username or email for login credentials -->
                                     <!-- Username input -->
-                                    <div class="form-group p-3">
+                                    <div class="form-group px-3 py-2">
                                         <input type="text" name="username" placeholder="{% translate "ユーザー名" %}" id="form2Example1" class="form-control" />
                                     </div>
                                     {% get_current_language as LANGUAGE_CODE %}
-                                    <div class="form-group p-3">
+                                    <div class="form-group px-3 py-2">
                                         <input type="password" name="password" placeholder="{% translate "パスワード" %}" id="form2Example1" class="form-control" />
                                         <a class = "ms-auto" href="/account/passwordreset" style="text-decoration: none;">{% translate 'パスワードをお忘れですか？' %}</a>
                                     </div>
-                                    <div class="text-center">
+                                    <div class="text-center pt-3">
                                         <!-- redirect to registration page put this in login page -->
-                                        <button type="submit" class="btn btn-primary btn-block mb-4">{% translate 'ログイン' %}</button>
+                                        <button type="submit" class="btn btn-primary btn-block mb-4 login-button" id="login-button-text">{% translate 'ログイン' %}</button>
                                     </div>
                                 </form>
                                 <!-- Register buttons -->
-                                <div class="text-center pb-3">
+                                <div class="text-center pb-2">
                                     <!-- Register buttons -->
                                     <div class="text-center">
                                         <!-- redirect to registration page put this in login page -->
-                                        <a role="button" type="submit" class="btn btn-sm btn-outline-dark btn-block mb-4" href="/account/register">{% translate 'アカウントをお持ちでない方' %}</a>
+                                        <a role="button" type="submit" class="btn btn-sm btn-outline-success btn-block mb-2" href="/account/register" id="register-redirect-button">
+                                            {% translate 'アカウントをお持ちでない方' %}
+                                        </a>
                                     </div>
                                     <!-- <p class="card-text">{% translate 'または' %}</p>
                                     <button type="button" class="btn btn-link btn-floating mx-1" style="background-color: rgb(0, 102, 255);" title=" {% translate 'フェイスブック' %}">

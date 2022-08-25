@@ -10,9 +10,9 @@
 <div class="container bg-light mt-5 rounded-lg border border-info rounded">
     <!-- Please review your order before purchasing -->
     {% if LANGUAGE_CODE == 'ja' %}
-    <p class="fw-bold mt-2">{{currentUser.first_name}}さん, {% translate '購入する前に注文を確認してください。' %}</p>
+    <h5 class="fw-bold mt-2">{{currentUser.first_name}}さん, {% translate '購入する前に注文を確認してください。' %}</h5>
     {% else %}
-    <p class="fw-bold mt-2">{{currentUser.first_name}}, {% translate '購入する前に注文を確認してください。' %}</p>
+    <h5 class="fw-bold mt-2">{{currentUser.first_name}}, {% translate '購入する前に注文を確認してください。' %}</h5>
     {% endif %}
     <hr>
     <div class="row">
@@ -84,14 +84,13 @@
                                 <!-- total -->
                                 <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
                                 <!-- add us shipping price field to model -->
-                                <span class= "card-text" style="float: right;">${{product.dollar_price|add:product.usa_shipping_price}}</span>
+                                <span class= "card-text" style="float: right;">${{usdTotal|floatformat:2}}</span>
                                 <br>
                             {% endif %}
                         {% else %}
                         {% endif %}
                     {% endif %}
             </div>
-
         </ul>
         <!-- column 3 user's name, email and shipping address -->
         <ul class="col-sm align-items-start" style="list-style: none">
@@ -99,15 +98,10 @@
                 <p class="text-secondary" style="font-size: small;">{% translate '配送先住所が正しいことを確認してください。これは、私たちがあなたの商品を郵送する住所です。' %}</p>
                 <li >
                     <p>
+                        <h5>{% translate '配送先住所' %}</h5>
                         <!-- name -->
                         {{currentUser.first_name}}
                         {{currentUser.last_name}}
-                        <br>
-                        <!-- email -->
-                        {{currentUser.email}}
-                        <br>
-                        <!-- phone number -->
-                        {{currentUser.account.phone_number}}
                         <br>
                         <!-- street1 -->
                         {{currentUser.account.street1}}
@@ -135,12 +129,70 @@
                         <!-- postal code -->
                         {{currentUser.account.postal_code}}
                         <br>
+                        <!-- email -->
+                        {{currentUser.email}}
+                        <br>
+                        <!-- phone number -->
+                        {{currentUser.account.phone_number}}
+                        <br>
                     </p>
                 </li>
             {% endif %}
         </div>
         <hr>
-        <!-- checkout button -->
+        <!-- Disclaimers -->
+        <!-- Please read the following important information before purchasing -->
+        <h5> *{% translate '購入前に以下の重要な情報をお読みください' %}* </h5>
+        <div>
+            <!-- Shipping Information -->
+            <h6><u>{% translate '配送に関する情報' %}</u></h6>
+            <!-- for customers in Japan -->
+            {% if currentUser.account.country == 'JP' %}
+
+                <p class="text-secondary">
+                    {% translate '絵画は日本郵便で発送されます。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。ご購入の絵画の発送が完了後、日本郵便の追跡番号をメールでお知らせします。荷物の追跡に使用できる日本郵便のウェブサイトは次のとおりです:' %}
+                    <a href="https://trackings.post.japanpost.jp/services/srv/sequenceNoSearch/input?locale=en" target="_blank">Japan Post</a>
+                </p>
+                <!--  Please allow up to one week for your painting to be delivered.-->
+                <p class="text-secondary">
+                    {% translate '絵画が届くまで最大 1 週間かかります。' %}
+                </p>
+
+            {% else %}
+            <!-- customers in United States -->
+                <p class="text-secondary">
+                    {% translate '私たちは、日本の郵便サービス「日本郵便」を介して、日本から米国に絵画を発送します。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。あなたの絵が郵送され次第、日本郵便の追跡番号をお知らせします。荷物の追跡に使用できる日本郵便のウェブサイトは次のとおりです:' %}
+                    <a href="https://trackings.post.japanpost.jp/services/srv/sequenceNoSearch/input?locale=en" target="_blank">Japan Post</a>
+                </p>
+                <!--  Please allow up to three weeks for your painting to be delivered. -->
+                <p class="text-secondary">
+                    {% translate '絵画が届くまで最大 3 週間かかります。' %}
+                </p>
+            {% endif %}
+        </div>
+        <!-- End shipping info -->
+        <!-- Refund/Cancellation policy -->
+        <div>
+            <h6><u>{% translate '払い戻し・キャンセルのお知らせ' %}</u></h6>
+            <!-- for users in Japan -->
+            {% if currentUser.country == 'JP' %}
+                <p class="text-secondary">
+                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
+                </p>
+                <P class="text-danger" style=" font-size: 13px !important;"> *{% translate '尚、10日以降のキャンセル、返金は承りませんので、ご了承お願い致します。' %}</P>
+            {% else %}
+                <!-- customers in United States -->
+                <p class="text-secondary">
+                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
+                </p>
+                <P class="text-danger" style="font-size: 13px !important;"> *{% translate '尚、10日以降のキャンセル、返金は承りませんので、ご了承お願い致します。' %}</P>
+
+            {% endif %}
+        </div>
+        <!-- We will email you this information again as a reminder. -->
+        <p class = "text-primary"><em>{% translate 'この情報は、リマインダーとして再度メールでお送りします' %}</em></p>
+        <!-- end refund cancellation policy -->
+        <!-- checkout/cancel button -->
         <div class="text-center">
             <a role="button" class="btn btn-info btn-block mb-2 mt-3 mr-1">
                 <!-- place order -->
@@ -150,6 +202,7 @@
                 {% translate "キャンセル" %}
             </a>
         </div>
+        <!-- end checkout/cancel button -->
     </div>
 </div>
 {% endblock %}

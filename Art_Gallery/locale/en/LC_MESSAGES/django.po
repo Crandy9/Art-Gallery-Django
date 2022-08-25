@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-22 07:45+0000\n"
+"POT-Creation-Date: 2022-08-25 10:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Art_Gallery_App/views.py:78
+#: Art_Gallery_App/views.py:77
 msgid "購入を続行する前に、配送先住所を更新してください。"
 msgstr ""
 "Please update your shipping address before continuing with your purchase."
@@ -27,11 +27,11 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: account/forms.py:28 account/views.py:147
+#: account/forms.py:28 account/views.py:148
 msgid "名を入力してください"
 msgstr "Please enter your first name"
 
-#: account/forms.py:36 account/views.py:155
+#: account/forms.py:36 account/views.py:156
 msgid "姓を入力してください"
 msgstr "Please enter your last name"
 
@@ -43,7 +43,7 @@ msgstr ""
 "Please enter a valid email address (in case we need to contact you in "
 "regards to your shipment)"
 
-#: account/forms.py:52 templates/myaccount.html:98 templates/register.html:39
+#: account/forms.py:52 templates/myaccount.html:97 templates/register.html:39
 msgid "メールアドレス"
 msgstr "email address"
 
@@ -103,82 +103,82 @@ msgstr "ex) Chattanooga"
 msgid "例 ： 000-0000"
 msgstr "ex) 12345 or 12312-1231"
 
-#: account/views.py:55
+#: account/views.py:56
 msgid "アカウントが正常に削除されました"
 msgstr "Account successfully deleted"
 
-#: account/views.py:117
+#: account/views.py:118
 msgid "変更が正常に保存されました"
 msgstr "Changes saved successfully"
 
-#: account/views.py:163 account/views.py:281
+#: account/views.py:164 account/views.py:282
 msgid "ユーザー名を入力してください"
 msgstr "Please enter a username"
 
-#: account/views.py:171 account/views.py:179
+#: account/views.py:172 account/views.py:180
 msgid "有効なメールアドレスを入力してください"
 msgstr "Please enter a valid email address."
 
-#: account/views.py:189
+#: account/views.py:190
 msgid "パスワードを入力して下さい"
 msgstr "re-enter password"
 
-#: account/views.py:197
+#: account/views.py:198
 msgid "パスワードを再入力してください"
 msgstr "Please enter your first name"
 
-#: account/views.py:209
+#: account/views.py:210
 msgid "ユーザー名は既に存在します。別のユーザー名を入力してください"
 msgstr "Username already exists. Please enter another username"
 
-#: account/views.py:215
+#: account/views.py:216
 msgid ""
 "メールアドレスは既に登録されています。別のメールアドレスを入力してください"
 msgstr ""
 "This email address is already registered. Please use a different email "
 "address"
 
-#: account/views.py:258
+#: account/views.py:259
 msgid "パスワードが一致していません。一致するパスワードを再入力してください"
 msgstr "Passwords do not match"
 
-#: account/views.py:265
+#: account/views.py:266
 msgid "アカウントが作成されました！ログインしてください"
 msgstr "Account created! Please login."
 
-#: account/views.py:288
+#: account/views.py:289
 msgid "入力したパスワードが正しくありません。もう一度お試しください"
 msgstr "The password you entered is incorrect. Please try again"
 
-#: account/views.py:312
+#: account/views.py:313
 msgid "このユーザーは存在しません"
 msgstr "Username does not exist"
 
-#: templates/carousel.html:62
+#: templates/carousel.html:177
 msgid "購入する"
 msgstr "Buy now"
 
-#: templates/checkout.html:5
+#: templates/checkout.html:6
 msgid "チェックアウト"
 msgstr "Checkout"
 
-#: templates/checkout.html:11
+#: templates/checkout.html:13 templates/checkout.html:15
 msgid "購入する前に注文を確認してください。"
 msgstr "please review your order before purchasing"
 
-#: templates/checkout.html:47 templates/checkout.html:62
+#: templates/checkout.html:60 templates/checkout.html:77
 msgid "商品の小計："
 msgstr "Subtotal:"
 
-#: templates/checkout.html:50 templates/checkout.html:65
+#: templates/checkout.html:64 templates/checkout.html:81
 msgid "配送料・手数料："
 msgstr "Shipping/Handling:"
 
-#: templates/checkout.html:68
+#: templates/checkout.html:68 templates/checkout.html:85
 msgid "合計："
 msgstr "Total:"
 
-#: templates/checkout.html:83
+#: templates/checkout.html:98
 msgid ""
 "配送先住所が正しいことを確認してください。これは、私たちがあなたの商品を郵送"
 "する住所です。"
@@ -186,69 +186,145 @@ msgstr ""
 "Please make sure your shipping address is correct. This is the address we "
 "will use when sending your item."
 
-#: templates/checkout.html:131
+#: templates/checkout.html:101
+msgid "配送先住所"
+msgstr "Shipping Address"
+
+#: templates/checkout.html:145
+msgid "購入前に以下の重要な情報をお読みください"
+msgstr "Please read the following important information before purchasing"
+
+#: templates/checkout.html:148
+msgid "配送に関する情報"
+msgstr "Shipping information"
+
+#: templates/checkout.html:153
+msgid ""
+"絵画は日本郵便で発送されます。支払い後、絵を梱包して発送するまで、土日祝日を"
+"除く最大 2 日かかります。ご購入の絵画の発送が完了後、日本郵便の追跡番号をメー"
+"ルでお知らせします。荷物の追跡に使用できる日本郵便のウェブサイトは次のとおり"
+"です:"
+msgstr ""
+"We ship our paintings via Japan Post. Please allow up to two days excluding "
+"weekends and holidays for your painting to be packaged and sent after "
+"payment. For your convenience, we will email you the Japan Post tracking "
+"number for your painting as soon as we send it in the mail. Here is the "
+"Japan Post website that you can use to track your package:"
+
+#: templates/checkout.html:158
+msgid "絵画が届くまで最大 1 週間かかります。"
+msgstr "Please allow up to one week for your painting to arrive."
+
+#: templates/checkout.html:164
+msgid ""
+"私たちは、日本の郵便サービス「日本郵便」を介して、日本から米国に絵画を発送し"
+"ます。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。"
+"あなたの絵が郵送され次第、日本郵便の追跡番号をお知らせします。荷物の追跡に使"
+"用できる日本郵便のウェブサイトは次のとおりです:"
+msgstr ""
+"We ship our paintings to the United States from Japan via the Japanese "
+"postal service, Japan Post. Please allow up to two days excluding weekends "
+"and holidays for your painting to be packaged and sent after payment. For "
+"your convenience, we will email you the Japan Post tracking number for your "
+"painting as soon as we send it in the mail. Here is the Japan Post website "
+"that you can use to track your package:"
+
+#: templates/checkout.html:169
+msgid "絵画が届くまで最大 3 週間かかります。"
+msgstr "Please allow up to 3 weeks for your painting to arrive."
+
+#: templates/checkout.html:176
+msgid "払い戻し・キャンセルのお知らせ"
+msgstr "Refund/Cancellation Policy"
+
+#: templates/checkout.html:180 templates/checkout.html:186
+msgid ""
+"お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如"
+"何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送"
+"いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルし"
+"たい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。"
+msgstr ""
+"The customer has a right to a full refund for any reason for up to 10 days "
+"after the painting has been successfully delivered to the shipping address. "
+"Because we will send the painting to you in the mail as soon as possible "
+"after your payment has been made, we may not be able to cancel in time. "
+"Please contact us immediately after making your payment via our contact "
+"email that was sent to your email if you wish to cancel and we will do our "
+"best to accomodate your request."
+
+#: templates/checkout.html:182 templates/checkout.html:188
+msgid "尚、10日以降のキャンセル、返金は承りませんので、ご了承お願い致します。"
+msgstr ""
+"Please note that cancellations and refunds will not be accepted after 10 "
+"days."
+
+#: templates/checkout.html:193
+msgid "この情報は、リマインダーとして再度メールでお送りします"
+msgstr "This information will be emailed to you again as a reminder."
+
+#: templates/checkout.html:199
 msgid "注文する"
 msgstr "place order"
 
-#: templates/checkout.html:134 templates/myaccount.html:175
+#: templates/checkout.html:202 templates/myaccount.html:175
 msgid "キャンセル"
 msgstr "cancel"
 
-#: templates/index.html:60
-msgid "こんにちは"
-msgstr "Hello"
-
-#: templates/index.html:91
+#: templates/index.html:86
 msgid "アカウント"
 msgstr "My Account"
 
-#: templates/index.html:94
+#: templates/index.html:89
 msgid "ログアウト"
 msgstr "Log out"
 
-#: templates/index.html:101 templates/login.html:4 templates/login.html:15
-#: templates/login.html:47
+#: templates/index.html:96 templates/login.html:4 templates/login.html:16
+#: templates/login.html:48
 msgid "ログイン"
 msgstr "Sign in"
 
-#: templates/index.html:105 templates/register.html:14
+#: templates/index.html:100 templates/register.html:14
 msgid "会員登録"
 msgstr "Create Account"
 
-#: templates/index.html:121
+#: templates/index.html:116
 msgid "メルカリ"
 msgstr "My Mercari"
 
-#: templates/login.html:38 templates/myaccount.html:87
+#: templates/index.html:163 templates/index.html:167
+msgid "こんにちは"
+msgstr "Hello"
+
+#: templates/login.html:39 templates/myaccount.html:85
 #: templates/register.html:35
 msgid "ユーザー名"
 msgstr "username"
 
-#: templates/login.html:42 templates/register.html:42
+#: templates/login.html:43 templates/register.html:42
 msgid "パスワード"
 msgstr "password"
 
-#: templates/login.html:43
+#: templates/login.html:44
 msgid "パスワードをお忘れですか？"
 msgstr "forget your password?"
 
-#: templates/login.html:55
+#: templates/login.html:57
 msgid "アカウントをお持ちでない方"
 msgstr "Don't have an account? Register here!"
 
-#: templates/login.html:57
+#: templates/login.html:60
 msgid "または"
 msgstr "or login with:"
 
-#: templates/login.html:58
+#: templates/login.html:61
 msgid "フェイスブック"
 msgstr "Facebook"
 
-#: templates/login.html:62
+#: templates/login.html:65
 msgid "グーグル"
 msgstr "Google"
 
-#: templates/login.html:66
+#: templates/login.html:69
 msgid "ツイッター"
 msgstr "Twitter"
 
@@ -256,23 +332,23 @@ msgstr "Twitter"
 msgid "アカウント詳細"
 msgstr "My Account"
 
-#: templates/myaccount.html:40
+#: templates/myaccount.html:35
 msgid "アカウント情報の編集"
 msgstr "Edit Account Information"
 
-#: templates/myaccount.html:45
+#: templates/myaccount.html:40
 msgid "これらのエラーを修正してください"
 msgstr "Please correct the errors below and try again."
 
-#: templates/myaccount.html:62
+#: templates/myaccount.html:57
 msgid "氏名"
 msgstr "Name"
 
-#: templates/myaccount.html:66 templates/register.html:27
+#: templates/myaccount.html:61 templates/register.html:27
 msgid "名前"
 msgstr "first name"
 
-#: templates/myaccount.html:76 templates/register.html:31
+#: templates/myaccount.html:73 templates/register.html:31
 msgid "苗字"
 msgstr "last name"
 
@@ -325,8 +401,6 @@ msgid "(警告！この操作は元に戻せません)"
 msgstr "(WARNING! This action cannot be undone)"
 
 #: templates/passwordreset.html:4
-#, fuzzy
-#| msgid "パスワードを入力して下さい"
 msgid "パスワードを再設定する"
 msgstr "re-enter password"
 
@@ -341,6 +415,41 @@ msgstr "Register!"
 #: templates/register.html:55
 msgid "アカウントをお持ちの方"
 msgstr "Already registered? Log in!"
+
+#: templates/thankyou.html:4
+msgid "ありがとうございました！"
+msgstr "Thank you!"
+
+#: templates/thankyou.html:20
+msgid "お支払いが完了いたしました。"
+msgstr "Your payment was successfully posted."
+
+#: templates/thankyou.html:22
+msgid "ご購入誠にありがとうございます！"
+msgstr "Thank you for your purchase!"
+
+#: templates/thankyou.html:24
+msgid "お支払い概要"
+msgstr "Payment summary"
+
+#: templates/thankyou.html:28
+msgid "購入した絵画"
+msgstr "Painting Purchased"
+
+#: templates/thankyou.html:40
+msgid "払込金額"
+msgstr "Amount Paid"
+
+#: templates/thankyou.html:53
+msgid "注文番号"
+msgstr "Order number"
+
+#~ msgid ""
+#~ "絵画が届くまで最大 3 週間かかります。この情報は、リマインダーとして再度"
+#~ "メールでお送りします"
+#~ msgstr ""
+#~ "Please allow up to 3 weeks for your painting to arrive. This information "
+#~ "will be emailed to you again as a reminder"
 
 #~ msgid "例"
 #~ msgstr "Example"

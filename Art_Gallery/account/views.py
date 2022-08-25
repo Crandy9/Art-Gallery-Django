@@ -29,7 +29,8 @@ EMAIL_ON = True
 # forgot password
 def password_reset(request):
     return render(request, 'passwordreset.html')
-
+    
+@login_required
 def delete_account(request):
 
     this_user = request.user

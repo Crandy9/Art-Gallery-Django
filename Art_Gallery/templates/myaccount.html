@@ -13,175 +13,175 @@
     .form-group {
         color:rgb(0, 124, 207) !important;
     }
-    /**
-    .form-control {
-        max-width: 75% !important;
-      }
-    **/
+    
+
 </style>
-
-
-<div class="p-5">
-    <main role="main">
-        <!-- centers content in center of page -->
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <section>
-                    <!-- CARD -->
-                    <div class="card credintial-card">
-                        <div class="card-body">
-                            {% if messages %}
-                                <div style="background:rgba(224, 255, 223, 0.9);">
-                                    {% for message in messages %}
-                                    <p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                            <h2 class="card-title p-1">{% translate "アカウント情報の編集" %}</h2>
-                            <!-- error messages -->
-                            <div class="ms-auto text-danger">
-                                <!-- Please fix the following errors -->
-                                {% if user_form.errors or account_form.errors %}
-                                <p> {% translate 'これらのエラーを修正してください' %}</p>
-                                {% endif %}                           
-                            </div>
-                            <!-- end error messages -->
-                            <!-- form for myaccount take off validate popup because it's in English only -->
-                            <form method="post" novalidate id="accountForm">
-                                <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
-                                {% csrf_token %}
-                                {% if request.GET.next %}
-                                <!-- ex.) if url is http://127.0.0.1:8000/ja/account/login?next=/ja/checkout/4
-                                    request.GET.next will equal /ja/checkout/4 -->
-                                <input type="hidden" name="next" value="{{request.GET.next}}">
+    <div class="p-5">
+        <main role="main">
+            <!-- centers content in center of page -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <section>
+                        <!-- CARD -->
+                        <div class="card credintial-card">
+                            <div class="card-body">
+                                {% if messages %}
+                                    <div style="background:rgba(224, 255, 223, 0.9);">
+                                        {% for message in messages %}
+                                        <p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
-                                <!-- USER DATA -->
-                                <!-- first name -->
-                                <div class="form-group p-1">
-                                    {{user_form.first_name.errors}}
-                                    <label for="">{% translate "氏名" %}</label>
-                                    <input 
-                                    type="text" 
-                                    name="first_name" 
-                                    placeholder="{% translate "名前" %}" 
-                                    class="form-control" 
-                                    value='{{user.first_name}}'/>
+                                <h2 class="card-title p-1">{% translate "アカウント情報の編集" %}</h2>
+                                <!-- error messages -->
+                                <div class="ms-auto text-danger">
+                                    <!-- Please fix the following errors -->
+                                    {% if user_form.errors or account_form.errors %}
+                                    <p> {% translate 'これらのエラーを修正してください' %}</p>
+                                    {% endif %}                           
                                 </div>
-                                <!-- last name -->
-                                <div class="form-group p-1">
-                                    {{ user_form.last_name.errors }}
-                                    <input 
-                                    type="text" 
-                                    name="last_name" 
-                                    placeholder="{% translate "苗字" %}" 
-                                    class="form-control" 
-                                    value='{{user.last_name }}'/>
-                                </div>
-                                <!-- username -->
-                                <div class="form-group p-1">
-                                    {{ user_form.username.errors }}
-                                    {{user_form.username.label}}
-                                    <input 
-                                    type="text" 
-                                    name="username" 
-                                    placeholder="{% translate "ユーザー名" %}" 
-                                    class="form-control" 
-                                    value='{{user.username}}'/>
-                                </div>
-                                <!-- email -->
-                                <div class="form-group p-1">
-                                    {{ user_form.email.errors }}
-                                    {{user_form.email.label}}
-                                    <input 
-                                    type="text" 
-                                    name="email" 
-                                    placeholder="{% translate "メールアドレス" %}" 
-                                    class="form-control" 
-                                    value='{{user.email}}'/>
-                                </div>
-                                <!-- END USER DATA -->
-                                <!-- ACCOUNT DATA -->
-                                <!-- phone number -->
-                                <!-- modify placeholder for Japan and american phone numbers -->
-                                <!-- if Japan is the country -->
-                                <div class="form-group p-1">
-                                    {{ account_form.phone_number.errors }}
-                                    <label for="phone_number">{% translate '電話番号' %}</label>
-                                {{ account_form.phone_number }}
-                                </div>
-                                    
-                                <!-- if United States is selected -->
-                                <!-- Country, city and state dropdown -->
-                                <div class="form-group p-1" id="country-dropdown">
-                                    {{ account_form.country.errors }} 
-                                    <label for="country">{% translate '国/地域' %}</label>
-                                    {{ account_form.country }} 
-                                </div>
-                                <!-- if Japan is selected, show Japanese prefectures -->
-                                <div class="form-group p-1" id="prefecture-dropdown">
-                                    {{ account_form.prefecture.errors }} 
-                                    <label for="prefecture">{% translate '都道府県' %}</label>
-                                    {{ account_form.prefecture }} 
-                                </div>
-                                <!-- else show us states -->
-                                <div class="form-group p-1" id="state-dropdown">
-                                    {{ account_form.state.errors }} 
-                                    <label for="state">{% translate '州' %}</label>
-                                    {{ account_form.state }} 
-                                </div>
-                                <!-- city -->
-                                <div class="form-group p-1" id="city">
-                                    {{ account_form.city.errors }} 
-                                    <label for="city">{% translate '市区町村 (市/町)' %}</label>
-                                    {{ account_form.city }} 
-                                </div>
-                                <!-- street 1 -->
-                                <div class="form-group p-1" id="street1">
-                                    {{ account_form.street1.errors }} 
-                                    <label for="street1">{% translate '住所 (丁目・番地・号)' %}</label>
-                                    {{ account_form.street1 }}
-                                </div>
-                                <!-- street 1 -->
-                                <div class="form-group p-1" id="street2">
-                                    <label for="street2">{% translate '部屋番号（該当する場合)' %}</label>
-                                    {{ account_form.street2 }} 
-                                </div>
-                                <!-- verify format for Japanese post code and US zip code -->
-                                <div class="form-group p-1" id="postal-code">
-                                    {{ account_form.postal_code.errors }} 
-                                    <label for="posttal-code">{% translate '郵便番号' %}</label>
-                                    {{ account_form.postal_code }} 
-                                </div>
-                                <!-- END ACCOUNT DATA -->
-                                <!-- submit account change form -->
+                                <!-- end error messages -->
+                                <!-- form for myaccount take off validate popup because it's in English only -->
+                                <form method="post" novalidate id="accountForm">
+                                    <!-- remember csrf_token declaration for security middleware, creates csrf cookie -->
+                                    {% csrf_token %}
+                                    {% if request.GET.next %}
+                                    <!-- ex.) if url is http://127.0.0.1:8000/ja/account/login?next=/ja/checkout/4
+                                        request.GET.next will equal /ja/checkout/4 -->
+                                    <input type="hidden" name="next" value="{{request.GET.next}}">
+                                    {% endif %}
+                                    <!-- USER DATA -->
+                                    <!-- first name -->
+                                    <div class="form-group p-1">
+                                        {{user_form.first_name.errors}}
+                                        <label for="">{% translate "氏名" %}</label>
+                                        <input 
+                                        type="text" 
+                                        name="first_name" 
+                                        placeholder="{% translate "名前" %}" 
+                                        class="form-control" 
+                                        value='{{user.first_name}}'
+                                        
+                                        />
+                                    </div>
+                                    <!-- last name -->
+                                    <div class="form-group p-1">
+                                        {{ user_form.last_name.errors }}
+                                        <input 
+                                        type="text" 
+                                        name="last_name" 
+                                        placeholder="{% translate "苗字" %}" 
+                                        class="form-control input-lg" 
+                                        value='{{user.last_name }}'
+                                        />
+                                    </div>
+                                    <!-- username -->
+                                    <div class="form-group p-1">
+                                        {{ user_form.username.errors }}
+                                        {{user_form.username.label}}
+                                        <input 
+                                        type="text" 
+                                        name="username" 
+                                        placeholder="{% translate "ユーザー名" %}" 
+                                        class="form-control" 
+                                        value='{{user.username}}'
+                                        />
+                                    </div>
+                                    <!-- email -->
+                                    <div class="form-group p-1">
+                                        {{ user_form.email.errors }}
+                                        {{user_form.email.label}}
+                                        <input 
+                                        type="text" 
+                                        name="email" 
+                                        placeholder="{% translate "メールアドレス" %}" 
+                                        class="form-control" 
+                                        value='{{user.email}}'
+                                        />
+                                    </div>
+                                    <!-- END USER DATA -->
+                                    <!-- ACCOUNT DATA -->
+                                    <!-- phone number -->
+                                    <!-- modify placeholder for Japan and american phone numbers -->
+                                    <!-- if Japan is the country -->
+                                    <div class="form-group p-1">
+                                        {{ account_form.phone_number.errors }}
+                                        <label for="phone_number">{% translate '電話番号' %}</label>
+                                    {{ account_form.phone_number }}
+                                    </div>
+                                        
+                                    <!-- if United States is selected -->
+                                    <!-- Country, city and state dropdown -->
+                                    <div class="form-group p-1" id="country-dropdown">
+                                        {{ account_form.country.errors }} 
+                                        <label for="country">{% translate '国/地域' %}</label>
+                                        {{ account_form.country }} 
+                                    </div>
+                                    <!-- if Japan is selected, show Japanese prefectures -->
+                                    <div class="form-group p-1" id="prefecture-dropdown">
+                                        {{ account_form.prefecture.errors }} 
+                                        <label for="prefecture" >{% translate '都道府県' %}</label>
+                                        {{ account_form.prefecture }} 
+                                    </div>
+                                    <!-- else show us states -->
+                                    <div class="form-group p-1" id="state-dropdown">
+                                        {{ account_form.state.errors }} 
+                                        <label for="state">{% translate '州' %}</label>
+                                        {{ account_form.state }} 
+                                    </div>
+                                    <!-- city -->
+                                    <div class="form-group p-1" id="city">
+                                        {{ account_form.city.errors }} 
+                                        <label for="city">{% translate '市区町村 (市/町)' %}</label>
+                                        {{ account_form.city }} 
+                                    </div>
+                                    <!-- street 1 -->
+                                    <div class="form-group p-1" id="street1">
+                                        {{ account_form.street1.errors }} 
+                                        <label for="street1">{% translate '住所 (丁目・番地・号)' %}</label>
+                                        {{ account_form.street1 }}
+                                    </div>
+                                    <!-- street 1 -->
+                                    <div class="form-group p-1" id="street2">
+                                        <label for="street2">{% translate '部屋番号（該当する場合)' %}</label>
+                                        {{ account_form.street2 }} 
+                                    </div>
+                                    <!-- verify format for Japanese post code and US zip code -->
+                                    <div class="form-group p-1" id="postal-code">
+                                        {{ account_form.postal_code.errors }} 
+                                        <label for="posttal-code">{% translate '郵便番号' %}</label>
+                                        {{ account_form.postal_code }} 
+                                    </div>
+                                    <!-- END ACCOUNT DATA -->
+                                    <!-- submit account change form -->
+                                    <div class="text-center">
+                                        <!-- redirect to registration page put this in login page -->
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block mb-2 mt-3">{% translate "変更を保存する" %}</button>
+                                    </div>
+                                </form>
+                                <!-- delete user -->
                                 <div class="text-center">
-                                    <!-- redirect to registration page put this in login page -->
-                                    <button type="submit" class="btn btn-primary btn-sm btn-block mb-2 mt-3">{% translate "変更を保存する" %}</button>
+                                    <!-- delete account -->
+                                    <a role = "button" onclick="showDeleteContent()" class="btn btn-danger btn-sm btn-block mb-2 mt-3" id="first_chance">{% translate "アカウントを削除する" %}</a>
                                 </div>
-                            </form>
-                            <!-- delete user -->
-                            <div class="text-center">
-                                <!-- delete account -->
-                                <a role = "button" onclick="showDeleteContent()" class="btn btn-danger btn-sm btn-block mb-2 mt-3" id="first_chance">{% translate "アカウントを削除する" %}</a>
-                            </div>
-                            <div class="text-center" id="final_decision"  style="display:none">
-                                <!-- Are you sure you want to delete your account? (This operation cannot be undone) -->
-                                <p class="text-danger mt-3" style="white-space: pre-line;">{% translate 'アカウントを削除してもよろしいですか？' %}
-                                    {% translate '(警告！この操作は元に戻せません)'%}
-                                </p>
-                                <!-- delete account -->
-                                <a role="button" href="/{{LANGUAGE_CODE}}/account/deleteaccount" class="btn btn-danger btn-sm btn-block mb-2 mt-3">{% translate "アカウントを削除する" %}</a>
-                                <!-- cancel -->
-                                <a role="button" href=""class="btn btn-outline-info btn-sm btn-block mb-2 mt-3" style="color: black;">{% translate "キャンセル" %}</a>
+                                <div class="text-center" id="final_decision"  style="display:none">
+                                    <!-- Are you sure you want to delete your account? (This operation cannot be undone) -->
+                                    <p class="text-danger mt-3" style="white-space: pre-line;">{% translate 'アカウントを削除してもよろしいですか？' %}
+                                        {% translate '(警告！この操作は元に戻せません)'%}
+                                    </p>
+                                    <!-- delete account -->
+                                    <a role="button" href="/{{LANGUAGE_CODE}}/account/deleteaccount" class="btn btn-danger btn-sm btn-block mb-2 mt-3">{% translate "アカウントを削除する" %}</a>
+                                    <!-- cancel -->
+                                    <a role="button" href=""class="btn btn-outline-info btn-sm btn-block mb-2 mt-3" style="color: black;">{% translate "キャンセル" %}</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END CARD -->
-                </section>
+                        <!-- END CARD -->
+                    </section>
+                </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 <script>
     // when account button is clicked, show final warning message
     function showDeleteContent() {

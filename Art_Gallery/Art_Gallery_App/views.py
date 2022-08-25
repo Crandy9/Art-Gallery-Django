@@ -85,9 +85,16 @@ def checkout(request, pk=None):
     product = Portrait.objects.get(pk=pk)
     # get user's country to charge correct currency
     currentUser = request.user
+    # get total cost for usd
+    usdShippingHandling = product.usa_shipping_price
+    usdPrice = product.dollar_price
+    usdTotal = usdShippingHandling + usdPrice
+    print("USD TOTAL: " + str(usdTotal) + '\n')
     context = {
         'currentUser': currentUser,
-        'product':product
+        'product':product,
+        'usdTotal': usdTotal,
+
     }
     return render(request, 'checkout.html', context)
 

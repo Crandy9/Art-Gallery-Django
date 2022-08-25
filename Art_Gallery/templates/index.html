@@ -45,7 +45,7 @@
 		
 		<!-- NAVBAR -->
 		<!-- sticky nav -->
-		<nav class="navbar navbar-expand-md navbar-light" style="background-color:rgba(255, 253, 218, 0.95);">
+		<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color:rgba(255, 253, 218, 0.95);">
 			<!-- container pushes items more center as opposed to putting them at the edge of each end of the screen -->
 			<div class="container">
 				<!-- navbar brand is the title -->
@@ -55,8 +55,6 @@
 					<!-- using load i18n declaration at top of template -->
 					Kaoru's Art Gallery
 				</a>
-
-
 				<!--hamburger button animation -->
 				<!-- hamburger menu button  --> 
 				<button
@@ -127,40 +125,55 @@
 					</ul>
 					<hr>
 				</div>
-
 			</div>
-
 		</nav>
 		<!-- END NAVBAR -->
-
-		<!-- ACCOUNT DELETED MESSAGE -->
+		<br>
+		<br>
+		<br>
+		<!-- messages -->
 		{% if messages %}
-		<div style="background:rgba(224, 255, 223, 0.9);">
-			{% for message in messages %}
-				{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-				<p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
-				{% endif %}
-			{% endfor %}
-		</div>
+			<!-- language dropdown menu and delete account message and welcome user -->
+			<div>
+				<!-- ACCOUNT DELETED MESSAGE -->
+				<div style="background:rgba(224, 255, 223, 0.9);">
+					{% for message in messages %}
+						{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+						<p class="text-center text-success" style="color:rgb(43, 255, 0);">{{message}}</p>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
 		{% endif %}
-		<!-- change language d-flex must be on this div -->
-		<div class="container d-flex justify-content-end mt-2">
-			{% get_current_language as LANGUAGE_CODE %}
-			{% get_available_languages as LANGUAGES %}
-			{% get_language_info_list for LANGUAGES as languages %}
+		<!-- end messages -->
+		<!-- welcome user -->
+		{% get_current_language as LANGUAGE_CODE %}
+		{% get_available_languages as LANGUAGES %}
+		{% get_language_info_list for LANGUAGES as languages %}
 
+		<!-- language change button here -->
+		<!-- change language d-flex must be on this div -->
+		<!-- <div class="container container d-flex justify-content-end"> -->
+		<div class="container" style="display: flex; justify-content: space-between;">
 			<!-- welcome user-->
 			{% if user.is_authenticated %}
-				<div class="pt-1" style="display: table !important; margin: 0 auto !important;">
+				<div class ="pt-2">
 					{% if LANGUAGE_CODE == 'ja' %}
-					<span class = "text-light bg-info fw-bold px-2 py-1" style="font-size: small;">{% translate 'こんにちは' %} {{user.username}}さん！</span>
+					<p class = "fw-bold pt-1 px-2 rounded" style="font-size: small; color:rgb(255, 255, 255); background-color:rgb(255, 85, 246)">
+						{% translate 'こんにちは' %} {{user.username}}さん！
+					</p>
 					{% else %}
-					<span class = "text-light bg-info fw-bold px-2 py-1" style="font-size: small;">{% translate 'こんにちは' %} {{user.username}}!</span>
+					<p class = "fw-bold pt-1 px-2 rounded" style="font-size: small; color:rgb(255, 255, 255); background-color:rgb(255, 85, 246)">
+						{% translate 'こんにちは' %}, {{user.username}}!
+					</p>
 					{% endif %}
 				</div>
+			<!-- put a blank p tag to keep translation over to the right-->
+			{% else %}
+				<p></p>
 			{% endif %}
-
-			<div class="dropdown ">
+			<!-- this class is what is used for dropdown animation -->
+			<div class="dropdown">
 				<button 
 				class="btn btn-sm btn-info dropdown-toggle text-light fw-bold"
 				id="dropdownMenuLink" 
@@ -168,10 +181,10 @@
 				data-toggle="dropdown" 
 				aria-haspopup="true" 
 				aria-expanded="false"
-				style="background-color:rgb(25, 144, 255);">
+				style="background-color:rgb(24, 143, 255);">
 				Language
 				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="min-width: 100px !important;">
+				<ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" style="min-width: 100px !important;">
 					<!-- The set_language redirect 18n view called by post method
 					-->
 					<li>
@@ -194,30 +207,33 @@
 				</ul>
 			</div>
 		</div>
+		<div>
+			<!-- register block -->
+			<div id="register_content">
+				{% block registercontent %}{% endblock %}
+			</div>
+			<!-- login block see login.html -->
+			<div id="login_content">
+				{% block logincontent %}{% endblock %}
+			</div>
+			<!-- my account block -->
+			<div id="myaccount_content">
+				{% block myaccountcontent %}{% endblock %}
+			</div>
+			<!-- checkout block-->
+			<div id="checkout_content">
+				{% block checkoutcontent %}{% endblock %}
+			</div>
+			<!-- thank you page block -->
+			{% block thankyoucontent %}
+			{% endblock %}
+			<!-- password reset block-->
+			<div id="password_reset_content">
+				{% block passwordresetcontent %}{% endblock %}
+			</div>
+		</div>
 
-		<!-- register block -->
-		<div id="register_content">
-			{% block registercontent %}{% endblock %}
-		</div>
-		<!-- login block see login.html -->
-		<div id="login_content">
-			{% block logincontent %}{% endblock %}
-		</div>
-		<!-- my account block -->
-		<div id="myaccount_content">
-			{% block myaccountcontent %}{% endblock %}
-		</div>
-		<!-- checkout block-->
-		<div id="checkout_content">
-			{% block checkoutcontent %}{% endblock %}
-		</div>
-		<!-- thank you page block -->
-		{% block thankyoucontent %}
-		{% endblock %}
-		<!-- password reset block-->
-		<div id="password_reset_content">
-			{% block passwordresetcontent %}{% endblock %}
-		</div>
+
 		<!--  PORTRAIT SECTION -->
 		<section class="gallery min-vh-100" >
 			<div class="container-lg">
@@ -301,7 +317,7 @@
 
 		<!-- call currency changer script -->
 		<!-- show price based on country -->
-		<!-- get country variable -->
+		<!-- get country variable convert django model field to javascript var -->
 		{{ user.account.country|json_script:'currentCountry' }}
 		<!-- get user authenticated boolean -->
 		{{user.is_authenticated|json_script:'user_is_logged_in'}}
