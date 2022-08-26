@@ -17,9 +17,13 @@
 
 <div class="container mt-5" style="background-color: rgba(255,255,255,0.9);">
     <!-- Your payment has been accepted. Thank you for your purchase! -->
-    <h2> {% translate 'お支払いが完了いたしました。' %} </h2>
-    <!-- Thank you for your purchase! -->
-    <h2> {% translate 'ご購入誠にありがとうございます！' %} </h2>
+    <div class="rounded pt-2" style="background-color: rgb(0, 133, 33);">
+        <h3 class="text-light p-2"> {% translate 'お支払いが完了いたしました。' %} </h3>
+        <!-- Thank you for your purchase! -->
+        <h3 class="text-light p-2"> {% translate 'ご購入誠にありがとうございます！' %} </h3>
+    </div>
+
+    <br>
     <!-- order summary -->
     <h5>{% translate 'お支払い概要' %}</h5>
     <hr>
@@ -37,21 +41,54 @@
         width: 180px; 
         aspect-ratio: auto 180/180;">
         <!-- amount paid: -->
-        <p>{% translate '払込金額' %}: 
-            {% if currentUser %}
-                {% if currentUser.country == 'JP' %}
-                    ¥{{purchasedPainting.price}}
-                {% else %}
-                    ${{purchasedPainting.dollar_price}}
+        <div class="mt-5">
+            <!-- Japan product form -->
+            {% if currentUser.account.country == 'JP' %}
+                {% if purchasedPainting %}
+                    <!-- subtotal -->
+                    <span class="card-text" style="float: left;">{% translate '商品の小計：' %}</span>
+                    <span class= "card-text" style="float: right;">¥{{purchasedPainting.price}}</span>
+                    <br>
+                    <!-- shipping and handing gotta contact Japan Post about these prices-->
+                    <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
+                    <span class= "card-text" style="float: right;">¥{{purchasedPainting.japan_shipping_price}}</span>
+                    <br>
+                    <!-- total -->
+                    <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
+                    <!-- add japan shipping price field to model -->
+                    <span class= "card-text" style="float: right;">¥{{jpy_total}}</span>
+                    <br>
                 {% endif %}
+            <!-- United States purchasedPainting form -->
+            {% elif currentUser.account.country == 'US' %}
+                {% if purchasedPainting %}
+                    <!-- subtotal -->
+                    <span class="card-text" style="float: left;">{% translate '商品の小計：' %}</span>
+                    <span class= "card-text" style="float: right;">${{purchasedPainting.dollar_price}}</span>
+                    <br>
+                    <!-- shipping and handing gotta contact Japan Post about these prices-->
+                    <span class="card-text" style="float: left;">{% translate '配送料・手数料：' %}</span>
+                    <span class= "card-text" style="float: right;">${{purchasedPainting.usa_shipping_price}}</span>
+                    <br>
+                    <!-- total -->
+                    <span class="card-text" style="float: left;">{% translate '合計：' %}</span>
+                    <!-- add us shipping price field to model -->
+                    <span class= "card-text" style="float: right;">${{usd_total}}</span>
+                    <br>
+                {% endif %}
+            {% else %}
             {% endif %}
-        </p>
+        </div>
     {% endif %}
 
     {% if orderId %}
         <!-- order number -->
         <p>{% translate '注文番号' %}: {{orderId}}</p>
     {% endif %}
+    <div>
+        <!-- Your payment information as well as other important details have been emailed to you. -->
+        {% translate 'お支払い情報とその他の重要な詳細がメールで送信されました。' %}
+    </div>
 </div>
 
 {% endblock %}

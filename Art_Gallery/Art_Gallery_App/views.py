@@ -17,9 +17,11 @@ from django.contrib import messages
 from django.utils.translation import gettext as _
 from account.forms import *
 from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string
+from django.core.mail import send_mail, EmailMessage
 
 
-
+EMAIL_ON = True
 
 def index(request, pk=None):
     print("\nHomepage language:" + get_language() + '\n')
@@ -83,6 +85,10 @@ def checkout(request, pk=None):
     # else render the checkout template
     # get the object's id
     product = Portrait.objects.get(pk=pk)
+    # check if the product isn't already sold: in case a user comes to this page somehow
+    if product.is_sold is True:
+        messages.warning(request, _('このアイテムは利用できません。'))
+        return redirect('/')
     # get user's country to charge correct currency
     currentUser = request.user
     # get total cost for usd
@@ -114,9 +120,12 @@ def thankyou(request, pk=None):
     
     # get specific image
     purchasedPainting = Portrait.objects.get(pk=pk)
+    # check if the product isn't already sold: in case a user comes to this page somehow
+    if purchasedPainting.is_sold is True:
+        messages.warning(request, _('このアイテムは利用できません。'))
+        return redirect('/')
     # set this image's isSold field to True
     purchasedPainting.is_sold = True
-    print( 'Painting '+ str(purchasedPainting) + ' is sold: ' + str(purchasedPainting.is_sold))
     # save it
     purchasedPainting.save()
     # get current user
@@ -128,13 +137,77 @@ def thankyou(request, pk=None):
     orderId = uuid[-8:]
     print("OrderId: " + str(orderId) + '\n')
 
-    context = {
-        'currentUser': currentUser,
-        'purchasedPainting': purchasedPainting,
-        'orderId': orderId
-    }
 
-    # send email to user with data
+    # send thankyou email
+    # get country-specific email
+    if currentUser.account.country == 'JP':
+        # total cost
+        jpy_total = purchasedPainting.price + purchasedPainting.japan_shipping_price
+        template = render_to_string('../templates/japan_thankyou_email.html',
+        {'name':request.user.first_name,
+         'japanese_painting_name': purchasedPainting.name,
+         'english_painting_name': purchasedPainting.english_name,
+         'orderId':orderId,
+         'jpy_price':purchasedPainting.price,
+         'jpy_shipping_price': purchasedPainting.japan_shipping_price,
+         'jpy_total_price_paid': jpy_total,
+         })
+        email = EmailMessage(
+            # email subject title default is 'subject'
+            'ご購入いただきありがとうございます！ -- Thank you for your purchase!',
+            # email template default is 'body'
+            template,
+            # this will be changed to Kaoru's new gmail 
+            settings.EMAIL_HOST_USER,
+            # recipient list
+            [request.user.email],
+        )
+        email.fail_silently=False
+        # only send email if this flag is true
+        if EMAIL_ON:
+            email.send()
+        
+            context = {
+                'jpy_total': jpy_total, 
+                'currentUser': currentUser,
+                'purchasedPainting': purchasedPainting,
+                'orderId': orderId
+            }
+            print("jpy total: " + str(jpy_total) + '\n')
+    else:
+        # total cost
+        usd_total = purchasedPainting.dollar_price + purchasedPainting.usa_shipping_price
+        template = render_to_string('../templates/usa_thankyou_email.html',
+        {'name':request.user.first_name,
+         'japanese_painting_name': purchasedPainting.name,
+         'english_painting_name': purchasedPainting.english_name,
+         'orderId':orderId,
+         'usd_price':purchasedPainting.dollar_price,
+         'usd_shipping_price': purchasedPainting.usa_shipping_price,
+         'usd_total_price_paid': usd_total,
+         })
+
+        email = EmailMessage(
+            # email subject title default is 'subject'
+            'ご購入いただきありがとうございます！ -- Thank you for your purchase!',
+            # email template default is 'body'
+            template,
+            # this will be changed to Kaoru's new gmail 
+            settings.EMAIL_HOST_USER,
+            # recipient list
+            [request.user.email],
+        )
+        email.fail_silently=False
+        # only send email if this flag is true
+        if EMAIL_ON:
+            email.send()
+            context = {
+                'usd_total': usd_total, 
+                'currentUser': currentUser,
+                'purchasedPainting': purchasedPainting,
+                'orderId': orderId
+            }
+            print("usd total: " + str(usd_total) + '\n')
 
     return render(request, 'thankyou.html', context)
 

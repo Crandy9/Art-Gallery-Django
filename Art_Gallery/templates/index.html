@@ -103,12 +103,12 @@
 						<!-- Japan and United States flags -->
 						<li id="japanFlag" class="p-1 mt-1" >
 							<a class="dropdown-item btn btn-sm" role="button">
-								<img src="{% static 'images/jp_flag_4x3.svg' %}" alt="mercari" width="28" height="18"/>
+								<img src="{% static 'images/jp_flag_4x3.svg' %}" width="28" height="18"/>
 							</a>
 						</li>
 						<li id="unitedStatesFlag" class="p-1 mt-1">
 							<a class="dropdown-item btn btn-sm" role="button">
-								<img src="{% static 'images/us_flag_4x3.svg' %}" alt="mercari" width="28" height="18"/>
+								<img src="{% static 'images/us_flag_4x3.svg' %}" width="28" height="18"/>
 							</a>
 						</li>
 							<!-- mercari icon -->
@@ -285,24 +285,25 @@
 								</div>
 								<!-- check if painting has been sold -->
 								{% if paintingData.is_sold is True %}
-								<div class="container row text-center">
-									<p class="col font-weight-bold">
-										Sold
+								<div class="container" style="width: 100px;">
+									<p class="col fw-bold text-light text-center rounded" 
+									style="background-color: rgb(255, 73, 73); font-size:small;">
+										SOLD
 									</p>
 								</div>
 								{% else %}
 								<!-- yen or dollar display-->
-								<div class="container row text-center">
+								<div class="container text-center">
 									<div class="jpy_currency" id="jpy-price-{{paintingData.pk}}">
-										<p class="col font-weight-bold" id="jpy">
+										<h6 class="col font-weight-bold" id="jpy">
 											¥{{paintingData.price}}
-										</p>
+										</h6>
 									</div>
 									<!-- initially show jpy -->
 									<div class="usd_currency" id="usd-price-{{paintingData.pk}}">
-										<p class="col font-weight-bold" id="usd">
+										<h6 class="col font-weight-bold" id="usd">
 											${{paintingData.dollar_price}}
-										</p>
+										</h6>
 									</div>
 								</div>
 								{% endif %}

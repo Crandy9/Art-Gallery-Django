@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-25 10:10+0000\n"
+"POT-Creation-Date: 2022-08-26 07:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Art_Gallery_App/views.py:77
+#: Art_Gallery_App/views.py:79
 msgid "購入を続行する前に、配送先住所を更新してください。"
 msgstr ""
 "Please update your shipping address before continuing with your purchase."
+
+#: Art_Gallery_App/views.py:90
+msgid "このアイテムは利用できません。"
+msgstr "This item is not available."
 
 #: Main Project/settings.py:210
 msgid "English"
@@ -154,7 +158,7 @@ msgstr "The password you entered is incorrect. Please try again"
 msgid "このユーザーは存在しません"
 msgstr "Username does not exist"
 
-#: templates/carousel.html:177
+#: templates/carousel.html:187
 msgid "購入する"
 msgstr "Buy now"
 
@@ -167,14 +171,17 @@ msgid "購入する前に注文を確認してください。"
 msgstr "please review your order before purchasing"
 
 #: templates/checkout.html:60 templates/checkout.html:77
+#: templates/thankyou.html:49 templates/thankyou.html:66
 msgid "商品の小計："
 msgstr "Subtotal:"
 
 #: templates/checkout.html:64 templates/checkout.html:81
+#: templates/thankyou.html:53 templates/thankyou.html:70
 msgid "配送料・手数料："
 msgstr "Shipping/Handling:"
 
 #: templates/checkout.html:68 templates/checkout.html:85
+#: templates/thankyou.html:57 templates/thankyou.html:74
 msgid "合計："
 msgstr "Total:"
 
@@ -212,15 +219,15 @@ msgstr ""
 "Japan Post website that you can use to track your package:"
 
 #: templates/checkout.html:158
-msgid "絵画が届くまで最大 1 週間かかります。"
-msgstr "Please allow up to one week for your painting to arrive."
+msgid "絵画が届くまで最大 2 週間かかります。"
+msgstr "Please allow up to two weeks for your painting to arrive."
 
 #: templates/checkout.html:164
 msgid ""
 "私たちは、日本の郵便サービス「日本郵便」を介して、日本から米国に絵画を発送し"
 "ます。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。"
-"あなたの絵が郵送され次第、日本郵便の追跡番号をお知らせします。荷物の追跡に使"
-"用できる日本郵便のウェブサイトは次のとおりです:"
+"ご注文の絵の発送が完了次第、日本郵便の追跡番号をEメールでお知らせします。荷物"
+"の追跡に使用できる日本郵便のウェブサイトは次のとおりです:"
 msgstr ""
 "We ship our paintings to the United States from Japan via the Japanese "
 "postal service, Japan Post. Please allow up to two days excluding weekends "
@@ -230,8 +237,8 @@ msgstr ""
 "that you can use to track your package:"
 
 #: templates/checkout.html:169
-msgid "絵画が届くまで最大 3 週間かかります。"
-msgstr "Please allow up to 3 weeks for your painting to arrive."
+msgid "絵画が届くまで最大 5 週間かかります。"
+msgstr "Please allow up to 5 weeks for your painting to arrive."
 
 #: templates/checkout.html:176
 msgid "払い戻し・キャンセルのお知らせ"
@@ -239,10 +246,10 @@ msgstr "Refund/Cancellation Policy"
 
 #: templates/checkout.html:180 templates/checkout.html:186
 msgid ""
-"お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如"
-"何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送"
-"いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルし"
-"たい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。"
+"お客様は、絵画が配送先住所に正常に配送されてから 10 日間以内であれば、理由の"
+"如何を問わず返品返金を受ける権利を有します。ご入金後、速やかにメール便にて発"
+"送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセル"
+"したい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。"
 msgstr ""
 "The customer has a right to a full refund for any reason for up to 10 days "
 "after the painting has been successfully delivered to the shipping address. "
@@ -278,7 +285,7 @@ msgstr "My Account"
 msgid "ログアウト"
 msgstr "Log out"
 
-#: templates/index.html:96 templates/login.html:4 templates/login.html:16
+#: templates/index.html:96 templates/login.html:5 templates/login.html:16
 #: templates/login.html:48
 msgid "ログイン"
 msgstr "Sign in"
@@ -420,29 +427,34 @@ msgstr "Already registered? Log in!"
 msgid "ありがとうございました！"
 msgstr "Thank you!"
 
-#: templates/thankyou.html:20
+#: templates/thankyou.html:21
 msgid "お支払いが完了いたしました。"
-msgstr "Your payment was successfully posted."
+msgstr "Your payment was successful."
 
-#: templates/thankyou.html:22
+#: templates/thankyou.html:23
 msgid "ご購入誠にありがとうございます！"
 msgstr "Thank you for your purchase!"
 
-#: templates/thankyou.html:24
+#: templates/thankyou.html:28
 msgid "お支払い概要"
 msgstr "Payment summary"
 
-#: templates/thankyou.html:28
+#: templates/thankyou.html:32
 msgid "購入した絵画"
 msgstr "Painting Purchased"
 
-#: templates/thankyou.html:40
-msgid "払込金額"
-msgstr "Amount Paid"
-
-#: templates/thankyou.html:53
+#: templates/thankyou.html:86
 msgid "注文番号"
 msgstr "Order number"
+
+#: templates/thankyou.html:90
+msgid "お支払い情報とその他の重要な詳細がメールで送信されました。"
+msgstr ""
+"Your payment information as well as other important details have been "
+"emailed to you."
+
+#~ msgid "払込金額"
+#~ msgstr "Amount Paid"
 
 #~ msgid ""
 #~ "絵画が届くまで最大 3 週間かかります。この情報は、リマインダーとして再度"

@@ -159,22 +159,34 @@
             {% endif %}
             <div class="text-end">
                 {% if carouselObjects %}
-                    {% if "0" in carouselObjects.price %}
-                    <!-- skip it -->
-                    {% else %}
-                        <!-- yen or dollar display-->
-                        <div class="card-text">
-                            <div class="jpy_currency" id="jpy-price-{{carouselObjects.pk}}">
-                                ¥{{carouselObjects.price}}
-                            </div>
-                            <!-- initially show jpy -->
-                            <div class="usd_currency" id="usd-price-{{carouselObjects.pk}}">
-                                ${{carouselObjects.dollar_price}}
-                            </div>
+                    {% if carouselObjects.is_sold is True %}
+                        <div class="container" style="width: 100px;">
+                            <p class="col fw-bold text-light text-center rounded" 
+                            style="background-color: rgb(255, 73, 73);">
+                                SOLD
+                            </p>
                         </div>
+                    {% else %}
+                        {% if "0" in carouselObjects.price %}
+                            <!-- skip it -->
+                        {% else %}
+                            <!-- yen or dollar display-->
+                            <div class="card-text">
+                                <div class="jpy_currency" id="jpy-price-{{carouselObjects.pk}}">
+                                    ¥{{carouselObjects.price}}
+                                </div>
+                                <!-- initially show jpy -->
+                                <div class="usd_currency" id="usd-price-{{carouselObjects.pk}}">
+                                    ${{carouselObjects.dollar_price}}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                            <a class="btn btn-sm btn-outline-info text-dark" 
+                                href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">
+                                {% translate '購入する' %}
+                            </a>
                     {% endif %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <a class="btn btn-sm btn-outline-info text-dark" href="/{{LANGUAGE_CODE}}/checkout/{{carouselObjects.id}}">{% translate '購入する' %}</a>
                 {% endif %}
             </div>
         </div>

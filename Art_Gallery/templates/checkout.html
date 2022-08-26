@@ -155,18 +155,18 @@
                 </p>
                 <!--  Please allow up to one week for your painting to be delivered.-->
                 <p class="text-secondary">
-                    {% translate '絵画が届くまで最大 1 週間かかります。' %}
+                    {% translate '絵画が届くまで最大 2 週間かかります。' %}
                 </p>
 
             {% else %}
             <!-- customers in United States -->
                 <p class="text-secondary">
-                    {% translate '私たちは、日本の郵便サービス「日本郵便」を介して、日本から米国に絵画を発送します。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。あなたの絵が郵送され次第、日本郵便の追跡番号をお知らせします。荷物の追跡に使用できる日本郵便のウェブサイトは次のとおりです:' %}
+                    {% translate '私たちは、日本の郵便サービス「日本郵便」を介して、日本から米国に絵画を発送します。支払い後、絵を梱包して発送するまで、土日祝日を除く最大 2 日かかります。ご注文の絵の発送が完了次第、日本郵便の追跡番号をEメールでお知らせします。荷物の追跡に使用できる日本郵便のウェブサイトは次のとおりです:' %}
                     <a href="https://trackings.post.japanpost.jp/services/srv/sequenceNoSearch/input?locale=en" target="_blank">Japan Post</a>
                 </p>
                 <!--  Please allow up to three weeks for your painting to be delivered. -->
                 <p class="text-secondary">
-                    {% translate '絵画が届くまで最大 3 週間かかります。' %}
+                    {% translate '絵画が届くまで最大 5 週間かかります。' %}
                 </p>
             {% endif %}
         </div>
@@ -177,13 +177,13 @@
             <!-- for users in Japan -->
             {% if currentUser.country == 'JP' %}
                 <p class="text-secondary">
-                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
+                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日間以内であれば、理由の如何を問わず返品返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
                 </p>
                 <P class="text-danger" style=" font-size: 13px !important;"> *{% translate '尚、10日以降のキャンセル、返金は承りませんので、ご了承お願い致します。' %}</P>
             {% else %}
                 <!-- customers in United States -->
                 <p class="text-secondary">
-                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日以内であれば、理由の如何を問わず全額返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
+                    {% translate 'お客様は、絵画が配送先住所に正常に配送されてから 10 日間以内であれば、理由の如何を問わず返品返金を受ける権利を有します。ご入金後、速やかにメール便にて発送いたしますので、キャンセルが間に合わない場合がございます。注文をキャンセルしたい場合は、Eメールで送信された連絡先Eメールからすぐにご連絡ください。' %}
                 </p>
                 <P class="text-danger" style="font-size: 13px !important;"> *{% translate '尚、10日以降のキャンセル、返金は承りませんので、ご了承お願い致します。' %}</P>
 
